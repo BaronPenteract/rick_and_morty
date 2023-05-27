@@ -1,0 +1,18 @@
+@import '../../utils/styles/variables.scss';
+
+.root {
+  justify-self: center;
+  grid-area: header;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  padding: 0 20px;
+  box-sizing: border-box;
+  width: 100%;
+  background-color: mix($primaryAccentColor, $secondaryAccentColor, 60%);
+
+  .container {
+    max-width: $maxWidth;
+    margin: 0 auto;
+  }
+}

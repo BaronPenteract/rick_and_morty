@@ -1,0 +1,36 @@
+@import '../../utils/styles/variables.scss';
+
+.root {
+  background-color: darken($primaryAccentColor, 10%);
+  background-image: url(../../assets/images/main-bg.png);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  background-attachment: fixed;
+  margin: 0 auto;
+  width: 100%;
+  min-height: 100vh;
+  box-sizing: border-box;
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  grid-template-rows: 42px 1fr 42px;
+  grid-template-areas: 'header header header'
+  'content content content'
+  'footer footer footer';
+
+  .content {
+    grid-area: content;
+    margin: 0 auto;
+    padding: 0 20px;
+    box-sizing: border-box;
+    width: 100%;
+    max-width: $maxWidth;
+  }
+
+  @media screen and (max-width: $phone) {
+
+    .content {
+      padding: 0;
+    }
+  }
+}

@@ -1,0 +1,13 @@
+.root {
+  padding: 15px;
+}
+
+.charsList {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  justify-content: center;
+  grid-template-columns: repeat(auto-fill, 280px);
+  gap: 20px;
+}

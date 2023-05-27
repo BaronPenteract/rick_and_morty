@@ -1,0 +1,18 @@
+@import '../../utils/styles/variables.scss';
+ 
+.root {
+  display: block;
+  width: 40px;
+  height: 40px;
+
+  svg {
+    width: 100%;
+    fill: $secondaryAccentColor;
+  }
+
+  &:hover {
+    svg {
+      fill: $primaryAccentColor;
+    }
+  }
+}

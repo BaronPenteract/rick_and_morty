@@ -1,0 +1,16 @@
+@import '../../utils/styles/variables.scss';
+
+.root {
+  justify-self: center;
+  grid-area: footer;
+  background-color: mix($primaryAccentColor, $secondaryAccentColor, 40%);
+  width: 100%;
+  padding: 0 20px;
+  box-sizing: border-box;
+
+  .container {
+    max-width: $maxWidth;
+    margin: 0 auto;
+    box-sizing: border-box;
+  }
+}
