@@ -1,0 +1,54 @@
+@import "../../utils/styles/variables.scss";
+
+.root {
+  flex-grow: 1;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .content {
+    width: 50%;
+    max-width: 100px;
+    display: flex;
+    justify-content: space-around;
+  }
+
+  .dot {
+    display: block;
+    width: 20%;
+    padding-top: 20%;
+    box-sizing: border-box;
+
+    background-color: $primaryAccentColor;
+    border-radius: 50%;
+
+    &:nth-child(2) {
+      animation-delay: -0.4s;
+    }
+
+    &:nth-child(3) {
+      animation-delay: -0.8s;
+    }
+
+    &:nth-child(4) {
+      animation-delay: -1.2s;
+    }
+  }
+}
+
+@keyframes preloader-anim {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(0.5);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.anim {
+  animation: preloader-anim 1.6s linear infinite;
+}

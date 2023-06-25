@@ -1,7 +1,8 @@
-@import '../../utils/styles/variables.scss';
+@import "../../utils/styles/variables.scss";
 
 .root {
   height: 100%;
+  width: 100%;
 
   display: flex;
 
@@ -19,44 +20,44 @@
     background-size: cover;
     filter: grayscale(90%);
     cursor: pointer;
-  
+
     transition: width $transitionProps, height $transitionProps;
 
     p {
       background-color: $secondaryAccentColor;
     }
-  
+
     &:nth-child(1) {
       background-image: url(../../assets/images/chars-bg.png);
-  
+
       p {
         text-align: left;
       }
     }
-  
+
     &:nth-child(2) {
       background-image: url(../../assets/images/locs-bg.jpg);
       background-position: center;
-  
+
       p {
         text-align: center;
       }
     }
-  
+
     &:nth-child(3) {
       background-image: url(../../assets/images/episodes-bg.jpg);
       background-position: right;
-  
+
       p {
         text-align: right;
       }
     }
-  
+
     &:hover {
       width: 75%;
       filter: grayscale(0);
     }
-  
+
     p {
       width: 100%;
     }
@@ -69,34 +70,34 @@
       font-size: 24px;
       width: 100%;
       height: 33.333%;
-    
+
       &:nth-child(1) {
         background-position: top;
         align-items: flex-start;
-    
+
         p {
           text-align: center;
         }
       }
-    
+
       &:nth-child(2) {
         background-position: center;
         align-items: center;
-    
+
         p {
           text-align: center;
         }
       }
-    
+
       &:nth-child(3) {
         background-position: bottom;
         align-items: flex-end;
-    
+
         p {
           text-align: center;
         }
       }
-    
+
       &:hover {
         height: 75%;
         width: 100%;

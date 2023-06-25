@@ -1,8 +1,8 @@
-@import '../../utils/styles/variables.scss';
+@import "../../utils/styles/variables.scss";
 
 .root {
-  background-color: darken($primaryAccentColor, 10%);
-  background-image: url(../../assets/images/main-bg.png);
+  background-color: darken($primaryBGColorHSL, 10%);
+  //background-image: url(../../assets/images/main-bg.png);
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
@@ -14,9 +14,10 @@
   display: grid;
   grid-template-columns: 240px 1fr;
   grid-template-rows: 42px 1fr 42px;
-  grid-template-areas: 'header header header'
-  'content content content'
-  'footer footer footer';
+  grid-template-areas:
+    "header header header"
+    "content content content"
+    "footer footer footer";
 
   .content {
     grid-area: content;
@@ -25,10 +26,10 @@
     box-sizing: border-box;
     width: 100%;
     max-width: $maxWidth;
+    display: flex;
   }
 
   @media screen and (max-width: $phone) {
-
     .content {
       padding: 0;
     }

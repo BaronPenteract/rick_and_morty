@@ -3,16 +3,43 @@ $maxWidth: 1300px;
 $phone: 425px;
 $tablet: 768px;
 
-$textColor: #fff;
-$secondaryTextColor: rgb(0, 255, 170);
+// color settings
+// text
+$primaryTextColor: #fff;
+$secondaryTextColor: hsl(160, 100%, 50%);
 
-$shadowColor: hsla(0, 0%, 14%, 0.5);
+// accent
 $primaryAccentColor: #5cad4a;
-$secondaryAccentColor: #000000;
 
-$transitionProps: .2s linear;
+$secondaryAccentColorH: 220;
+$secondaryAccentColorS: 12.33%;
+$secondaryAccentColorL: 14.31%;
+$secondaryAccentColor: hsl(
+  $secondaryAccentColorH,
+  $secondaryAccentColorS,
+  $secondaryAccentColorL
+);
+//background
+$primaryBGColorHSL: hsl(
+  $secondaryAccentColorH,
+  $secondaryAccentColorS,
+  $secondaryAccentColorL
+);
 
+$secondaryBGColorHSL: hsl(
+  $secondaryAccentColorH,
+  $secondaryAccentColorS,
+  20.42%
+);
+
+// shadow
+$shadowColor: hsla(0, 0%, 14%, 0.5);
+
+// animation settings
+$transitionProps: 0.2s linear;
+
+// other settings
 $borderRadius: 16px;
 
 //char settings
-$contentHeight: 200px;
+$contentWidth: 240px;

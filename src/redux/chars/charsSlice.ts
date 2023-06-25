@@ -1,22 +1,21 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import axios from 'axios';
-import { CharType, ResponseType } from '../../@types/chars';
-
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import axios from "axios";
+import { CharType, ResponseType } from "../../@types/chars";
 
 export enum Status {
-  LOADING = 'loading',
-  SUCCESS = 'success',
-  ERROR = 'error'
+  LOADING = "loading",
+  SUCCESS = "success",
+  ERROR = "error",
 }
 
 interface CharsSlice {
-  chars: CharType[],
-  charsCount: number,
-  currentPage: number,
-  pages: number,
-  prevPage: string | null,
-  nextPage: string | null,
-  status: Status
+  chars: CharType[];
+  charsCount: number;
+  currentPage: number;
+  pages: number;
+  prevPage: string | null;
+  nextPage: string | null;
+  status: Status;
 }
 
 const initialState: CharsSlice = {
@@ -27,20 +26,21 @@ const initialState: CharsSlice = {
   prevPage: null,
   nextPage: null,
   status: Status.LOADING,
-}
+};
 
-export const fetchChars = createAsyncThunk('chars/fetchChars', 
+export const fetchChars = createAsyncThunk(
+  "chars/fetchChars",
   async (url: string) => {
     const response = await axios.get<ResponseType>(url);
-    
-    return response.data
-  })
+
+    return response.data;
+  }
+);
 
 export const charsSlice = createSlice({
-  name: 'chars',
+  name: "chars",
   initialState,
-  reducers: {
-  },
+  reducers: {},
   extraReducers: (builder) => {
     builder.addCase(fetchChars.pending, (state) => {
       state.status = Status.LOADING;
@@ -60,8 +60,9 @@ export const charsSlice = createSlice({
       state.status = Status.ERROR;
       state.chars = [];
     });
-}})
+  },
+});
 
-export const {  } = charsSlice.actions
+export const {} = charsSlice.actions;
 
-export default charsSlice.reducer
+export default charsSlice.reducer;

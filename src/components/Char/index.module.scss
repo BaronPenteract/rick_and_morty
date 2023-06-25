@@ -1,86 +1,194 @@
-@import '../../utils/styles/variables';
+@import "../../utils/styles/variables";
 
 .root {
+  padding-bottom: 34px;
+
   position: relative;
   z-index: 1;
   width: 100%;
   height: 420px;
-  padding: 15px;
   box-sizing: border-box;
 
   display: flex;
   flex-direction: column;
   gap: 20px;
   align-items: center;
+  justify-content: flex-end;
 
+  background-color: $primaryBGColorHSL;
   border-radius: $borderRadius;
   overflow: hidden;
-  box-shadow: 0 8px 16px -8px  $shadowColor;
+  box-shadow: 0 8px 16px -8px $shadowColor;
   transition: box-shadow $transitionProps, padding $transitionProps;
 
   &:hover {
     box-shadow: 0 16px 26px -8px $shadowColor;
   }
-  
-  .imageBG {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    z-index: -1;
-    object-fit: cover;
-    object-position: center;
-  
-    filter: blur(4px) brightness(0.5) grayscale(80%);;
-  }
-  
+
   .header {
-    height: 64px;
+    align-self: flex-start;
     width: 100%;
     margin: 0;
-    padding: 0;
+    padding: 6px 4px;
+    display: flex;
+    gap: 10px;
+    justify-content: space-between;
+
+    background-color: $secondaryAccentColor;
+    box-sizing: border-box;
 
     transition: opacity $transitionProps;
-  
+
     .name {
       height: 100%;
       margin: 0;
       padding: 0;
+
       font-weight: 500;
       font-size: 20px;
-      text-align: center;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      overflow: hidden;
+    }
+
+    .buttonAddRemove {
+      padding: 0;
+      margin: 0;
+      border: none;
+      width: 16px;
+
+      color: $primaryTextColor;
+
+      background-color: transparent;
+      border-radius: $borderRadius;
+      fill: $primaryTextColor;
+
+      cursor: pointer;
+
+      transition: fill $transitionProps;
+
+      &:hover {
+        fill: $secondaryTextColor;
+
+        .removeSVG {
+          fill: red;
+        }
+      }
+
+      .addSVG {
+        fill: inherit;
+      }
+
+      .removeSVG {
+        fill: inherit;
+        transition: fill $transitionProps;
+      }
     }
   }
-  
+
+  .buttonOpenInfo {
+    position: absolute;
+    top: 50%;
+    right: 4px;
+    z-index: 2;
+
+    padding: 0;
+    margin: 0;
+    border: none;
+    width: 36px;
+
+    color: $primaryTextColor;
+
+    opacity: 0;
+    background-color: transparent;
+    stroke: $primaryTextColor;
+
+    cursor: pointer;
+    transform: translateY(-50%);
+
+    transition: stroke $transitionProps, opacity $transitionProps;
+
+    &:hover {
+      stroke: $secondaryTextColor;
+    }
+
+    .openSVG {
+      stroke: inherit;
+    }
+  }
+
   .avatar {
-    width: 200px;
-    height: 200px;
-    border-radius: 50%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+
+    width: 100%;
+    height: 100%;
     object-fit: cover;
     object-position: top center;
+    opacity: 1;
+    transform: scale(1.05);
 
-    transition: width $transitionProps, height $transitionProps, border-radius $transitionProps;
+    transition: transform $transitionProps, opacity $transitionProps 0.02s,
+      border-radius $transitionProps;
   }
 
   .content {
     padding: 20px;
     box-sizing: border-box;
-    width: 100%;
-    height: $contentHeight;
-    position: absolute;
-    bottom: -100%;
-    left: 0;
-    z-index: 1;
-    background-color: $primaryAccentColor;
+    width: $contentWidth;
+    height: 100%;
 
-    transition: bottom $transitionProps, opacity $transitionProps;
+    position: absolute;
+    top: 0;
+    right: -100%;
+    z-index: 3;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    background-color: $secondaryBGColorHSL;
+    opacity: 0;
+
+    transition: right $transitionProps, opacity $transitionProps;
 
     .name {
       margin: 0;
       padding: 0;
       font-weight: 500;
       font-size: 20px;
+    }
+
+    .buttonCloseInfo {
+      position: absolute;
+      top: 50%;
+      left: -36px;
+      z-index: 2;
+
+      padding: 0;
+      margin: 0;
+      border: none;
+      width: 36px;
+
+      color: $primaryTextColor;
+
+      background-color: transparent;
+      stroke: $primaryTextColor;
+
+      cursor: pointer;
+      transform: translateY(-50%);
+
+      transition: stroke $transitionProps, opacity $transitionProps;
+
+      &:hover {
+        stroke: $secondaryTextColor;
+      }
+
+      .closeSVG {
+        stroke: inherit;
+      }
     }
   }
 
@@ -88,8 +196,8 @@
     align-self: baseline;
     padding-top: 8px;
     width: 100%;
-    color: darken($textColor, 20%);
-    border-top: 1px solid darken($textColor, 20%);
+    color: darken($primaryTextColor, 20%);
+    border-top: 1px solid darken($primaryTextColor, 20%);
 
     transition: opacity $transitionProps;
 
@@ -116,82 +224,31 @@
     }
   }
 
-  .button {
-    position: absolute;
-    right: 24px;
-    bottom: 24px;
-    z-index: 2;
-    width: 42px;
-    height: 42px;
-    color: $textColor;
-    border-radius: $borderRadius;
-
-    transition: bottom $transitionProps;
-
-    .buttonLine {
-      display: block;
-      position: relative;
-      top: -4px;
-      width: 50%;
-      height: 4px;
-      background-color: $textColor;
-
-      &::after {
-        content: '';
-        position: absolute;
-        top: 8px;
-        left: 0;
-        z-index: 1;
-        width: 100%;
-        height: 100%;
-        background-color: $textColor;
-
-        transition: background-color $transitionProps;
-      }
+  &:hover {
+    .buttonOpenInfo {
+      opacity: 1;
     }
   }
 
   &Active {
     padding: 0;
 
-    .header {      
+    .header {
       opacity: 0;
     }
-    
+
+    .buttonOpenInfo {
+      display: none;
+    }
+
     .avatar {
-      width: 100%;
-      height: calc(100% - $contentHeight);
-      border-radius: 0;
+      opacity: 0.2;
+      transform: translateX(-6%);
     }
 
     .content {
-      bottom: 0;
-    }
-
-    .footer {
-      opacity: 0;
-    }
-
-    .button {
-      bottom: calc($contentHeight - 20px);
-
-      .buttonLine {
-        transform: rotateZ(45deg);
-
-        &::after {
-          top: 0;
-          transform: rotateZ(-90deg);
-        }
-      }
-
-      &:hover {
-        background-color: $primaryAccentColor;
-
-        .buttonLine {
-          width: 55%;
-          height: 5px;
-        }
-      }
+      right: 0;
+      opacity: 1;
     }
   }
 }
