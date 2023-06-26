@@ -1,4 +1,6 @@
-const OpenInfoSVG = ({ className }) => {
+import { TComponentSVGProps } from "../../@types/TComponentSVG";
+
+const CloseInfoSVG: React.FC<TComponentSVGProps> = ({ className }) => {
   return (
     <svg
       className={className}
@@ -7,19 +9,19 @@ const OpenInfoSVG = ({ className }) => {
       xmlns="http://www.w3.org/2000/svg"
     >
       <path
-        d="M21 21L21 3"
+        d="M3 3L3 21"
         strokeWidth="2"
         strokeLinecap="round"
         strokeLinejoin="round"
       />
       <path
-        d="M8 12L17 12"
+        d="M16 12L7 12"
         strokeWidth="2"
         strokeLinecap="round"
         strokeLinejoin="round"
       />
       <path
-        d="M11 9L9.41421 10.5858C8.63317 11.3668 8.63316 12.6332 9.41421 13.4142L11 15"
+        d="M13 15L14.5858 13.4142C15.3668 12.6332 15.3668 11.3668 14.5858 10.5858L13 9"
         strokeWidth="2"
         strokeLinecap="round"
         strokeLinejoin="round"
@@ -28,4 +30,4 @@ const OpenInfoSVG = ({ className }) => {
   );
 };
 
-export default OpenInfoSVG;
+export default CloseInfoSVG;

@@ -12,6 +12,7 @@ import Preloader from "../../components/Preloader";
 import SearchForm from "../../components/SearchForm";
 import Pagination from "../../components/Pagination";
 import CharList from "../../components/CharList";
+import { getPageFromURL } from "../../utils/getPageFromURL";
 
 const Characters: React.FC = () => {
   const [isLoading, setIsLoading] = React.useState(true);
@@ -19,15 +20,15 @@ const Characters: React.FC = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  const handleClickPage = async (url: string | null) => {
-    if (!url) return;
+  const handleClickPage = async (page: number | null) => {
+    if (!page) return;
     setIsLoading(true);
-    await dispatch(fetchChars(url));
+    await dispatch(fetchChars(page));
     setIsLoading(false);
   };
 
   React.useEffect(() => {
-    dispatch(fetchChars(BASE_URL + "/character"))
+    dispatch(fetchChars(null))
       .unwrap()
       .catch((e) => {
         console.log(e);
@@ -37,18 +38,28 @@ const Characters: React.FC = () => {
       });
   }, [dispatch]);
 
-  const { chars, prevPage, nextPage } = useSelector(getCharsSelector);
+  const { chars, prevPage, nextPage, pages, currentPage } =
+    useSelector(getCharsSelector);
 
   return (
     <div className={styles.root}>
       <SearchForm />
       <Pagination
         handleClickPage={handleClickPage}
-        prevPage={prevPage}
-        nextPage={nextPage}
+        currentPage={currentPage}
+        prevPage={getPageFromURL(prevPage)}
+        nextPage={getPageFromURL(nextPage)}
+        pages={pages}
       />
 
-      {isLoading ? <Preloader /> : <CharList />}
+      {isLoading ? <Preloader /> : <CharList chars={chars} />}
+      <Pagination
+        handleClickPage={handleClickPage}
+        currentPage={currentPage}
+        prevPage={getPageFromURL(prevPage)}
+        nextPage={getPageFromURL(nextPage)}
+        pages={pages}
+      />
     </div>
   );
 };

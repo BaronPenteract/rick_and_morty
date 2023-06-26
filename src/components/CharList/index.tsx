@@ -11,8 +11,13 @@ import styles from "./index.module.scss";
 import Preloader from "../Preloader";
 import SearchForm from "../SearchForm";
 import Pagination from "../Pagination";
+import { CharType } from "../../@types/chars";
 
-const CharList: React.FC = () => {
+type TCharListProps = {
+  chars: CharType[];
+};
+
+const CharList: React.FC<TCharListProps> = ({ chars }) => {
   const [isLoading, setIsLoading] = React.useState(true);
 
   const dispatch = useAppDispatch();
@@ -22,46 +27,15 @@ const CharList: React.FC = () => {
     navigate(-1);
   };
 
-  const handleClickPage = async (url: string | null) => {
-    if (!url) return;
-    setIsLoading(true);
-    await dispatch(fetchChars(url));
-    setIsLoading(false);
-  };
-
-  React.useEffect(() => {
-    dispatch(fetchChars(BASE_URL + "/character"))
-      .unwrap()
-      .catch((e) => {
-        console.log(e);
-      })
-      .finally(() => {
-        setIsLoading(false);
-      });
-  }, [dispatch]);
-
-  const { chars, prevPage, nextPage } = useSelector(getCharsSelector);
-
   return (
     <div className={styles.root}>
-      <SearchForm />
-      <Pagination
-        handleClickPage={handleClickPage}
-        prevPage={prevPage}
-        nextPage={nextPage}
-      />
-
-      {isLoading ? (
-        <Preloader />
-      ) : (
-        <ul className={styles.charsList}>
-          {chars.map((char) => (
-            <li key={char.id}>
-              <Char {...char} />
-            </li>
-          ))}
-        </ul>
-      )}
+      <ul className={styles.charsList}>
+        {chars.map((char) => (
+          <li key={char.id}>
+            <Char {...char} />
+          </li>
+        ))}
+      </ul>
     </div>
   );
 };

@@ -1,5 +1,44 @@
 @import "../../utils/styles/variables.scss";
 
 .root {
-  background-color: red;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+
+  button {
+    margin: 0;
+    padding: 0;
+    width: 42px;
+    height: 42px;
+
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+
+    color: $primaryTextColor;
+    fill: $primaryTextColor;
+
+    transition: fill $transitionProps, color $transitionProps;
+
+    &:hover {
+      color: $secondaryTextColor;
+      fill: $secondaryTextColor;
+    }
+
+    svg {
+      fill: inherit;
+      stroke: inherit;
+    }
+  }
+
+  .pageList {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+
+    display: flex;
+    gap: 4px;
+    flex-wrap: wrap;
+  }
 }

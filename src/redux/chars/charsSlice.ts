@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import { CharType, ResponseType } from "../../@types/chars";
+import { BASE_URL } from "../../utils/constants";
 
 export enum Status {
   LOADING = "loading",
@@ -30,7 +31,8 @@ const initialState: CharsSlice = {
 
 export const fetchChars = createAsyncThunk(
   "chars/fetchChars",
-  async (url: string) => {
+  async (to: number | null) => {
+    const url = `${BASE_URL}/character${to !== null ? `?page=${to}` : ""}`;
     const response = await axios.get<ResponseType>(url);
 
     return response.data;
