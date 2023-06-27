@@ -6,10 +6,18 @@ $tablet: 768px;
 // color settings
 // text
 $primaryTextColor: #fff;
-$secondaryTextColor: hsl(160, 100%, 50%);
+
+$secondaryTextColorH: 160;
+$secondaryTextColorS: 100%;
+$secondaryTextColorL: 50%;
+$secondaryTextColor: hsl(
+  $secondaryTextColorH,
+  $secondaryTextColorS,
+  $secondaryTextColorL
+);
 
 // accent
-$primaryAccentColor: #5cad4a;
+$primaryAccentColor: hsl($secondaryTextColorH, $secondaryTextColorS, 42%);
 
 $secondaryAccentColorH: 220;
 $secondaryAccentColorS: 12.33%;
@@ -31,6 +39,8 @@ $secondaryBGColorHSL: hsl(
   $secondaryAccentColorS,
   20.42%
 );
+// disabled
+$disabledColorS: 10%;
 
 // shadow
 $shadowColor: hsla(0, 0%, 14%, 0.5);

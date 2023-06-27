@@ -6,7 +6,7 @@
   align-items: center;
   gap: 20px;
 
-  button {
+  .button {
     margin: 0;
     padding: 0;
     width: 42px;
@@ -16,12 +16,18 @@
     border: none;
     cursor: pointer;
 
+    font-size: 16px;
     color: $primaryTextColor;
     fill: $primaryTextColor;
 
     transition: fill $transitionProps, color $transitionProps;
 
     &:hover {
+      color: $secondaryTextColor;
+      fill: $secondaryTextColor;
+    }
+
+    &Active {
       color: $secondaryTextColor;
       fill: $secondaryTextColor;
     }
@@ -40,5 +46,12 @@
     display: flex;
     gap: 4px;
     flex-wrap: wrap;
+  }
+
+  @media screen and (max-width: $phone) {
+    .button {
+      width: 28px;
+      height: 28px;
+    }
   }
 }

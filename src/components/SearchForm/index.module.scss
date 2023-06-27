@@ -1,10 +1,79 @@
 @import "../../utils/styles/variables.scss";
 
 .root {
-  background-color: $primaryBGColorHSL;
-
   display: flex;
   justify-content: space-between;
   align-items: center;
   gap: 20px;
+
+  .fieldset {
+    flex-grow: 1;
+    margin: 0;
+    padding: 0;
+    border: none;
+
+    .search {
+      width: 100%;
+      margin: 0;
+      padding: 10px 20px;
+
+      color: inherit;
+      font-size: inherit;
+
+      border: 1px solid $secondaryBGColorHSL;
+      border-radius: $borderRadius;
+      background-color: $primaryBGColorHSL;
+
+      box-sizing: border-box;
+      transition: border $transitionProps;
+
+      &:focus {
+        outline: none;
+        border-color: $primaryAccentColor;
+      }
+
+      &::placeholder {
+        color: hsl($secondaryTextColorH, $disabledColorS, $secondaryTextColorL);
+      }
+    }
+  }
+
+  .submit {
+    width: 42px;
+    height: 42px;
+    margin: 0;
+    padding: 0;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    border: none;
+    border-radius: $borderRadius;
+    background-color: $primaryAccentColor;
+
+    cursor: pointer;
+    fill: $primaryTextColor;
+
+    transition: background-color $transitionProps, fill $transitionProps;
+
+    &:hover {
+      background-color: $secondaryTextColor;
+    }
+
+    &:disabled {
+      background-color: hsl(
+        $secondaryTextColorH,
+        $disabledColorS,
+        $secondaryTextColorL
+      );
+      cursor: default;
+    }
+
+    .svg {
+      height: 50%;
+      width: 50%;
+      fill: inherit;
+    }
+  }
 }

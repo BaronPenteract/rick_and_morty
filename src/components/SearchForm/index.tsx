@@ -1,14 +1,30 @@
-import React from "react";
+import React, { ReactElement } from "react";
 import styles from "./index.module.scss";
+import SearchSVG from "../svg/SearchSVG";
+import { TSearchFormProps } from "../../@types/TSearchForm";
 
-const SearchForm: React.FC = () => {
+const SearchForm: React.FC<TSearchFormProps> = ({ onSubmit }) => {
+  const nameRef = React.useRef<HTMLInputElement>(null);
+
+  const submitHandler: React.FormEventHandler = (e) => {
+    e.preventDefault();
+
+    onSubmit({ name: nameRef.current?.value || "" });
+  };
+
   return (
-    <form className={styles.root}>
+    <form name="searchForm" onSubmit={submitHandler} className={styles.root}>
       <fieldset className={styles.fieldset}>
-        <input className={styles.input} type="text" />
+        <input
+          ref={nameRef}
+          name="search"
+          className={styles.search}
+          type="input"
+          placeholder="Search by name"
+        />
       </fieldset>
       <button className={styles.submit} type="submit">
-        search
+        <SearchSVG className={styles.svg} />
       </button>
     </form>
   );

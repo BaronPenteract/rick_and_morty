@@ -11,6 +11,7 @@ type TPaginationProps = {
   prevPage: number | null;
   nextPage: number | null;
   pages: number;
+  numbersOfPagesToShow: number;
 };
 
 const Pagination: React.FC<TPaginationProps> = ({
@@ -19,15 +20,29 @@ const Pagination: React.FC<TPaginationProps> = ({
   prevPage,
   nextPage,
   pages,
+  numbersOfPagesToShow,
 }) => {
   const navigate = useNavigate();
 
+  // чтобы не отображались все номера страниц разом (1 2 3 4 5 ...), а было что-то типа: ...5 6 7 8 9 ...
+  const startNumberOfPageToShow =
+    Math.ceil(currentPage - numbersOfPagesToShow / 2) > 0
+      ? Math.ceil(currentPage - numbersOfPagesToShow / 2)
+      : 1;
+  const endNumberOfPageToShow =
+    Math.floor(currentPage + numbersOfPagesToShow / 2) <= pages
+      ? Math.floor(currentPage + numbersOfPagesToShow / 2)
+      : pages;
+
   let pageList: ReactElement<HTMLLIElement>[] = [];
 
-  for (let i = 1; i <= pages; i++) {
+  for (let i = startNumberOfPageToShow; i <= endNumberOfPageToShow; i++) {
     const liElement: ReactElement<HTMLLIElement> = (
       <li key={i}>
         <button
+          className={`${styles.button} ${
+            currentPage === i ? styles.buttonActive : ""
+          }`}
           type="button"
           onClick={() => {
             handleClickPage(i);
@@ -44,7 +59,7 @@ const Pagination: React.FC<TPaginationProps> = ({
   return (
     <nav className={styles.root}>
       <button
-        className={styles.prev}
+        className={styles.button}
         onClick={() => {
           handleClickPage(prevPage);
         }}
@@ -53,11 +68,12 @@ const Pagination: React.FC<TPaginationProps> = ({
       </button>
       <ul className={styles.pageList}>{pageList}</ul>
       <button
+        className={styles.button}
         onClick={() => {
           handleClickPage(nextPage);
         }}
       >
-        <RightArrowSVG className={styles.next} />
+        <RightArrowSVG className={styles.svg} />
       </button>
     </nav>
   );

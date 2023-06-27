@@ -1,6 +1,12 @@
+@import "../../utils/styles/variables.scss";
+
 .root {
   width: 100%;
-  padding: 15px;
+  box-sizing: border-box;
+
+  @media screen and (max-width: $phone) {
+    padding: 0;
+  }
 }
 
 .charsList {

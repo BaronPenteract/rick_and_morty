@@ -2,6 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import { CharType, ResponseType } from "../../@types/chars";
 import { BASE_URL } from "../../utils/constants";
+import { getPageFromURL } from "../../utils/getPageFromURL";
 
 export enum Status {
   LOADING = "loading",
@@ -14,16 +15,16 @@ interface CharsSlice {
   charsCount: number;
   currentPage: number;
   pages: number;
-  prevPage: string | null;
-  nextPage: string | null;
+  prevPage: number | null;
+  nextPage: number | null;
   status: Status;
 }
 
 const initialState: CharsSlice = {
   chars: [],
   charsCount: 0,
-  currentPage: 1,
-  pages: 1,
+  currentPage: 0,
+  pages: 0,
   prevPage: null,
   nextPage: null,
   status: Status.LOADING,
@@ -31,8 +32,11 @@ const initialState: CharsSlice = {
 
 export const fetchChars = createAsyncThunk(
   "chars/fetchChars",
-  async (to: number | null) => {
-    const url = `${BASE_URL}/character${to !== null ? `?page=${to}` : ""}`;
+  async ({ page, name }: { page?: number; name?: string }) => {
+    const url = `${BASE_URL}/character/?${
+      page !== null ? `page=${page}&` : ""
+    }`;
+
     const response = await axios.get<ResponseType>(url);
 
     return response.data;
@@ -42,7 +46,17 @@ export const fetchChars = createAsyncThunk(
 export const charsSlice = createSlice({
   name: "chars",
   initialState,
-  reducers: {},
+  reducers: {
+    setCurrentPage(state, action) {
+      const page = action.payload;
+
+      if (page > 0 || page <= state.pages) {
+        state.currentPage = page;
+      } else {
+        state.currentPage = 1;
+      }
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(fetchChars.pending, (state) => {
       state.status = Status.LOADING;
@@ -53,8 +67,8 @@ export const charsSlice = createSlice({
       state.status = Status.SUCCESS;
       state.chars = action.payload.results;
       state.charsCount = action.payload.info.count;
-      state.prevPage = action.payload.info.prev;
-      state.nextPage = action.payload.info.next;
+      state.prevPage = getPageFromURL(action.payload.info.prev) || null;
+      state.nextPage = getPageFromURL(action.payload.info.next) || null;
       state.pages = action.payload.info.pages;
     });
 
@@ -65,6 +79,6 @@ export const charsSlice = createSlice({
   },
 });
 
-export const {} = charsSlice.actions;
+export const { setCurrentPage } = charsSlice.actions;
 
 export default charsSlice.reducer;
