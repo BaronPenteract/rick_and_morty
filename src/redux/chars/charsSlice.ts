@@ -1,4 +1,8 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import {
+  SerializedError,
+  createAsyncThunk,
+  createSlice,
+} from "@reduxjs/toolkit";
 import axios from "axios";
 import { CharType, ResponseType } from "../../@types/chars";
 import { BASE_URL } from "../../utils/constants";
@@ -12,6 +16,12 @@ export enum Status {
 
 interface CharsSlice {
   chars: CharType[];
+  filterParams: {
+    page?: number | null;
+    name?: string;
+    status?: "alive" | "dead" | "unknown";
+    gender?: "female" | "male" | "genderless" | "unknown";
+  };
   charsCount: number;
   currentPage: number;
   pages: number;
@@ -22,6 +32,7 @@ interface CharsSlice {
 
 const initialState: CharsSlice = {
   chars: [],
+  filterParams: {},
   charsCount: 0,
   currentPage: 0,
   pages: 0,
@@ -32,14 +43,51 @@ const initialState: CharsSlice = {
 
 export const fetchChars = createAsyncThunk(
   "chars/fetchChars",
-  async ({ page, name }: { page?: number; name?: string }) => {
-    const url = `${BASE_URL}/character/?${
-      page !== null ? `page=${page}&` : ""
-    }`;
+  async (
+    {
+      page,
+      name,
+      status,
+      gender,
+    }: {
+      page?: number | null;
+      name?: string;
+      status?: string;
+      gender?: string;
+    },
+    { rejectWithValue }
+  ) => {
+    const url = new URL(BASE_URL + "/character");
 
-    const response = await axios.get<ResponseType>(url);
+    if (page) {
+      url.searchParams.set("page", page.toString());
+    }
 
-    return response.data;
+    if (name) {
+      url.searchParams.set("name", name);
+    }
+
+    if (status) {
+      url.searchParams.set("status", status);
+    }
+
+    if (gender) {
+      url.searchParams.set("gender", gender);
+    }
+
+    try {
+      const response = await axios.get<ResponseType>(url.toString());
+
+      return response.data;
+    } catch (err: any) {
+      // тут чет хз
+
+      if (!err.response) {
+        throw err;
+      }
+
+      return rejectWithValue(err.response.data);
+    }
   }
 );
 
@@ -55,6 +103,9 @@ export const charsSlice = createSlice({
       } else {
         state.currentPage = 1;
       }
+    },
+    setFilterParams(state, action) {
+      state.filterParams = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -79,6 +130,6 @@ export const charsSlice = createSlice({
   },
 });
 
-export const { setCurrentPage } = charsSlice.actions;
+export const { setCurrentPage, setFilterParams } = charsSlice.actions;
 
 export default charsSlice.reducer;

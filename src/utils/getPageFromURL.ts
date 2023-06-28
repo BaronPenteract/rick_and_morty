@@ -1,7 +1,11 @@
-export const getPageFromURL: (url: string | null) => number | null = (url) => {
-  if (!url) {
+export const getPageFromURL: (urlString: string | null) => number | null = (
+  urlString
+) => {
+  if (!urlString) {
     return null;
   }
 
-  return Number(url.split("page=")[1]);
+  const url = new URL(urlString);
+
+  return Number(url.searchParams.get("page"));
 };

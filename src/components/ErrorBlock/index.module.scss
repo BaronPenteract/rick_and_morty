@@ -1,0 +1,14 @@
+@import "../../utils/styles/variables.scss";
+
+.root {
+  flex-grow: 1;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .message {
+    color: $secondaryTextColor;
+    font-size: 24px;
+  }
+}
