@@ -35,6 +35,10 @@
       &::placeholder {
         color: hsl($secondaryTextColorH, $disabledColorS, $secondaryTextColorL);
       }
+
+      &:disabled {
+        opacity: 0.5;
+      }
     }
   }
 
@@ -67,6 +71,7 @@
         $disabledColorS,
         $secondaryTextColorL
       );
+      opacity: 0.5;
       cursor: default;
     }
 

@@ -7,15 +7,15 @@ const Main: React.FC = () => {
   const navigate = useNavigate();
 
   const handleClickGetChars = () => {
-    navigate("/characters");
+    navigate("characters");
   };
 
   const handleClickGetLocations = () => {
-    navigate("/locations");
+    navigate("locations");
   };
 
   const handleClickGetEpisodes = () => {
-    navigate("/episodes");
+    navigate("episodes");
   };
 
   return (

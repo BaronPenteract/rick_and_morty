@@ -1,9 +1,12 @@
 import React, { ReactElement } from "react";
-import { useNavigate } from "react-router-dom";
 
 import styles from "./index.module.scss";
 import LeftArrowSVG from "../svg/LeftArrowSVG";
 import RightArrowSVG from "../svg/RightArrowSVG";
+import LeftArrowWithLineSVG from "../svg/LeftArrowWithLineSVG";
+import RightArrowWithLineSVG from "../svg/RightArrowWithLineSVG";
+import { Status } from "../../redux/chars/charsSlice";
+import Preloader from "../Preloader";
 
 type TPaginationProps = {
   handleClickPage: (page: number | null) => void;
@@ -12,6 +15,7 @@ type TPaginationProps = {
   nextPage: number | null;
   pages: number;
   numbersOfPagesToShow: number;
+  status: Status;
 };
 
 const Pagination: React.FC<TPaginationProps> = ({
@@ -21,9 +25,8 @@ const Pagination: React.FC<TPaginationProps> = ({
   nextPage,
   pages,
   numbersOfPagesToShow,
+  status,
 }) => {
-  const navigate = useNavigate();
-
   // чтобы не отображались все номера страниц разом (1 2 3 4 5 ...), а было что-то типа: ...5 6 7 8 9 ...
   const startNumberOfPageToShow =
     Math.ceil(currentPage - numbersOfPagesToShow / 2) > 0
@@ -45,6 +48,7 @@ const Pagination: React.FC<TPaginationProps> = ({
           }`}
           type="button"
           onClick={() => {
+            if (currentPage === i) return;
             handleClickPage(i);
           }}
         >
@@ -59,21 +63,49 @@ const Pagination: React.FC<TPaginationProps> = ({
   return (
     <nav className={styles.root}>
       <button
+        className={`${styles.button}`}
+        onClick={() => {
+          handleClickPage(1);
+        }}
+        title="First page"
+        disabled={currentPage === 1 || status !== Status.SUCCESS}
+      >
+        <LeftArrowWithLineSVG className={styles.svg} />
+      </button>
+      <button
         className={styles.button}
         onClick={() => {
           handleClickPage(prevPage);
         }}
+        title="Previous page"
+        disabled={prevPage === null || status !== Status.SUCCESS}
       >
         <LeftArrowSVG className={styles.svg} />
       </button>
-      <ul className={styles.pageList}>{pageList}</ul>
+      {status === Status.SUCCESS ? (
+        <ul className={styles.pageList}>{pageList}</ul>
+      ) : (
+        <Preloader className={styles.loading} />
+      )}
       <button
         className={styles.button}
         onClick={() => {
           handleClickPage(nextPage);
         }}
+        title="Next page"
+        disabled={nextPage === null || status !== Status.SUCCESS}
       >
         <RightArrowSVG className={styles.svg} />
+      </button>
+      <button
+        className={`${styles.button}`}
+        onClick={() => {
+          handleClickPage(pages);
+        }}
+        title="Last page"
+        disabled={currentPage === pages || status !== Status.SUCCESS}
+      >
+        <RightArrowWithLineSVG className={styles.svg} />
       </button>
     </nav>
   );

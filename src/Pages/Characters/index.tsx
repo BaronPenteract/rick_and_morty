@@ -63,7 +63,7 @@ const Characters: React.FC = () => {
   }, [pages]);
 
   const handleClickPage = async (page: number | null) => {
-    if (!page || status === Status.LOADING) return;
+    if (!page || status !== Status.SUCCESS) return;
     let name = searchParams.get("name") || "";
 
     setSearchParams({ page: page.toString(), name });
@@ -81,35 +81,37 @@ const Characters: React.FC = () => {
     dispatch(fetchChars({ name }));
   };
 
+  if (status === Status.ERROR) {
+    return (
+      <div className={styles.root}>
+        <SearchForm onSubmit={handleSearchSubmit} status={status} />
+        <ErrorBlock err={err} />
+      </div>
+    );
+  }
+
   return (
     <div className={styles.root}>
-      <SearchForm onSubmit={handleSearchSubmit} />
-
-      {status === Status.LOADING ? (
-        <Preloader />
-      ) : status === Status.ERROR ? (
-        <ErrorBlock err={err} />
-      ) : (
-        <>
-          <Pagination
-            handleClickPage={handleClickPage}
-            currentPage={currentPage}
-            prevPage={prevPage}
-            nextPage={nextPage}
-            numbersOfPagesToShow={5}
-            pages={pages}
-          />
-          <CharList chars={chars} />
-          <Pagination
-            handleClickPage={handleClickPage}
-            currentPage={currentPage}
-            prevPage={prevPage}
-            nextPage={nextPage}
-            numbersOfPagesToShow={5}
-            pages={pages}
-          />
-        </>
-      )}
+      <SearchForm onSubmit={handleSearchSubmit} status={status} />
+      <Pagination
+        handleClickPage={handleClickPage}
+        currentPage={currentPage}
+        prevPage={prevPage}
+        nextPage={nextPage}
+        numbersOfPagesToShow={5}
+        pages={pages}
+        status={status}
+      />
+      {status === Status.LOADING ? <Preloader /> : <CharList chars={chars} />}
+      <Pagination
+        handleClickPage={handleClickPage}
+        currentPage={currentPage}
+        prevPage={prevPage}
+        nextPage={nextPage}
+        numbersOfPagesToShow={5}
+        pages={pages}
+        status={status}
+      />
     </div>
   );
 };

@@ -6,11 +6,27 @@
   align-items: center;
   gap: 20px;
 
+  @media screen and (max-width: $phone) {
+    gap: 4px;
+  }
+
+  .loading {
+    flex-grow: 0;
+    width: 100px;
+
+    span {
+      background-color: $primaryTextColor;
+    }
+  }
+
   .button {
     margin: 0;
     padding: 0;
-    width: 42px;
-    height: 42px;
+    width: 24px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
     background-color: transparent;
     border: none;
@@ -19,22 +35,49 @@
     font-size: 16px;
     color: $primaryTextColor;
     fill: $primaryTextColor;
+    stroke: $primaryTextColor;
 
-    transition: fill $transitionProps, color $transitionProps;
+    transition: fill $transitionProps, stroke $transitionProps,
+      color $transitionProps;
 
     &:hover {
       color: $secondaryTextColor;
       fill: $secondaryTextColor;
+      stroke: $secondaryTextColor;
     }
 
     &Active {
       color: $secondaryTextColor;
       fill: $secondaryTextColor;
+      stroke: $secondaryTextColor;
+
+      cursor: default;
     }
 
     svg {
       fill: inherit;
       stroke: inherit;
+
+      g {
+        stroke: inherit;
+      }
+    }
+
+    &:disabled {
+      color: hsl($secondaryTextColorH, $disabledColorS, $secondaryTextColorL);
+      fill: hsl($secondaryTextColorH, $disabledColorS, $secondaryTextColorL);
+      stroke: hsl($secondaryTextColorH, $disabledColorS, $secondaryTextColorL);
+      cursor: default;
+
+      &:hover {
+        color: hsl($secondaryTextColorH, $disabledColorS, $secondaryTextColorL);
+        fill: hsl($secondaryTextColorH, $disabledColorS, $secondaryTextColorL);
+        stroke: hsl(
+          $secondaryTextColorH,
+          $disabledColorS,
+          $secondaryTextColorL
+        );
+      }
     }
   }
 

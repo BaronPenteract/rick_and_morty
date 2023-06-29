@@ -4,8 +4,10 @@ import SearchSVG from "../svg/SearchSVG";
 import { TSearchFormProps } from "../../@types/TSearchForm";
 import { useSelector } from "react-redux";
 import { getCharsSelector } from "../../redux/chars/selectors";
+import { Status } from "../../redux/chars/charsSlice";
+import Preloader from "../Preloader";
 
-const SearchForm: React.FC<TSearchFormProps> = ({ onSubmit }) => {
+const SearchForm: React.FC<TSearchFormProps> = ({ onSubmit, status }) => {
   const { filterParams } = useSelector(getCharsSelector);
 
   const [searchValue, setSearchValue] = React.useState("");
@@ -14,12 +16,10 @@ const SearchForm: React.FC<TSearchFormProps> = ({ onSubmit }) => {
     if (filterParams.name) setSearchValue(filterParams.name);
   }, [filterParams]);
 
-  const nameRef = React.useRef<HTMLInputElement>(null);
-
   const submitHandler: React.FormEventHandler = (e) => {
     e.preventDefault();
 
-    onSubmit({ name: nameRef.current?.value || "" });
+    onSubmit({ name: searchValue || "" });
   };
 
   const handleChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
@@ -30,17 +30,25 @@ const SearchForm: React.FC<TSearchFormProps> = ({ onSubmit }) => {
     <form name="searchForm" onSubmit={submitHandler} className={styles.root}>
       <fieldset className={styles.fieldset}>
         <input
-          ref={nameRef}
           name="search"
           className={styles.search}
           type="input"
           value={searchValue}
           onChange={handleChange}
           placeholder="Search by name"
+          disabled={status === Status.LOADING}
         />
       </fieldset>
-      <button className={styles.submit} type="submit">
-        <SearchSVG className={styles.svg} />
+      <button
+        className={styles.submit}
+        type="submit"
+        disabled={status === Status.LOADING}
+      >
+        {status === Status.LOADING ? (
+          <Preloader />
+        ) : (
+          <SearchSVG className={styles.svg} />
+        )}
       </button>
     </form>
   );

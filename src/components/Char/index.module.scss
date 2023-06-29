@@ -115,6 +115,10 @@
     .openSVG {
       stroke: inherit;
     }
+
+    @media screen and (max-width: $tablet) {
+      opacity: 1;
+    }
   }
 
   .avatar {

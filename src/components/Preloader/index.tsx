@@ -1,8 +1,12 @@
 import styles from "./index.module.scss";
 
-const Preloader: React.FC = () => {
+type TPreloaderProps = {
+  className?: string;
+};
+
+const Preloader: React.FC<TPreloaderProps> = ({ className }) => {
   return (
-    <div className={styles.root}>
+    <div className={`${styles.root} ${className}`}>
       <div className={styles.content}>
         <span className={`${styles.dot} ${styles.anim}`} />
         <span className={`${styles.dot} ${styles.anim}`} />
