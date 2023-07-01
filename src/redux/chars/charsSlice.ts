@@ -34,7 +34,7 @@ const initialState: CharsSlice = {
   chars: [],
   filterParams: {},
   charsCount: 0,
-  currentPage: 0,
+  currentPage: 1,
   pages: 0,
   prevPage: null,
   nextPage: null,

@@ -45,32 +45,32 @@ const Char: React.FC<CharType> = ({
   return (
     <article>
       <div className={`${styles.root} ${isInfoOpen ? styles.rootActive : ""}`}>
-        <button
+        {/* <button
           className={styles.buttonOpenInfo}
           onClick={handleClickInfoToggle}
         >
           <OpenInfoSVG className={styles.openSVG} />
-        </button>
-        <img className={styles.avatar} src={image} alt={name} />
+        </button> */}
         <div className={styles.header}>
+          <img className={styles.avatar} src={image} alt={name} />
+        </div>
+        <div className={styles.content}>
           <h2 className={styles.name}>{name}</h2>
-          <button className={styles.buttonAddRemove} onClick={handleAddClick}>
+          {/*<button className={styles.buttonAddRemove} onClick={handleAddClick}>
             {isAdded ? (
               <RemoveCharSVG className={styles.removeSVG} />
             ) : (
               <AddCharSVG className={styles.addSVG} />
             )}
           </button>
-        </div>
-        <div className={styles.content}>
-          <button
+           <button
             className={styles.buttonCloseInfo}
             onClick={handleClickInfoToggle}
           >
             <CloseInfoSVG className={styles.closeSVG} />
           </button>
-          <p className={styles.name}>{name}</p>
-          <ul className={styles.contentFooter}>
+          <p className={styles.name}>{name}</p> */}
+          <ul className={styles.info}>
             <li>
               Origin: <span>{origin.name}</span>
             </li>
@@ -84,17 +84,17 @@ const Char: React.FC<CharType> = ({
               Episodes: <span>{episode.length}</span>
             </li>
           </ul>
-          <div className={styles.footer}>
-            <p>
-              sex: <span className={styles.gender}>{genderSymbol(gender)}</span>
-            </p>
-            <p>
-              species: <span>{species}</span>
-            </p>
-            <p>
-              status: <span className={styles[status]}>{status}</span>
-            </p>
-          </div>
+        </div>
+        <div className={styles.footer}>
+          {/* <p>
+            sex: <span className={styles.gender}>{genderSymbol(gender)}</span>
+          </p> */}
+          <p>
+            <span className={styles[status]}>{status}</span>
+          </p>
+          <p>
+            <span>{species}</span>
+          </p>
         </div>
       </div>
     </article>

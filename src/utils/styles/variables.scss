@@ -28,11 +28,10 @@ $secondaryAccentColor: hsl(
   $secondaryAccentColorL
 );
 //background
-$primaryBGColorHSL: hsl(
-  $secondaryAccentColorH,
-  $secondaryAccentColorS,
-  $secondaryAccentColorL
-);
+$primaryBGColorH: 0;
+$primaryBGColorS: 0%;
+$primaryBGColorL: 11%;
+$primaryBGColorHSL: hsl($primaryBGColorH, $primaryBGColorS, $primaryBGColorL);
 
 $secondaryBGColorHSL: hsl(
   $secondaryAccentColorH,
@@ -49,7 +48,7 @@ $shadowColor: hsla(0, 0%, 14%, 0.5);
 $transitionProps: 0.2s linear;
 
 // other settings
-$borderRadius: 16px;
+$borderRadius: 8px;
 
 //char settings
 $contentWidth: 240px;
