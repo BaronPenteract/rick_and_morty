@@ -91,7 +91,7 @@ const Characters: React.FC = () => {
   }
 
   return (
-    <div className={styles.root}>
+    <section className={styles.root} aria-label="Characters of Rick and Morty">
       <SearchForm onSubmit={handleSearchSubmit} status={status} />
       <Pagination
         handleClickPage={handleClickPage}
@@ -112,7 +112,7 @@ const Characters: React.FC = () => {
         pages={pages}
         status={status}
       />
-    </div>
+    </section>
   );
 };
 

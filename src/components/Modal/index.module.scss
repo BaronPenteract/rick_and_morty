@@ -1,0 +1,33 @@
+@import "../../utils/styles/variables";
+
+.root {
+  padding: 50px 20px;
+  visibility: hidden;
+  opacity: 0;
+
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 10000;
+
+  box-sizing: border-box;
+  background-color: hsla(
+    $primaryBGColorH,
+    $primaryBGColorS,
+    $primaryBGColorL,
+    0.9
+  );
+
+  transition: opacity $transitionProps, visibility $transitionProps;
+}
+
+.rootActive {
+  visibility: visible;
+  opacity: 1;
+}

@@ -5,12 +5,17 @@ import React from "react";
 import AddCharSVG from "../svg/AddCharSVG";
 import RemoveCharSVG from "../svg/RemoveCharSVG";
 
-type TCharProps = {
-  char: CharType;
-  onCharClick: () => void;
+type TCharBigViewProps = {
+  char: CharType | undefined;
 };
 
-const Char: React.FC<TCharProps> = ({ char, onCharClick }) => {
+const CharBigView: React.FC<TCharBigViewProps> = ({ char }) => {
+  const [isAdded, setIsAdded] = React.useState(false);
+
+  if (!char) {
+    return <h2>Something wrong.</h2>;
+  }
+
   const {
     id,
     name,
@@ -22,7 +27,6 @@ const Char: React.FC<TCharProps> = ({ char, onCharClick }) => {
     location,
     episode,
   } = char;
-  const [isAdded, setIsAdded] = React.useState(false);
 
   const handleToggleAddClick: React.MouseEventHandler = (e) => {
     console.log("Chars: Added");
@@ -44,7 +48,7 @@ const Char: React.FC<TCharProps> = ({ char, onCharClick }) => {
   return (
     <article>
       <div className={`${styles.root}`}>
-        <div className={styles.header} onClick={() => onCharClick()}>
+        <div className={styles.header}>
           <img className={styles.avatar} src={image} alt={name} />
         </div>
         <div className={styles.content}>
@@ -95,4 +99,4 @@ const Char: React.FC<TCharProps> = ({ char, onCharClick }) => {
   );
 };
 
-export default Char;
+export default CharBigView;

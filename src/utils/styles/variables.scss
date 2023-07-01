@@ -5,7 +5,14 @@ $tablet: 768px;
 
 // color settings
 // text
-$primaryTextColor: #fff;
+$primaryTextColorH: 0;
+$primaryTextColorS: 0%;
+$primaryTextColorL: 100%;
+$primaryTextColor: hsl(
+  $primaryTextColorH,
+  $primaryTextColorS,
+  $primaryTextColorL
+);
 
 $secondaryTextColorH: 160;
 $secondaryTextColorS: 100%;
@@ -39,10 +46,7 @@ $secondaryBGColorHSL: hsl(
   20.42%
 );
 // disabled
-$disabledColorS: 10%;
-
-// shadow
-$shadowColor: hsla(0, 0%, 14%, 0.5);
+$disabledColorS: 20%;
 
 // animation settings
 $transitionProps: 0.2s linear;
