@@ -2,8 +2,9 @@ import { CharType } from "../../@types/chars";
 
 import styles from "./index.module.scss";
 import React from "react";
-import AddCharSVG from "../svg/AddCharSVG";
-import RemoveCharSVG from "../svg/RemoveCharSVG";
+import ErrorBlock from "../ErrorBlock";
+import CharFooter from "../CharFooter";
+import CharMoreButton from "../CharMoreButton";
 
 type TCharBigViewProps = {
   char: CharType | undefined;
@@ -13,7 +14,7 @@ const CharBigView: React.FC<TCharBigViewProps> = ({ char }) => {
   const [isAdded, setIsAdded] = React.useState(false);
 
   if (!char) {
-    return <h2>Something wrong.</h2>;
+    return <ErrorBlock err={new Error("Something wrong.")} />;
   }
 
   const {
@@ -26,24 +27,8 @@ const CharBigView: React.FC<TCharBigViewProps> = ({ char }) => {
     origin,
     location,
     episode,
+    url,
   } = char;
-
-  const handleToggleAddClick: React.MouseEventHandler = (e) => {
-    console.log("Chars: Added");
-    setIsAdded((prev) => !prev);
-  };
-
-  const genderSymbol = (gender: string): JSX.Element => {
-    if (gender === "Male") {
-      return <>&#9794; {gender}</>;
-    }
-
-    if (gender === "Female") {
-      return <>&#9792; {gender}</>;
-    }
-
-    return <>{gender}</>;
-  };
 
   return (
     <article>
@@ -52,48 +37,42 @@ const CharBigView: React.FC<TCharBigViewProps> = ({ char }) => {
           <img className={styles.avatar} src={image} alt={name} />
         </div>
         <div className={styles.content}>
-          <h2 className={styles.name}>{name}</h2>
+          <div>
+            <h2 className={styles.name} title="Name">
+              {name}
+            </h2>
+            <p className={styles.subTitle}>
+              <span title="Gender" className={styles.gender}>
+                {gender}
+              </span>
+              <span title="Species">{species}</span>
+            </p>
+          </div>
           <ul className={styles.info}>
             <li>
-              Origin: <span>{origin.name}</span>
+              Origin: <span title="Origin">{origin.name}</span>
             </li>
             <li>
-              Last known location: <span>{location.name}</span>
+              Last known location:
+              <span title="Last known location">{location.name}</span>
             </li>
             <li>
-              First seen in:: <span>{episode[0]}</span>
+              First seen in: <span title="First seen in">{episode.length}</span>
             </li>
             <li>
-              Episodes: <span>{episode.length}</span>
+              Episodes: <span title="Number of episodes">{episode.length}</span>
             </li>
           </ul>
+          <div className={styles.moreButtonContainer}>
+            <CharMoreButton id={id} />
+          </div>
         </div>
-        <div className={styles.footer}>
-          {/* <p>
-            sex: <span className={styles.gender}>{genderSymbol(gender)}</span>
-          </p> */}
-          <ul className={styles.footerAbout}>
-            <li>
-              <span>{species}</span>
-            </li>
-            <li>
-              <span className={styles[status]}>{status}</span>
-            </li>
-          </ul>
-          <button
-            className={`${styles.toggleButton} ${
-              isAdded ? styles.toggleButtonRemove : ""
-            }`}
-            onClick={handleToggleAddClick}
-            title="Add to favorite"
-          >
-            {isAdded ? (
-              <RemoveCharSVG className={styles.svg} />
-            ) : (
-              <AddCharSVG className={styles.svg} />
-            )}
-          </button>
-        </div>
+        <CharFooter char={char} isAdded={isAdded} setIsAdded={setIsAdded} />
+        <ul className={styles.episodes}>
+          {episode.map((episode, idx) => (
+            <li key={idx}>{idx}</li>
+          ))}
+        </ul>
       </div>
     </article>
   );

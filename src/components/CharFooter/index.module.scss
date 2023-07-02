@@ -1,0 +1,97 @@
+@import "../../utils/styles/variables";
+
+.footer {
+  grid-area: footer;
+  padding: 10px;
+  width: 100%;
+  position: relative;
+  z-index: 1;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  color: darken($primaryTextColor, 20%);
+  box-sizing: border-box;
+  background: $primaryBGColorHSL;
+
+  transition: opacity $transitionProps;
+
+  .footerAbout {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+
+    li {
+      margin: 0;
+      padding: 0;
+    }
+  }
+
+  .toggleButton {
+    width: 16px;
+    margin: 0;
+    padding: 0;
+
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+
+    fill: darken($primaryTextColor, 20%);
+    stroke: darken($primaryTextColor, 20%);
+
+    transition: fill $transitionProps, stroke $transitionProps;
+
+    .svg {
+      fill: inherit;
+      stroke: inherit;
+    }
+
+    &:hover {
+      fill: darken($secondaryTextColor, 20%);
+      stroke: darken($secondaryTextColor, 20%);
+    }
+
+    &:disabled {
+      fill: darken(
+        hsl($primaryTextColorH, $disabledColorS, $primaryTextColorL),
+        30%
+      );
+      stroke: darken(
+        hsl($primaryTextColorH, $disabledColorS, $primaryTextColorL),
+        30%
+      );
+      cursor: default;
+
+      &:hover {
+        fill: darken(
+          hsl($primaryTextColorH, $disabledColorS, $primaryTextColorL),
+          30%
+        );
+        stroke: darken(
+          hsl($primaryTextColorH, $disabledColorS, $primaryTextColorL),
+          30%
+        );
+      }
+    }
+  }
+
+  .toggleButtonRemove:hover {
+    fill: darken(red, 10%);
+    stroke: darken(red, 10%);
+  }
+
+  .Alive {
+    font-weight: 600;
+    color: darken($primaryAccentColor, 10%);
+  }
+
+  .Dead {
+    font-weight: 600;
+    color: darken(red, 10%);
+  }
+}

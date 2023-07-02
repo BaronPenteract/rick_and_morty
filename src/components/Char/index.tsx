@@ -2,8 +2,8 @@ import { CharType } from "../../@types/chars";
 
 import styles from "./index.module.scss";
 import React from "react";
-import AddCharSVG from "../svg/AddCharSVG";
-import RemoveCharSVG from "../svg/RemoveCharSVG";
+import CharFooter from "../CharFooter";
+import CharMoreButton from "../CharMoreButton";
 
 type TCharProps = {
   char: CharType;
@@ -21,25 +21,9 @@ const Char: React.FC<TCharProps> = ({ char, onCharClick }) => {
     origin,
     location,
     episode,
+    url,
   } = char;
   const [isAdded, setIsAdded] = React.useState(false);
-
-  const handleToggleAddClick: React.MouseEventHandler = (e) => {
-    console.log("Chars: Added");
-    setIsAdded((prev) => !prev);
-  };
-
-  const genderSymbol = (gender: string): JSX.Element => {
-    if (gender === "Male") {
-      return <>&#9794; {gender}</>;
-    }
-
-    if (gender === "Female") {
-      return <>&#9792; {gender}</>;
-    }
-
-    return <>{gender}</>;
-  };
 
   return (
     <article>
@@ -48,48 +32,24 @@ const Char: React.FC<TCharProps> = ({ char, onCharClick }) => {
           <img className={styles.avatar} src={image} alt={name} />
         </div>
         <div className={styles.content}>
-          <h2 className={styles.name}>{name}</h2>
+          <h2 className={styles.name} title="Name">
+            {name}
+          </h2>
           <ul className={styles.info}>
             <li>
-              Origin: <span>{origin.name}</span>
+              <span title="Gender" className={styles.gender}>
+                {gender}
+              </span>
             </li>
             <li>
-              Last known location: <span>{location.name}</span>
-            </li>
-            <li>
-              First seen in:: <span>{episode[0]}</span>
-            </li>
-            <li>
-              Episodes: <span>{episode.length}</span>
+              <span title="Species">{species}</span>
             </li>
           </ul>
+          <div className={styles.moreButtonContainer}>
+            <CharMoreButton id={id} />
+          </div>
         </div>
-        <div className={styles.footer}>
-          {/* <p>
-            sex: <span className={styles.gender}>{genderSymbol(gender)}</span>
-          </p> */}
-          <ul className={styles.footerAbout}>
-            <li>
-              <span>{species}</span>
-            </li>
-            <li>
-              <span className={styles[status]}>{status}</span>
-            </li>
-          </ul>
-          <button
-            className={`${styles.toggleButton} ${
-              isAdded ? styles.toggleButtonRemove : ""
-            }`}
-            onClick={handleToggleAddClick}
-            title="Add to favorite"
-          >
-            {isAdded ? (
-              <RemoveCharSVG className={styles.svg} />
-            ) : (
-              <AddCharSVG className={styles.svg} />
-            )}
-          </button>
-        </div>
+        <CharFooter char={char} isAdded={isAdded} setIsAdded={setIsAdded} />
       </div>
     </article>
   );

@@ -1,10 +1,10 @@
-import {
-  SerializedError,
-  createAsyncThunk,
-  createSlice,
-} from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
-import { CharType, ResponseType } from "../../@types/chars";
+import {
+  CharType,
+  TFetchCharResponse,
+  TFetchCharsResponse,
+} from "../../@types/chars";
 import { BASE_URL } from "../../utils/constants";
 import { getPageFromURL } from "../../utils/getPageFromURL";
 
@@ -76,12 +76,38 @@ export const fetchChars = createAsyncThunk(
     }
 
     try {
-      const response = await axios.get<ResponseType>(url.toString());
+      const response = await axios.get<TFetchCharsResponse>(url.toString());
 
       return response.data;
-    } catch (err: any) {
       // тут чет хз
+    } catch (err: any) {
+      if (!err.response) {
+        throw err;
+      }
 
+      return rejectWithValue(err.response.data);
+    }
+  }
+);
+
+export const fetchChar = createAsyncThunk(
+  "chars/fetchChar",
+  async (
+    {
+      id,
+    }: {
+      id: number;
+    },
+    { rejectWithValue }
+  ) => {
+    const url = new URL(BASE_URL + "/character/" + id);
+
+    try {
+      const response = await axios.get<TFetchCharResponse>(url.toString());
+
+      return response.data;
+      // тут чет хз
+    } catch (err: any) {
       if (!err.response) {
         throw err;
       }
@@ -126,6 +152,18 @@ export const charsSlice = createSlice({
     builder.addCase(fetchChars.rejected, (state) => {
       state.status = Status.ERROR;
       state.chars = [];
+    });
+
+    builder.addCase(fetchChar.pending, (state) => {
+      state.status = Status.LOADING;
+    });
+
+    builder.addCase(fetchChar.fulfilled, (state, action) => {
+      state.status = Status.SUCCESS;
+    });
+
+    builder.addCase(fetchChar.rejected, (state) => {
+      state.status = Status.ERROR;
     });
   },
 });

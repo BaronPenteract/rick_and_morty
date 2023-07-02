@@ -7,10 +7,10 @@ import Footer from "../Footer";
 import Header from "../Header";
 import Main from "../Main";
 import Characters from "../../Pages/Characters";
+import Character from "../../Pages/Character";
+import { rootPath } from "../../utils/constants";
 
 const App: React.FC = () => {
-  const rootPath = "/rick_and_morty";
-
   return (
     <div className={styles.root}>
       <Routes>
@@ -22,6 +22,7 @@ const App: React.FC = () => {
           <Route path={rootPath}>
             <Route index element={<Main />} />
             <Route path="characters" element={<Characters />} />
+            <Route path="character/:id" element={<Character />} />
           </Route>
           <Route path="*" element={<Navigate to={rootPath} />} />
         </Routes>
