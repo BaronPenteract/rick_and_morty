@@ -11,11 +11,10 @@
 
   display: grid;
   grid-template-areas:
-    "header content"
-    "header footer"
-    "episodes episodes";
-  grid-template-columns: 300px auto;
-  grid-template-rows: minmax(300px, min-content) 1fr;
+    "header content episodes"
+    "footer footer footer";
+  grid-template-columns: 300px 3fr 2fr;
+  grid-template-rows: minmax(200px, min-content) 1fr;
   column-gap: 0px;
   row-gap: 24px;
 
@@ -147,12 +146,22 @@
     }
   }
 
+  @media screen and (max-width: $pc) {
+    gap: 10px;
+    grid-template-areas:
+      "header content"
+      "header footer"
+      "episodes episodes";
+    grid-template-columns: 300px auto;
+    grid-template-rows: minmax(300px, min-content) 1fr;
+  }
+
   @media screen and (max-width: $tablet) {
     grid-template-areas:
-      "header episodes"
+      "header episodes "
       "content content"
       "footer footer";
-    grid-template-columns: 150px 1fr;
+    grid-template-columns: 1fr 1fr;
     grid-template-rows: minmax(200px, min-content) 1fr;
     row-gap: 10px;
   }

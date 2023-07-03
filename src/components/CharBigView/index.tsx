@@ -1,7 +1,7 @@
 import { CharType } from "../../@types/chars";
 
 import styles from "./index.module.scss";
-import React from "react";
+import React, { ReactElement } from "react";
 import ErrorBlock from "../ErrorBlock";
 import CharFooter from "../CharFooter";
 import CharMoreButton from "../CharMoreButton";
@@ -29,6 +29,14 @@ const CharBigView: React.FC<TCharBigViewProps> = ({ char }) => {
     episode,
     url,
   } = char;
+
+  let episodesToShow: ReactElement<HTMLLIElement>[] = [];
+
+  episode.forEach((ep, idx) => {
+    if (idx > 3) return;
+
+    episodesToShow.push(<li key={idx}>{idx}</li>);
+  });
 
   return (
     <article>
@@ -69,9 +77,8 @@ const CharBigView: React.FC<TCharBigViewProps> = ({ char }) => {
         </div>
         <CharFooter char={char} isAdded={isAdded} setIsAdded={setIsAdded} />
         <ul className={styles.episodes}>
-          {episode.map((episode, idx) => (
-            <li key={idx}>{idx}</li>
-          ))}
+          {episodesToShow}
+          {episode.length > 4 ? <CharMoreButton id={id} /> : ""}
         </ul>
       </div>
     </article>
