@@ -5,8 +5,8 @@ import LeftArrowSVG from "../svg/LeftArrowSVG";
 import RightArrowSVG from "../svg/RightArrowSVG";
 import LeftArrowWithLineSVG from "../svg/LeftArrowWithLineSVG";
 import RightArrowWithLineSVG from "../svg/RightArrowWithLineSVG";
-import { Status } from "../../redux/chars/charsSlice";
 import Preloader from "../Preloader";
+import { Status } from "../../utils/constants";
 
 type TPaginationProps = {
   handleClickPage: (page: number | null) => void;

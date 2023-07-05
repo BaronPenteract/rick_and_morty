@@ -9,6 +9,7 @@ import Main from "../Main";
 import Characters from "../../Pages/Characters";
 import Character from "../../Pages/Character";
 import { rootPath } from "../../utils/constants";
+import Episodes from "../../Pages/Episodes";
 
 const App: React.FC = () => {
   return (
@@ -23,6 +24,7 @@ const App: React.FC = () => {
             <Route index element={<Main />} />
             <Route path="characters" element={<Characters />} />
             <Route path="character/:id" element={<Character />} />
+            <Route path="episodes" element={<Episodes />} />
           </Route>
           <Route path="*" element={<Navigate to={rootPath} />} />
         </Routes>

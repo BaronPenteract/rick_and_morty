@@ -13,8 +13,8 @@ import Pagination from "../../components/Pagination";
 import CharList from "../../components/CharList";
 import { setCurrentPage } from "../../redux/chars/charsSlice";
 import { THandleSearchSubmit } from "../../@types/TSearchForm";
-import { Status } from "../../redux/chars/charsSlice";
 import ErrorBlock from "../../components/ErrorBlock";
+import { Status } from "../../utils/constants";
 
 const Characters: React.FC = () => {
   const [err, setErr] = React.useState<Error>(new Error("404 Not found."));

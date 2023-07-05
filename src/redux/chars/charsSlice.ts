@@ -5,14 +5,8 @@ import {
   TFetchCharResponse,
   TFetchCharsResponse,
 } from "../../@types/chars";
-import { BASE_URL } from "../../utils/constants";
+import { BASE_URL, Status } from "../../utils/constants";
 import { getPageFromURL } from "../../utils/getPageFromURL";
-
-export enum Status {
-  LOADING = "loading",
-  SUCCESS = "success",
-  ERROR = "error",
-}
 
 interface CharsSlice {
   chars: CharType[];

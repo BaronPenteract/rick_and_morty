@@ -4,8 +4,8 @@ import SearchSVG from "../svg/SearchSVG";
 import { TSearchFormProps } from "../../@types/TSearchForm";
 import { useSelector } from "react-redux";
 import { getCharsSelector } from "../../redux/chars/selectors";
-import { Status } from "../../redux/chars/charsSlice";
 import Preloader from "../Preloader";
+import { Status } from "../../utils/constants";
 
 const SearchForm: React.FC<TSearchFormProps> = ({ onSubmit, status }) => {
   const { filterParams } = useSelector(getCharsSelector);

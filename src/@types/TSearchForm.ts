@@ -1,4 +1,4 @@
-import { Status } from "../redux/chars/charsSlice";
+import { Status } from "../utils/constants";
 
 export type THandleSearchSubmit = (params: { name: string }) => void;
 

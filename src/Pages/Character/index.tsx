@@ -8,11 +8,9 @@ import { useAppDispatch } from "../../redux/store";
 import styles from "./index.module.scss";
 
 import Preloader from "../../components/Preloader";
-import { Status } from "../../redux/chars/charsSlice";
 import ErrorBlock from "../../components/ErrorBlock";
 import { CharType } from "../../@types/chars";
-import CharBigView from "../../components/CharBigView";
-import CharFooter from "../../components/CharFooter";
+import { Status } from "../../utils/constants";
 
 const Character: React.FC = () => {
   const dispatch = useAppDispatch();

@@ -1,0 +1,21 @@
+@import "../../utils/styles/variables.scss";
+
+.root {
+  flex-grow: 1;
+  width: 100%;
+  box-sizing: border-box;
+
+  @media screen and (max-width: $phone) {
+    padding: 0;
+  }
+}
+
+.charsList {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  justify-content: center;
+  grid-template-columns: repeat(auto-fill, 280px);
+  gap: 20px;
+}
