@@ -2,7 +2,11 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import { BASE_URL, Status } from "../../utils/constants";
 import { getPageFromURL } from "../../utils/getPageFromURL";
-import { IEpisode, IFetchEpisodesResponse } from "../../@types/episodes";
+import {
+  IEpisode,
+  IFetchEpisodesResponse,
+  IFetchSingleEpisodeResponse,
+} from "../../@types/episodes";
 
 interface IEpisodesSlice {
   episodes: IEpisode[];
@@ -73,6 +77,35 @@ export const fetchEpisodes = createAsyncThunk(
   }
 );
 
+export const fetchEpisode = createAsyncThunk(
+  "episodes/fetchEpisode",
+  async (
+    {
+      id,
+    }: {
+      id: number;
+    },
+    { rejectWithValue }
+  ) => {
+    const url = new URL(BASE_URL + "/episode/" + id);
+
+    try {
+      const response = await axios.get<IFetchSingleEpisodeResponse>(
+        url.toString()
+      );
+
+      return response.data;
+      // тут чет хз
+    } catch (err: any) {
+      if (!err.response) {
+        throw err;
+      }
+
+      return rejectWithValue(err.response.data);
+    }
+  }
+);
+
 export const episodesSlice = createSlice({
   name: "episodes",
   initialState,
@@ -110,7 +143,7 @@ export const episodesSlice = createSlice({
       state.episodes = [];
     });
 
-    /* builder.addCase(fetchEpisode.pending, (state) => {
+    builder.addCase(fetchEpisode.pending, (state) => {
       state.status = Status.LOADING;
     });
 
@@ -120,7 +153,7 @@ export const episodesSlice = createSlice({
 
     builder.addCase(fetchEpisode.rejected, (state) => {
       state.status = Status.ERROR;
-    }); */
+    });
   },
 });
 

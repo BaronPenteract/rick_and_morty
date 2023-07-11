@@ -8,25 +8,20 @@ import styles from "./index.module.scss";
 import Episode from "../Episode";
 import Modal from "../Modal";
 import { CharType } from "../../@types/chars";
+import EpisodeBigView from "../EpisodeBigView";
+import ErrorBlock from "../ErrorBlock";
+import { rootPath } from "../../utils/constants";
 
 interface IEpisodesListProps {
   episodes: IEpisode[];
 }
 
 const EpisodesList: React.FC<IEpisodesListProps> = ({ episodes }) => {
-  const [isMoreModalOpen, setIsMoreModalOpen] = React.useState(false);
-  const [episodeToModal, setEpisodeToModal] = React.useState<IEpisode>();
-
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  const handleClickBack = () => {
-    navigate(-1);
-  };
-
-  const handleEpisodeClick: (episode: IEpisode) => void = (episode) => {
-    setIsMoreModalOpen(true);
-    setEpisodeToModal(episode);
+  const handleEpisodeClick: (episodeId: number) => void = (episodeId) => {
+    navigate(rootPath + "/episode/" + episodeId);
   };
 
   return (
@@ -38,9 +33,6 @@ const EpisodesList: React.FC<IEpisodesListProps> = ({ episodes }) => {
           </li>
         ))}
       </ul>
-      <Modal isOpen={isMoreModalOpen} setIsOpen={setIsMoreModalOpen}>
-        hello
-      </Modal>
     </div>
   );
 };

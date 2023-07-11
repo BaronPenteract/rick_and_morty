@@ -18,7 +18,7 @@ import {
 import { getEpisodesSelector } from "../../redux/episodes/selectors";
 import EpisodesList from "../../components/EpisodesList";
 
-const Episodes: React.FC = () => {
+const EpisodesPage: React.FC = () => {
   const [err, setErr] = React.useState<Error>(new Error("404 Not found."));
   const [searchParams, setSearchParams] = useSearchParams();
 
@@ -89,4 +89,4 @@ const Episodes: React.FC = () => {
   );
 };
 
-export default Episodes;
+export default EpisodesPage;

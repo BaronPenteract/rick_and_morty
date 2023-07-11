@@ -14,7 +14,7 @@ import Preloader from "../Preloader";
 
 interface IEpisodeProps {
   episode: IEpisode;
-  onClick: (episode: IEpisode) => void;
+  onClick: (id: number) => void;
 }
 
 // кол-во отображаемых персов в карточке эпизода
@@ -52,7 +52,7 @@ const Episode: React.FC<IEpisodeProps> = ({ episode, onClick }) => {
   }, []);
 
   const handleEpisodeClick: React.MouseEventHandler = (e) => {
-    onClick(episode);
+    onClick(id);
   };
 
   return (

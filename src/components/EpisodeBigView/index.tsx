@@ -34,17 +34,8 @@ const EpisodeBigView: React.FC<IEpisodeProps> = ({ episode, onClick }) => {
     return getIdFromURL(charLink);
   });
 
-  // айди персов, котрых мы будем запрашивать с апи
-  const charsInEpisodeIdsToFetch: number[] = [];
-
-  for (let i = 0; i < charsToShowCount; i++) {
-    const randIndex = Math.round(Math.random() * charsInEpisodeIds.length - 1);
-
-    charsInEpisodeIdsToFetch.push(charsInEpisodeIds[randIndex]);
-  }
-
   React.useEffect(() => {
-    dispatch(fetchCharsByIds({ ids: charsInEpisodeIdsToFetch }))
+    dispatch(fetchCharsByIds({ ids: charsInEpisodeIds }))
       .unwrap()
       .then((res) => {
         setCharsInEpisode(res);

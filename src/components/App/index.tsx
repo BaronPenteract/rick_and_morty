@@ -6,10 +6,11 @@ import styles from "./index.module.scss";
 import Footer from "../Footer";
 import Header from "../Header";
 import Main from "../Main";
-import Characters from "../../Pages/Characters";
-import Character from "../../Pages/Character";
+import CharactersPage from "../../Pages/CharactersPage";
+import CharacterPage from "../../Pages/CharacterPage";
 import { rootPath } from "../../utils/constants";
-import Episodes from "../../Pages/Episodes";
+import EpisodesPage from "../../Pages/EpisodesPage";
+import EpisodePage from "../../Pages/EpisodePage";
 
 const App: React.FC = () => {
   return (
@@ -22,9 +23,10 @@ const App: React.FC = () => {
         <Routes>
           <Route path={rootPath}>
             <Route index element={<Main />} />
-            <Route path="characters" element={<Characters />} />
-            <Route path="character/:id" element={<Character />} />
-            <Route path="episodes" element={<Episodes />} />
+            <Route path="characters" element={<CharactersPage />} />
+            <Route path="character/:id" element={<CharacterPage />} />
+            <Route path="episodes" element={<EpisodesPage />} />
+            <Route path="episode/:id" element={<EpisodePage />} />
           </Route>
           <Route path="*" element={<Navigate to={rootPath} />} />
         </Routes>

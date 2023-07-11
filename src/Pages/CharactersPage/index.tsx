@@ -16,7 +16,7 @@ import { THandleSearchSubmit } from "../../@types/TSearchForm";
 import ErrorBlock from "../../components/ErrorBlock";
 import { Status } from "../../utils/constants";
 
-const Characters: React.FC = () => {
+const CharactersPage: React.FC = () => {
   const [err, setErr] = React.useState<Error>(new Error("404 Not found."));
   const [searchParams, setSearchParams] = useSearchParams();
 
@@ -116,4 +116,4 @@ const Characters: React.FC = () => {
   );
 };
 
-export default Characters;
+export default CharactersPage;

@@ -12,7 +12,7 @@ import ErrorBlock from "../../components/ErrorBlock";
 import { CharType } from "../../@types/chars";
 import { Status } from "../../utils/constants";
 
-const Character: React.FC = () => {
+const CharacterPage: React.FC = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
@@ -128,4 +128,4 @@ const Character: React.FC = () => {
   );
 };
 
-export default Character;
+export default CharacterPage;
