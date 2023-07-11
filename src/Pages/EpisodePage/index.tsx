@@ -73,6 +73,11 @@ const EpisodePage: React.FC = () => {
 
   return (
     <section className={styles.root} aria-label={`Episode: ${episode?.name}`}>
+      <div className={styles.rootBG}>
+        {charsInEpisode.map((char) => {
+          return <img key={char.id} src={char.image} alt="background" />;
+        })}
+      </div>
       <div className={`${styles.root}`}>
         <div className={styles.header}>
           <p className={styles.number}>{id}</p>
