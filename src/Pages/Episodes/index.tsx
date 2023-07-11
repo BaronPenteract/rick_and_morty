@@ -49,10 +49,13 @@ const Episodes: React.FC = () => {
 
   if (status === Status.ERROR) {
     return (
-      <div className={styles.root}>
+      <section
+        className={styles.root}
+        aria-label="Some error of characters of Rick and Morty"
+      >
         <SearchForm onSubmit={handleSearchSubmit} status={status} />
         <ErrorBlock err={err} />
-      </div>
+      </section>
     );
   }
 

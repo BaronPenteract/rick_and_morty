@@ -1,18 +1,18 @@
 @import "../../utils/styles/variables";
 
 .root {
-  padding-bottom: 0px;
+  padding: 0px;
 
   position: relative;
   z-index: 1;
   width: 100%;
-  height: 420px;
+  height: 100%;
   box-sizing: border-box;
 
   display: flex;
-  flex-direction: column;
   align-items: center;
-  justify-content: flex-end;
+  justify-content: stretch;
+  gap: 10px;
 
   background-color: $primaryBGColorHSL;
   border-radius: $borderRadius;
@@ -21,163 +21,57 @@
   transition: box-shadow $transitionProps, padding $transitionProps;
 
   .header {
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 0;
+    flex-basis: 25%;
+    flex-shrink: 0;
 
-    align-self: flex-start;
-    width: 100%;
-    height: 74%;
+    height: 100%;
     margin: 0;
-    display: flex;
 
-    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
     overflow: hidden;
     background-color: $secondaryAccentColor;
     box-sizing: border-box;
 
     transition: opacity $transitionProps, height $transitionProps;
 
-    .avatar {
-      width: 100%;
-      object-fit: cover;
-      object-position: top center;
-      opacity: 1;
-      transform: scale(1.1);
+    .number {
+      display: block;
 
-      transition: transform $transitionProps, opacity $transitionProps 0.02s,
-        border-radius $transitionProps;
-    }
-
-    .name {
-      height: 100%;
       margin: 0;
       padding: 0;
 
-      font-weight: 500;
-      font-size: 20px;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-      overflow: hidden;
+      font-size: 2.4em;
+      color: inherit;
+      font-weight: 600;
     }
   }
 
   .content {
-    margin-top: -20px;
-    padding: 24px 10px 0;
-    width: 100%;
-    height: 18%;
+    flex-grow: 1;
 
-    position: relative;
-    z-index: 1;
-    box-sizing: border-box;
+    padding: 10px;
+    height: 100%;
 
-    align-self: flex-start;
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
+    justify-content: space-between;
 
-    color: darken($primaryTextColor, 16%);
-
-    background: $primaryBGColorHSL;
-    border-top-left-radius: $borderRadius;
-    border-top-right-radius: $borderRadius;
-    overflow: hidden;
-
-    transition: height $transitionProps, opacity $transitionProps,
-      box-shadow $transitionProps;
+    box-sizing: border-box;
 
     .name {
       margin: 0;
       padding: 0;
-      min-height: 2em;
 
-      font-weight: 500;
-      font-size: 24px;
+      font-size: 1em;
       color: inherit;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-      overflow: hidden;
-    }
-
-    .info {
-      visibility: hidden;
-      opacity: 0;
-
-      transition-delay: 0.2s;
-      transition: visibility $transitionProps, opacity $transitionProps;
-      list-style-type: none;
-      margin: 0;
-      padding: 0;
-
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-
-      li {
-        margin: 0;
-        padding: 0;
-
-        display: flex;
-        justify-content: space-between;
-        flex-wrap: wrap;
-        gap: 4px;
-
-        span {
-          font-weight: 600;
-          text-align: right;
-        }
-      }
-
-      .gender {
-        color: darken($primaryAccentColor, 10%);
-        font-size: 18px;
-        font-weight: 600;
-      }
-    }
-
-    .moreButtonContainer {
-      margin: auto auto 10px;
-    }
-
-    &:hover {
-      height: 50%;
-      box-shadow: 0 -50px 100px 20px darken($primaryBGColorHSL, 10%);
-
-      .info {
-        visibility: visible;
-        opacity: 1;
-        transition-delay: 0s;
-      }
-    }
-
-    &::after {
-      content: "";
-      display: block;
-      width: 10%;
-      height: 4px;
-
-      position: absolute;
-      top: 8px;
-      left: 50%;
-      z-index: 2;
-      transform: translateX(-50%);
-
-      border-radius: 2px;
-      background-color: darken($primaryTextColor, 16%);
-      opacity: 0.3;
+      font-weight: 500;
     }
   }
 
   &:hover {
     box-shadow: 0 16px 26px -8px darken($color: $primaryBGColorHSL, $amount: 20%);
-  }
-
-  &Active {
-    .avatar {
-      opacity: 0.2;
-      transform: translateX(-6%);
-    }
   }
 }

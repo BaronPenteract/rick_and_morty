@@ -14,11 +14,16 @@ const Episode: React.FC<IEpisodeProps> = ({ episode }) => {
   return (
     <article>
       <div className={`${styles.root}`}>
-        <div className={styles.header}>header</div>
+        <div className={styles.header}>
+          <p className={styles.number}>{id}</p>
+        </div>
         <div className={styles.content}>
           <h2 className={styles.name} title="Name">
             {name}
           </h2>
+          <ul>
+            <li>SmallViewChar</li>
+          </ul>
         </div>
       </div>
     </article>
