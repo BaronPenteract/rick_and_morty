@@ -1,7 +1,6 @@
 @import "../../utils/styles/variables.scss";
 
 .root {
-  flex-grow: 1;
   width: 100%;
   box-sizing: border-box;
 
@@ -14,8 +13,31 @@
   list-style-type: none;
   margin: 0;
   padding: 0;
-  display: grid;
-  justify-content: center;
-  grid-template-columns: repeat(auto-fill, 20px);
-  gap: 20px;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  gap: 5px;
+
+  li {
+    width: 42px;
+    height: 42px;
+
+    display: flex;
+
+    border-radius: $borderRadius;
+    overflow: hidden;
+
+    img {
+      width: 100%;
+      height: auto;
+
+      object-fit: contain;
+      object-position: center;
+    }
+
+    &:last-of-type {
+      font-size: 2em;
+      align-self: flex-end;
+    }
+  }
 }

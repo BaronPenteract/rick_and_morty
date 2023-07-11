@@ -29,7 +29,7 @@ const initialState: CharsSlice = {
   filterParams: {},
   charsCount: 0,
   currentPage: 1,
-  pages: 0,
+  pages: 1,
   prevPage: null,
   nextPage: null,
   status: Status.LOADING,
@@ -71,6 +71,33 @@ export const fetchChars = createAsyncThunk(
 
     try {
       const response = await axios.get<TFetchCharsResponse>(url.toString());
+
+      return response.data;
+      // тут чет хз
+    } catch (err: any) {
+      if (!err.response) {
+        throw err;
+      }
+
+      return rejectWithValue(err.response.data);
+    }
+  }
+);
+
+export const fetchCharsByIds = createAsyncThunk(
+  "chars/fetchCharsByIds",
+  async (
+    {
+      ids,
+    }: {
+      ids: number[];
+    },
+    { rejectWithValue }
+  ) => {
+    const url = new URL(BASE_URL + "/character/" + ids.toString());
+
+    try {
+      const response = await axios.get<TFetchCharResponse[]>(url.toString());
 
       return response.data;
       // тут чет хз
@@ -146,6 +173,18 @@ export const charsSlice = createSlice({
     builder.addCase(fetchChars.rejected, (state) => {
       state.status = Status.ERROR;
       state.chars = [];
+    });
+
+    builder.addCase(fetchCharsByIds.pending, (state) => {
+      state.status = Status.LOADING;
+    });
+
+    builder.addCase(fetchCharsByIds.fulfilled, (state, action) => {
+      state.status = Status.SUCCESS;
+    });
+
+    builder.addCase(fetchCharsByIds.rejected, (state) => {
+      state.status = Status.ERROR;
     });
 
     builder.addCase(fetchChar.pending, (state) => {

@@ -20,7 +20,7 @@ interface IEpisodeProps {
 // кол-во отображаемых персов в карточке эпизода
 const charsToShowCount = 4;
 
-const Episode: React.FC<IEpisodeProps> = ({ episode, onClick }) => {
+const EpisodeBigView: React.FC<IEpisodeProps> = ({ episode, onClick }) => {
   const dispatch = useAppDispatch();
 
   const { status } = useSelector(getCharsSelector);
@@ -76,4 +76,4 @@ const Episode: React.FC<IEpisodeProps> = ({ episode, onClick }) => {
   );
 };
 
-export default Episode;
+export default EpisodeBigView;
