@@ -6,15 +6,13 @@ import {
   IEpisode,
   IFetchEpisodesResponse,
   IFetchSingleEpisodeResponse,
+  IFilterParamsEpisodes,
 } from "../../@types/episodes";
+import { TFetchCharResponse } from "../../@types/chars";
 
 interface IEpisodesSlice {
   episodes: IEpisode[];
-  filterParams: {
-    page?: number | null;
-    name?: string;
-    episode?: string;
-  };
+  filterParams: IFilterParamsEpisodes;
   episodesCount: number;
   currentPage: number;
   pages: number;
@@ -28,7 +26,7 @@ const initialState: IEpisodesSlice = {
   filterParams: {},
   episodesCount: 0,
   currentPage: 1,
-  pages: 0,
+  pages: 1,
   prevPage: null,
   nextPage: null,
   status: Status.LOADING,
@@ -54,7 +52,7 @@ export const fetchEpisodes = createAsyncThunk(
       url.searchParams.set("page", page.toString());
     }
 
-    if (name) {
+    if (name && name !== "") {
       url.searchParams.set("name", name);
     }
 
@@ -64,6 +62,35 @@ export const fetchEpisodes = createAsyncThunk(
 
     try {
       const response = await axios.get<IFetchEpisodesResponse>(url.toString());
+
+      return response.data;
+      // тут чет хз
+    } catch (err: any) {
+      if (!err.response) {
+        throw err;
+      }
+
+      return rejectWithValue(err.response.data);
+    }
+  }
+);
+
+export const fetchEpisodesByIds = createAsyncThunk(
+  "episodes/fetchEpisodesByIds",
+  async (
+    {
+      ids,
+    }: {
+      ids: number[];
+    },
+    { rejectWithValue }
+  ) => {
+    const url = new URL(BASE_URL + "/episode/[" + ids.toString() + "]");
+
+    try {
+      const response = await axios.get<IFetchSingleEpisodeResponse[]>(
+        url.toString()
+      );
 
       return response.data;
       // тут чет хз
@@ -141,6 +168,18 @@ export const episodesSlice = createSlice({
     builder.addCase(fetchEpisodes.rejected, (state) => {
       state.status = Status.ERROR;
       state.episodes = [];
+    });
+
+    builder.addCase(fetchEpisodesByIds.pending, (state) => {
+      state.status = Status.LOADING;
+    });
+
+    builder.addCase(fetchEpisodesByIds.fulfilled, (state, action) => {
+      state.status = Status.SUCCESS;
+    });
+
+    builder.addCase(fetchEpisodesByIds.rejected, (state) => {
+      state.status = Status.ERROR;
     });
 
     builder.addCase(fetchEpisode.pending, (state) => {

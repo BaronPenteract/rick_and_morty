@@ -4,13 +4,6 @@
   flex-grow: 1;
   width: 100%;
   box-sizing: border-box;
-
-  @media screen and (max-width: $phone) {
-    padding: 0;
-  }
-}
-
-.charsList {
   list-style-type: none;
   margin: 0;
   padding: 0;
@@ -27,10 +20,5 @@
     article {
       height: 100%;
     }
-  }
-
-  @media screen and (max-width: $tablet) {
-    grid-template-columns: repeat(auto-fill, 280px);
-    grid-auto-rows: 90px;
   }
 }

@@ -14,6 +14,7 @@ import { Status } from "../../utils/constants";
 import {
   fetchEpisodes,
   setCurrentPage,
+  setFilterParams,
 } from "../../redux/episodes/episodesSlice";
 import { getEpisodesSelector } from "../../redux/episodes/selectors";
 import EpisodesList from "../../components/EpisodesList";
@@ -26,21 +27,57 @@ const EpisodesPage: React.FC = () => {
   const navigate = useNavigate();
 
   React.useEffect(() => {
-    dispatch(fetchEpisodes({}))
+    let page = Number(searchParams.get("page")) || 1;
+    let name = searchParams.get("name") || "";
+
+    if (page < 0) {
+      page = 1;
+    }
+    // здесь, чтобы ограничить ввод максимальным числом, нужно знать сколько всего страниц
+    /* if (page > pages) {
+      page = pages;
+    } */
+
+    const filterParams = { name, page };
+
+    dispatch(setCurrentPage(page));
+    dispatch(setFilterParams(filterParams));
+
+    dispatch(fetchEpisodes(filterParams))
       .unwrap()
-      .then((res) => {});
+      .then((res) => {
+        setSearchParams({ page: page.toString(), name });
+      })
+      .catch((err) => {
+        setErr(new Error(err.error));
+      });
   }, []);
 
-  const { episodes, pages, currentPage, nextPage, prevPage, status } =
-    useSelector(getEpisodesSelector);
+  const {
+    episodes,
+    pages,
+    currentPage,
+    nextPage,
+    prevPage,
+    status,
+    filterParams,
+  } = useSelector(getEpisodesSelector);
 
-  const handleSearchSubmit: THandleSearchSubmit = () => {
-    console.log("Episodes search submit");
+  const handleSearchSubmit: THandleSearchSubmit = ({ name }) => {
+    if (status === Status.LOADING) return;
+
+    setSearchParams({ page: "1", name });
+
+    dispatch(setCurrentPage(1));
+    dispatch(fetchEpisodes({ name }));
   };
 
   const handleClickPage = (page: number | null) => {
     if (!page || status !== Status.SUCCESS) return;
-    dispatch(fetchEpisodes({ page }))
+    let name = searchParams.get("name") || "";
+
+    setSearchParams({ page: page.toString(), name });
+    dispatch(fetchEpisodes({ page, name }))
       .unwrap()
       .then((res) => {
         dispatch(setCurrentPage(page));
@@ -53,15 +90,23 @@ const EpisodesPage: React.FC = () => {
         className={styles.root}
         aria-label="Some error of characters of Rick and Morty"
       >
-        <SearchForm onSubmit={handleSearchSubmit} status={status} />
+        <SearchForm
+          onSubmit={handleSearchSubmit}
+          filterParams={filterParams}
+          status={status}
+        />
         <ErrorBlock err={err} />
       </section>
     );
   }
 
   return (
-    <section className={styles.root} aria-label="Characters of Rick and Morty">
-      <SearchForm onSubmit={handleSearchSubmit} status={Status.SUCCESS} />
+    <section className={styles.root} aria-label="Episodes of Rick and Morty">
+      <SearchForm
+        onSubmit={handleSearchSubmit}
+        filterParams={filterParams}
+        status={Status.SUCCESS}
+      />
       <Pagination
         pages={pages}
         currentPage={currentPage}

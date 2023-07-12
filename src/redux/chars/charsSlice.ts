@@ -2,6 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import {
   CharType,
+  IFilterParamsChars,
   TFetchCharResponse,
   TFetchCharsResponse,
 } from "../../@types/chars";
@@ -10,12 +11,7 @@ import { getPageFromURL } from "../../utils/getPageFromURL";
 
 interface CharsSlice {
   chars: CharType[];
-  filterParams: {
-    page?: number | null;
-    name?: string;
-    status?: "alive" | "dead" | "unknown";
-    gender?: "female" | "male" | "genderless" | "unknown";
-  };
+  filterParams: IFilterParamsChars;
   charsCount: number;
   currentPage: number;
   pages: number;

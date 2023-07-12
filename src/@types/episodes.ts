@@ -18,4 +18,15 @@ export interface IFetchEpisodesResponse {
   results: IEpisode[];
 }
 
+export interface IFilterParamsEpisodes {
+  page?: number | null;
+  name?: string;
+  episode?: string;
+}
+
 export interface IFetchSingleEpisodeResponse extends IEpisode {}
+
+export interface IEpisodeProps {
+  episode: IEpisode;
+  onClick: (id: number) => void;
+}

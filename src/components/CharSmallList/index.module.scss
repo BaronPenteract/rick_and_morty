@@ -3,10 +3,6 @@
 .root {
   width: 100%;
   box-sizing: border-box;
-
-  @media screen and (max-width: $phone) {
-    padding: 0;
-  }
 }
 
 .charsList {
@@ -14,7 +10,7 @@
   margin: 0;
   padding: 0;
   display: flex;
-  justify-content: space-evenly;
+  justify-content: flex-start;
   align-items: center;
   gap: 5px;
 
@@ -38,6 +34,11 @@
     &:last-of-type {
       font-size: 2em;
       align-self: flex-end;
+    }
+
+    @media screen and (max-width: $tablet) {
+      width: 34px;
+      height: 34px;
     }
   }
 }

@@ -3,20 +3,20 @@
 .root {
   width: 100%;
   max-width: 1024px;
-  margin: 24px auto;
+  margin: 0 auto;
   box-sizing: border-box;
 
   display: grid;
   grid-template-areas:
-    "header header"
-    "content episodes";
-  grid-template-columns: 2fr 3fr;
-  grid-template-rows: 1fr 3fr;
+    "header"
+    "content"
+    "episodes";
+  grid-template-columns: 1fr;
+  grid-template-rows: 42vh 34vh 1fr;
   column-gap: 20px;
   color: darken($primaryTextColor, 20%);
 
   overflow: hidden;
-  border-radius: $borderRadius;
   background-color: darken($color: $primaryBGColorHSL, $amount: 0%);
   box-shadow: 0 8px 42px -8px darken($color: $primaryBGColorHSL, $amount: 20%);
 
@@ -49,17 +49,17 @@
   }
 
   .content {
-    padding: 0 34px 34px;
+    padding: 20px 34px;
     grid-area: content;
     z-index: 1;
 
     display: flex;
-    flex-direction: column;
     align-items: center;
     gap: 24px;
 
+    box-shadow: 0 0px 62px 74px $secondaryBGColorHSL;
     box-sizing: border-box;
-    background-color: darken($color: $secondaryBGColorHSL, $amount: 0%);
+    background-color: $secondaryBGColorHSL;
 
     .contentHeader {
       display: grid;
@@ -75,7 +75,7 @@
         justify-self: center;
         position: relative;
         margin-bottom: 24px;
-        margin-top: -121px;
+        margin-top: -64%;
         width: 242px;
         height: 242px;
 
@@ -86,7 +86,7 @@
         overflow: hidden;
 
         border-radius: $borderRadius;
-        box-shadow: 0 -8px 42px -8px
+        box-shadow: 0 -18px 42px -8px
           darken($color: $primaryBGColorHSL, $amount: 20%);
 
         img {
@@ -124,16 +124,6 @@
         }
       }
 
-      .name {
-        grid-area: name;
-        width: 100%;
-        margin: 0;
-        padding: 0;
-
-        color: inherit;
-        text-align: center;
-      }
-
       .subTitle {
         grid-area: subname;
         width: 100%;
@@ -146,10 +136,22 @@
 
         color: inherit;
       }
+    }
 
-      @media screen and (max-width: $tablet) {
+    .contentMain {
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+
+      .name {
+        grid-area: name;
         width: 100%;
-        max-width: 500px;
+        margin: 0;
+        padding: 0;
+
+        color: inherit;
+        text-align: center;
       }
     }
 
@@ -191,7 +193,7 @@
     .contentFooter {
       width: 100%;
       list-style-type: none;
-      margin: auto 0 0;
+      margin: 0;
       padding: 0;
 
       display: flex;
@@ -235,19 +237,21 @@
     }
 
     @media screen and (max-width: $tablet) {
-      gap: 16px;
+      gap: 10px;
+      padding: 20px 10px;
+    }
+
+    @media screen and (max-width: $phone) {
+      flex-direction: column;
     }
   }
 
   .episodes {
+    display: flex;
     grid-area: episodes;
 
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-
-    display: grid;
-    grid-template-columns: repeat(auto-fill, 50px);
+    padding: 20px 0;
+    min-height: 20vh;
   }
 
   @media screen and (max-width: $tablet) {
@@ -256,9 +260,8 @@
       "content"
       "episodes";
     grid-template-columns: 1fr;
-  }
-
-  @media screen and (max-width: $phone) {
+    grid-template-rows: 34vh 1fr;
+    font-size: 0.9em;
   }
 }
 .backButton {

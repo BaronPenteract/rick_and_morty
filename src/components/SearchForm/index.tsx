@@ -1,4 +1,4 @@
-import React, { ReactElement } from "react";
+import React from "react";
 import styles from "./index.module.scss";
 import SearchSVG from "../svg/SearchSVG";
 import { TSearchFormProps } from "../../@types/TSearchForm";
@@ -7,9 +7,11 @@ import { getCharsSelector } from "../../redux/chars/selectors";
 import Preloader from "../Preloader";
 import { Status } from "../../utils/constants";
 
-const SearchForm: React.FC<TSearchFormProps> = ({ onSubmit, status }) => {
-  const { filterParams } = useSelector(getCharsSelector);
-
+const SearchForm: React.FC<TSearchFormProps> = ({
+  onSubmit,
+  filterParams,
+  status,
+}) => {
   const [searchValue, setSearchValue] = React.useState("");
 
   React.useEffect(() => {

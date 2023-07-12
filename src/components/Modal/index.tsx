@@ -25,6 +25,10 @@ const Modal: React.FC<TModalProps> = ({ isOpen, setIsOpen, children }) => {
       document.body.style.overflow = "visible";
       document.onkeydown = null;
     }
+    return () => {
+      document.body.style.overflow = "visible";
+      document.onkeydown = null;
+    };
   }, [isOpen]);
 
   const handleCloseClick: React.MouseEventHandler = (e) => {

@@ -29,4 +29,11 @@ export type TFetchCharsResponse = {
   results: CharType[];
 };
 
+export interface IFilterParamsChars {
+  page?: number | null;
+  name?: string;
+  status?: "alive" | "dead" | "unknown";
+  gender?: "female" | "male" | "genderless" | "unknown";
+}
+
 export type TFetchCharResponse = CharType;

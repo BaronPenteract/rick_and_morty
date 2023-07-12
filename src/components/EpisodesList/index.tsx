@@ -6,9 +6,6 @@ import { IEpisode } from "../../@types/episodes";
 
 import styles from "./index.module.scss";
 import Episode from "../Episode";
-import Modal from "../Modal";
-import { CharType } from "../../@types/chars";
-import EpisodeBigView from "../EpisodeBigView";
 import ErrorBlock from "../ErrorBlock";
 import { rootPath } from "../../utils/constants";
 

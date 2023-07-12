@@ -1,5 +1,5 @@
 import React from "react";
-import { IEpisode } from "../../@types/episodes";
+import { IEpisode, IEpisodeProps } from "../../@types/episodes";
 
 import styles from "./index.module.scss";
 import { CharType } from "../../@types/chars";
@@ -11,11 +11,6 @@ import { getCharsSelector } from "../../redux/chars/selectors";
 import CharSmallList from "../CharSmallList";
 import { Status } from "../../utils/constants";
 import Preloader from "../Preloader";
-
-interface IEpisodeProps {
-  episode: IEpisode;
-  onClick: (id: number) => void;
-}
 
 // кол-во отображаемых персов в карточке эпизода
 const charsToShowCount = 4;

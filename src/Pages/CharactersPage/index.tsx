@@ -23,8 +23,15 @@ const CharactersPage: React.FC = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  const { chars, prevPage, nextPage, pages, currentPage, status } =
-    useSelector(getCharsSelector);
+  const {
+    chars,
+    prevPage,
+    nextPage,
+    pages,
+    currentPage,
+    status,
+    filterParams,
+  } = useSelector(getCharsSelector);
 
   // при 1й загрузке получаем первую страницу и кол-во страниц всего, чтобы в след-ем Эффекте ограничить максимально возможное кол-во страниц в
   React.useEffect(() => {
@@ -84,7 +91,11 @@ const CharactersPage: React.FC = () => {
   if (status === Status.ERROR) {
     return (
       <div className={styles.root}>
-        <SearchForm onSubmit={handleSearchSubmit} status={status} />
+        <SearchForm
+          onSubmit={handleSearchSubmit}
+          filterParams={filterParams}
+          status={status}
+        />
         <ErrorBlock err={err} />
       </div>
     );
@@ -92,7 +103,11 @@ const CharactersPage: React.FC = () => {
 
   return (
     <section className={styles.root} aria-label="Characters of Rick and Morty">
-      <SearchForm onSubmit={handleSearchSubmit} status={status} />
+      <SearchForm
+        onSubmit={handleSearchSubmit}
+        filterParams={filterParams}
+        status={status}
+      />
       <Pagination
         handleClickPage={handleClickPage}
         currentPage={currentPage}
