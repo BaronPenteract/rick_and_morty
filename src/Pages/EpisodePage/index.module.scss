@@ -104,8 +104,29 @@
 
           font-size: 3em;
           font-weight: 600;
+
+          @media screen and (max-width: $tablet) {
+            font-size: 2em;
+          }
+
+          @media screen and (max-width: $phone) {
+            font-size: 1.5em;
+          }
         }
       }
+
+      @media screen and (max-width: $tablet) {
+        font-size: 14px;
+      }
+
+      @media screen and (max-width: $phone) {
+        padding: 20px 10px;
+        gap: 24px;
+      }
+    }
+
+    @media screen and (max-width: $phone) {
+      min-height: 42vh;
     }
   }
 

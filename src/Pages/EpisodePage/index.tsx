@@ -78,24 +78,22 @@ const EpisodePage: React.FC = () => {
           return <img key={char.id} src={char.image} alt="background" />;
         })}
       </div>
-      <div className={`${styles.root}`}>
-        <div className={styles.header}>
-          <div className={styles.container}>
-            <div className={styles.title}>
-              <span className={styles.prefix}>Episode #{id}:</span>
-              <h2 className={styles.name} title={name}>
-                {name}
-              </h2>
-            </div>
-            <div className={styles.containerFooter}>
-              <p className={styles.code}>{code}</p>
-              <p className={styles.date}>Air date: {air_date}</p>
-            </div>
+      <div className={styles.header}>
+        <div className={styles.container}>
+          <div className={styles.title}>
+            <span className={styles.prefix}>Episode #{id}:</span>
+            <h2 className={styles.name} title={name}>
+              {name}
+            </h2>
+          </div>
+          <div className={styles.containerFooter}>
+            <p className={styles.code}>{code}</p>
+            <p className={styles.date}>Air date: {air_date}</p>
           </div>
         </div>
-        <div className={styles.content}>
-          <CharList chars={charsInEpisode} />
-        </div>
+      </div>
+      <div className={styles.content}>
+        <CharList chars={charsInEpisode} />
       </div>
     </section>
   );
