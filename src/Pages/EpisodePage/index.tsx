@@ -69,7 +69,7 @@ const EpisodePage: React.FC = () => {
     );
   }
 
-  const { id, name, episode: code, characters, url } = episode;
+  const { id, name, episode: code, characters, url, air_date } = episode;
 
   return (
     <section className={styles.root} aria-label={`Episode: ${episode?.name}`}>
@@ -80,10 +80,18 @@ const EpisodePage: React.FC = () => {
       </div>
       <div className={`${styles.root}`}>
         <div className={styles.header}>
-          <p className={styles.number}>{id}</p>
-          <h2 className={styles.name} title={name}>
-            {name}
-          </h2>
+          <div className={styles.container}>
+            <div className={styles.title}>
+              <span className={styles.prefix}>Episode #{id}:</span>
+              <h2 className={styles.name} title={name}>
+                {name}
+              </h2>
+            </div>
+            <div className={styles.containerFooter}>
+              <p className={styles.code}>{code}</p>
+              <p className={styles.date}>Air date: {air_date}</p>
+            </div>
+          </div>
         </div>
         <div className={styles.content}>
           <CharList chars={charsInEpisode} />
