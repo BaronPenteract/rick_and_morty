@@ -9,12 +9,12 @@ import charactersBG from "../../assets/images/chars-bg.png";
 import locationsBG from "../../assets/images/locs-bg.jpg";
 import episodesBG from "../../assets/images/episodes-bg.jpg";
 
-import { rootPath } from "../../utils/constants";
+import { PROJECT_TITLE, rootPath } from "../../utils/constants";
 
 import styles from "./index.module.scss";
 
 const defaultNavItem: INavItem = {
-  title: "Rick and Morty Explorer",
+  title: PROJECT_TITLE,
   to: rootPath,
   image: mainBG,
 };
@@ -26,10 +26,28 @@ const navItems: INavItem[] = [
   { title: "Episodes", to: "episodes", image: episodesBG },
 ];
 
+const upDownAnimation = {
+  hidden: {
+    y: -100,
+    opacity: 0,
+  },
+  visible: (custom: number) => ({
+    y: 0,
+    opacity: 1,
+    transition: {
+      delay: custom * 0.2,
+    },
+  }),
+};
+
 const Main: React.FC = () => {
   const navigate = useNavigate();
 
   const [hoveredNavItem, setHoveredNavItem] = React.useState(navItems[0]);
+
+  React.useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   const handleClickNav: (navItem: INavItem) => void = (navItem) => {
     navigate(navItem.to);
@@ -39,8 +57,30 @@ const Main: React.FC = () => {
     setHoveredNavItem(navItem);
   };
 
+  const navButtons = navItems.map((item, idx) => {
+    if (idx === 0) return <></>;
+    return (
+      <motion.button
+        key={idx}
+        className={styles.button}
+        onClick={() => handleClickNav(item)}
+        onMouseEnter={() => handleHover(item)}
+        onMouseLeave={() => handleHover(navItems[0])}
+        variants={upDownAnimation}
+        custom={idx}
+      >
+        <p>{item.title}</p>
+      </motion.button>
+    );
+  });
+
   return (
-    <section className={styles.root}>
+    <motion.section
+      className={styles.root}
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ amount: 0.8 }}
+    >
       {navItems.map((item, idx) => {
         return (
           <img
@@ -53,36 +93,27 @@ const Main: React.FC = () => {
           />
         );
       })}
-      <motion.nav
-        className={styles.nav}
-        initial={{ top: -100, opacity: 0 }}
-        animate={{
-          top: 0,
-          opacity: 1,
-        }}
-        transition={{
-          delay: 1,
-        }}
-      >
-        {navItems.map((item, idx) => {
-          if (idx === 0) return <></>;
-          return (
-            <button
-              key={idx}
-              className={styles.button}
-              onClick={() => handleClickNav(item)}
-              onMouseEnter={() => handleHover(item)}
-              onMouseLeave={() => handleHover(navItems[0])}
-            >
-              <p>{item.title}</p>
-            </button>
-          );
-        })}
-      </motion.nav>
+      <nav className={styles.nav}>{navButtons}</nav>
       <div className={styles.header}>
-        <h1 className={styles.title}>Rick and Morty Explorer</h1>
+        <motion.h1
+          className={styles.title}
+          initial={{
+            top: -100,
+            opacity: 0,
+          }}
+          animate={{
+            top: 0,
+            opacity: 1,
+          }}
+          transition={{
+            delay: 1.5,
+            duration: 0.5,
+          }}
+        >
+          {PROJECT_TITLE}
+        </motion.h1>
       </div>
-    </section>
+    </motion.section>
   );
 };
 

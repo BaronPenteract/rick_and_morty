@@ -10,8 +10,37 @@
   display: flex;
   box-sizing: border-box;
   position: relative;
-  z-index: 1;
+  z-index: 1001;
   background-color: $secondaryBGColorHSL;
+
+  .containerHidden {
+    position: absolute;
+    bottom: 100%;
+    left: 0;
+    z-index: -1;
+
+    width: 100%;
+    height: 50vh;
+
+    display: flex;
+
+    box-shadow: 0px 0px 100px 120px $secondaryBGColorHSL;
+    background: $secondaryBGColorHSL;
+    transform-origin: bottom;
+
+    .wrapper {
+      flex-grow: 1;
+      max-width: $maxWidth;
+      margin: 0 auto;
+      box-sizing: border-box;
+
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+    }
+  }
 
   .container {
     flex-grow: 1;
@@ -27,6 +56,7 @@
 
   .content {
     display: flex;
+    justify-content: center;
   }
 
   .info {
@@ -34,6 +64,17 @@
     justify-content: space-between;
     align-items: center;
     gap: 10px;
+  }
+
+  .link {
+    color: inherit;
+    text-decoration: none;
+
+    transition: color $transitionProps;
+
+    &:hover {
+      color: $primaryAccentColor;
+    }
   }
 
   @media screen and (max-width: $phone) {
