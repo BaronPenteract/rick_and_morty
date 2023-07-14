@@ -1,4 +1,5 @@
 import React from "react";
+import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 
 import { INavItem } from "../../@types/mainComponent";
@@ -52,7 +53,17 @@ const Main: React.FC = () => {
           />
         );
       })}
-      <nav className={styles.nav}>
+      <motion.nav
+        className={styles.nav}
+        initial={{ top: -100, opacity: 0 }}
+        animate={{
+          top: 0,
+          opacity: 1,
+        }}
+        transition={{
+          delay: 1,
+        }}
+      >
         {navItems.map((item, idx) => {
           if (idx === 0) return <></>;
           return (
@@ -67,7 +78,7 @@ const Main: React.FC = () => {
             </button>
           );
         })}
-      </nav>
+      </motion.nav>
       <div className={styles.header}>
         <h1 className={styles.title}>Rick and Morty Explorer</h1>
       </div>

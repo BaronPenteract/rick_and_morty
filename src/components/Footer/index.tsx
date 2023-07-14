@@ -7,7 +7,7 @@ const Footer: React.FC = () => {
   return (
     <footer className={styles.root}>
       <div className={styles.container}>
-        <div className={styles.content}>content</div>
+        <div className={styles.content}></div>
         <div className={styles.info}>
           <ApiLink />
           <GitHubLink />
