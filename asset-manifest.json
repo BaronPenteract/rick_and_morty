@@ -1,16 +1,18 @@
 {
   "files": {
-    "main.css": "/rick_and_morty/static/css/main.2216e93f.css",
-    "main.js": "/rick_and_morty/static/js/main.819052a7.js",
-    "static/media/chars-bg.png": "/rick_and_morty/static/media/chars-bg.df828a4ed74fe23aaaa1.png",
-    "static/media/locs-bg.jpg": "/rick_and_morty/static/media/locs-bg.46ad6addc49ff197a9de.jpg",
-    "static/media/episodes-bg.jpg": "/rick_and_morty/static/media/episodes-bg.4aeac0d66b0a4567766f.jpg",
+    "main.css": "/rick_and_morty/static/css/main.8b7f9171.css",
+    "main.js": "/rick_and_morty/static/js/main.96d26d18.js",
+    "static/media/main-bg.jpg": "/rick_and_morty/static/media/main-bg.115bb1f9f6e33d3773f5.jpg",
+    "static/media/locs-bg.jpg": "/rick_and_morty/static/media/locs-bg.a7cd4ed050d9ffc070b4.jpg",
+    "static/media/chars-bg.png": "/rick_and_morty/static/media/chars-bg.4b9365c5e0eb9eb7f862.png",
+    "static/media/episodes-bg.jpg": "/rick_and_morty/static/media/episodes-bg.ebc71e672bbf1336877e.jpg",
+    "static/media/github-svgrepo-com.svg": "/rick_and_morty/static/media/github-svgrepo-com.bb602bfb019d2268257280951b49a450.svg",
     "index.html": "/rick_and_morty/index.html",
-    "main.2216e93f.css.map": "/rick_and_morty/static/css/main.2216e93f.css.map",
-    "main.819052a7.js.map": "/rick_and_morty/static/js/main.819052a7.js.map"
+    "main.8b7f9171.css.map": "/rick_and_morty/static/css/main.8b7f9171.css.map",
+    "main.96d26d18.js.map": "/rick_and_morty/static/js/main.96d26d18.js.map"
   },
   "entrypoints": [
-    "static/css/main.2216e93f.css",
-    "static/js/main.819052a7.js"
+    "static/css/main.8b7f9171.css",
+    "static/js/main.96d26d18.js"
   ]
 }
