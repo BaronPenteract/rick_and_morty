@@ -1,18 +1,37 @@
 @import "../../utils/styles/variables.scss";
 
 .root {
-  justify-self: center;
   grid-area: footer;
-  background-color: mix($primaryAccentColor, $secondaryAccentColor, 40%);
+  justify-self: center;
+
   width: 100%;
-  padding: 0 20px;
+  min-height: 50vh;
+  padding: 20px 20px;
+  display: flex;
   box-sizing: border-box;
   position: relative;
   z-index: 1;
+  background-color: $secondaryBGColorHSL;
 
   .container {
+    flex-grow: 1;
     max-width: $maxWidth;
     margin: 0 auto;
     box-sizing: border-box;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 10px;
+  }
+
+  .content {
+  }
+
+  .info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
   }
 }
