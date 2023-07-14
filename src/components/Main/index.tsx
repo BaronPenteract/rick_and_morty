@@ -1,35 +1,77 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
+import { INavItem } from "../../@types/mainComponent";
+
+import mainBG from "../../assets/images/main-bg.jpg";
+import charactersBG from "../../assets/images/chars-bg.png";
+import locationsBG from "../../assets/images/locs-bg.jpg";
+import episodesBG from "../../assets/images/episodes-bg.jpg";
+
+import { rootPath } from "../../utils/constants";
+
 import styles from "./index.module.scss";
+
+const defaultNavItem: INavItem = {
+  title: "Rick and Morty Explorer",
+  to: rootPath,
+  image: mainBG,
+};
+
+const navItems: INavItem[] = [
+  defaultNavItem,
+  { title: "Characters", to: "characters", image: charactersBG },
+  { title: "Locations", to: "locations", image: locationsBG },
+  { title: "Episodes", to: "episodes", image: episodesBG },
+];
 
 const Main: React.FC = () => {
   const navigate = useNavigate();
 
-  const handleClickGetChars = () => {
-    navigate("characters");
+  const [hoveredNavItem, setHoveredNavItem] = React.useState(navItems[0]);
+
+  const handleClickNav: (navItem: INavItem) => void = (navItem) => {
+    navigate(navItem.to);
   };
 
-  const handleClickGetLocations = () => {
-    navigate("locations");
-  };
-
-  const handleClickGetEpisodes = () => {
-    navigate("episodes");
+  const handleHover: (navItem: INavItem) => void = (navItem) => {
+    setHoveredNavItem(navItem);
   };
 
   return (
-    <nav className={styles.root}>
-      <button className={styles.button} onClick={handleClickGetChars}>
-        <p>Characters</p>
-      </button>
-      <button className={styles.button} onClick={handleClickGetLocations}>
-        <p>Locations</p>
-      </button>
-      <button className={styles.button} onClick={handleClickGetEpisodes}>
-        <p>Episodes</p>
-      </button>
-    </nav>
+    <section className={styles.root}>
+      {navItems.map((item, idx) => {
+        return (
+          <img
+            key={idx}
+            className={`${styles.bg} ${
+              hoveredNavItem.title === item.title ? "" : styles.bgHidden
+            }`}
+            src={item.image}
+            alt={item.title}
+          />
+        );
+      })}
+      <nav className={styles.nav}>
+        {navItems.map((item, idx) => {
+          if (idx === 0) return <></>;
+          return (
+            <button
+              key={idx}
+              className={styles.button}
+              onClick={() => handleClickNav(item)}
+              onMouseEnter={() => handleHover(item)}
+              onMouseLeave={() => handleHover(navItems[0])}
+            >
+              <p>{item.title}</p>
+            </button>
+          );
+        })}
+      </nav>
+      <div className={styles.header}>
+        <h1 className={styles.title}>Rick and Morty Explorer</h1>
+      </div>
+    </section>
   );
 };
 
