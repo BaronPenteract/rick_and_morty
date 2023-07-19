@@ -32,59 +32,6 @@
     }
   }
 
-  .toggleButton {
-    width: 16px;
-    margin: 0;
-    padding: 0;
-
-    background-color: transparent;
-    border: none;
-    cursor: pointer;
-
-    fill: darken($primaryTextColor, 20%);
-    stroke: darken($primaryTextColor, 20%);
-
-    transition: fill $transitionProps, stroke $transitionProps;
-
-    .svg {
-      fill: inherit;
-      stroke: inherit;
-    }
-
-    &:hover {
-      fill: darken($secondaryTextColor, 20%);
-      stroke: darken($secondaryTextColor, 20%);
-    }
-
-    &:disabled {
-      fill: darken(
-        hsl($primaryTextColorH, $disabledColorS, $primaryTextColorL),
-        30%
-      );
-      stroke: darken(
-        hsl($primaryTextColorH, $disabledColorS, $primaryTextColorL),
-        30%
-      );
-      cursor: default;
-
-      &:hover {
-        fill: darken(
-          hsl($primaryTextColorH, $disabledColorS, $primaryTextColorL),
-          30%
-        );
-        stroke: darken(
-          hsl($primaryTextColorH, $disabledColorS, $primaryTextColorL),
-          30%
-        );
-      }
-    }
-  }
-
-  .toggleButtonRemove:hover {
-    fill: darken(red, 10%);
-    stroke: darken(red, 10%);
-  }
-
   .Alive {
     font-weight: 600;
     color: darken($primaryAccentColor, 10%);

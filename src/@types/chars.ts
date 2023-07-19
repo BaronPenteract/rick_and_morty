@@ -17,6 +17,7 @@ export type CharType = {
   episode: string[];
   url: string;
   created: string;
+  isLiked?: boolean;
 };
 
 export type TFetchCharsResponse = {

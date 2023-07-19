@@ -1,6 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import { fetchChars, setFilterParams } from "../../redux/chars/charsSlice";
 import { getCharsSelector } from "../../redux/chars/selectors";
 import { useAppDispatch } from "../../redux/store";
@@ -15,13 +15,16 @@ import { setCurrentPage } from "../../redux/chars/charsSlice";
 import { THandleSearchSubmit } from "../../@types/TSearchForm";
 import ErrorBlock from "../../components/ErrorBlock";
 import { Status } from "../../utils/constants";
+import { CharType } from "../../@types/chars";
 
 const CharactersPage: React.FC = () => {
   const [err, setErr] = React.useState<Error>(new Error("404 Not found."));
   const [searchParams, setSearchParams] = useSearchParams();
+  const [charsToRender, setCharsToRender] = React.useState<CharType[]>([]);
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const location = useLocation();
 
   const {
     chars,
@@ -33,41 +36,39 @@ const CharactersPage: React.FC = () => {
     filterParams,
   } = useSelector(getCharsSelector);
 
-  // при 1й загрузке получаем первую страницу и кол-во страниц всего, чтобы в след-ем Эффекте ограничить максимально возможное кол-во страниц в
   React.useEffect(() => {
-    dispatch(setCurrentPage(null));
-    dispatch(fetchChars({}))
-      .unwrap()
-      .catch((e) => {
-        setErr(new Error(e.error));
-      });
-  }, []);
+    if (location.search) {
+      let page = Number(searchParams.get("page")) || 1;
+      let name = searchParams.get("name") || "";
+      if (page < 0) {
+        page = 1;
+      }
+      const filterParams = { name, page };
+
+      dispatch(setFilterParams(filterParams));
+      dispatch(setCurrentPage(page));
+      dispatch(fetchChars(filterParams))
+        .unwrap()
+        .catch((e) => {
+          setErr(new Error(e.error));
+        });
+    } else {
+      dispatch(setFilterParams({}));
+      dispatch(setCurrentPage(1));
+    }
+  }, [location.search, navigate]);
 
   React.useEffect(() => {
-    let page = Number(searchParams.get("page")) || 1;
-    let name = searchParams.get("name") || "";
+    setCharsToRender(chars);
+  }, [chars]);
 
-    if (page < 0) {
-      page = 1;
-    }
-    // здесь, чтобы ограничить ввод максимальным числом, нужно знать сколько всего страниц
-    if (page > pages) {
-      page = pages;
-    }
-
-    const filterParams = { name, page };
-
-    dispatch(setCurrentPage(page));
-    dispatch(setFilterParams(filterParams));
+  React.useEffect(() => {
     dispatch(fetchChars(filterParams))
       .unwrap()
-      .then(() => {
-        setSearchParams({ page: page.toString(), name });
-      })
       .catch((e) => {
         setErr(new Error(e.error));
       });
-  }, [pages]);
+  }, [filterParams]);
 
   const handleClickPage = async (page: number | null) => {
     if (!page || status !== Status.SUCCESS) return;
@@ -117,7 +118,11 @@ const CharactersPage: React.FC = () => {
         pages={pages}
         status={status}
       />
-      {status === Status.LOADING ? <Preloader /> : <CharList chars={chars} />}
+      {status === Status.LOADING ? (
+        <Preloader />
+      ) : (
+        <CharList chars={charsToRender} />
+      )}
       <Pagination
         handleClickPage={handleClickPage}
         currentPage={currentPage}

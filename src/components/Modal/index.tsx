@@ -42,7 +42,7 @@ const Modal: React.FC<TModalProps> = ({ isOpen, setIsOpen, children }) => {
       className={`${styles.root} ${isOpen ? styles.rootActive : ""}`}
       onClick={handleCloseClick}
     >
-      {children}
+      <div className={styles.container}>{children}</div>
     </div>
   );
 };

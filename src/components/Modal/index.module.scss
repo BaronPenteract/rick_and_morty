@@ -30,4 +30,9 @@
 .rootActive {
   visibility: visible;
   opacity: 1;
+  cursor: pointer;
+}
+
+.container {
+  cursor: default;
 }

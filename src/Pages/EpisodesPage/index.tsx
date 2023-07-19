@@ -1,6 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import { useAppDispatch } from "../../redux/store";
 
 import styles from "./index.module.scss";
@@ -25,33 +25,7 @@ const EpisodesPage: React.FC = () => {
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-
-  React.useEffect(() => {
-    let page = Number(searchParams.get("page")) || 1;
-    let name = searchParams.get("name") || "";
-
-    if (page < 0) {
-      page = 1;
-    }
-    // здесь, чтобы ограничить ввод максимальным числом, нужно знать сколько всего страниц
-    /* if (page > pages) {
-      page = pages;
-    } */
-
-    const filterParams = { name, page };
-
-    dispatch(setCurrentPage(page));
-    dispatch(setFilterParams(filterParams));
-
-    dispatch(fetchEpisodes(filterParams))
-      .unwrap()
-      .then((res) => {
-        setSearchParams({ page: page.toString(), name });
-      })
-      .catch((err) => {
-        setErr(new Error(err.error));
-      });
-  }, []);
+  const location = useLocation();
 
   const {
     episodes,
@@ -62,6 +36,36 @@ const EpisodesPage: React.FC = () => {
     status,
     filterParams,
   } = useSelector(getEpisodesSelector);
+
+  React.useEffect(() => {
+    if (location.search) {
+      let page = Number(searchParams.get("page")) || 1;
+      let name = searchParams.get("name") || "";
+      if (page < 0) {
+        page = 1;
+      }
+      const filterParams = { name, page };
+
+      dispatch(setFilterParams(filterParams));
+      dispatch(setCurrentPage(page));
+      dispatch(fetchEpisodes(filterParams))
+        .unwrap()
+        .catch((e) => {
+          setErr(new Error(e.error));
+        });
+    } else {
+      dispatch(setFilterParams({}));
+      dispatch(setCurrentPage(1));
+    }
+  }, [location.search, navigate]);
+
+  React.useEffect(() => {
+    dispatch(fetchEpisodes(filterParams))
+      .unwrap()
+      .catch((e) => {
+        setErr(new Error(e.error));
+      });
+  }, [filterParams]);
 
   const handleSearchSubmit: THandleSearchSubmit = ({ name }) => {
     if (status === Status.LOADING) return;

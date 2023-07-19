@@ -11,6 +11,7 @@ import CharacterPage from "../../Pages/CharacterPage";
 import { rootPath } from "../../utils/constants";
 import EpisodesPage from "../../Pages/EpisodesPage";
 import EpisodePage from "../../Pages/EpisodePage";
+import FavoriteCharactersPage from "../../Pages/FavoriteCharactersPage";
 
 const App: React.FC = () => {
   return (
@@ -27,6 +28,10 @@ const App: React.FC = () => {
             <Route path="character/:id" element={<CharacterPage />} />
             <Route path="episodes" element={<EpisodesPage />} />
             <Route path="episode/:id" element={<EpisodePage />} />
+            <Route
+              path="favorite-characters"
+              element={<FavoriteCharactersPage />}
+            />
           </Route>
           <Route path="*" element={<Navigate to={rootPath} />} />
         </Routes>

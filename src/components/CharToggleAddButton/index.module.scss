@@ -1,0 +1,54 @@
+@import "../../utils/styles/variables";
+
+.root {
+  width: 16px;
+  margin: 0;
+  padding: 0;
+
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+
+  fill: darken($primaryTextColor, 20%);
+  stroke: darken($primaryTextColor, 20%);
+
+  transition: fill $transitionProps, stroke $transitionProps;
+
+  .svg {
+    fill: inherit;
+    stroke: inherit;
+  }
+
+  &:hover {
+    fill: darken($secondaryTextColor, 20%);
+    stroke: darken($secondaryTextColor, 20%);
+  }
+
+  &:disabled {
+    fill: darken(
+      hsl($primaryTextColorH, $disabledColorS, $primaryTextColorL),
+      30%
+    );
+    stroke: darken(
+      hsl($primaryTextColorH, $disabledColorS, $primaryTextColorL),
+      30%
+    );
+    cursor: default;
+
+    &:hover {
+      fill: darken(
+        hsl($primaryTextColorH, $disabledColorS, $primaryTextColorL),
+        30%
+      );
+      stroke: darken(
+        hsl($primaryTextColorH, $disabledColorS, $primaryTextColorL),
+        30%
+      );
+    }
+  }
+}
+
+.rootRemove:hover {
+  fill: darken(red, 10%);
+  stroke: darken(red, 10%);
+}

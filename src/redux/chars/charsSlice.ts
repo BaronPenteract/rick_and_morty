@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import {
   CharType,
@@ -11,6 +11,7 @@ import { getPageFromURL } from "../../utils/getPageFromURL";
 
 interface CharsSlice {
   chars: CharType[];
+  favChars: CharType[];
   filterParams: IFilterParamsChars;
   charsCount: number;
   currentPage: number;
@@ -22,6 +23,7 @@ interface CharsSlice {
 
 const initialState: CharsSlice = {
   chars: [],
+  favChars: [],
   filterParams: {},
   charsCount: 0,
   currentPage: 1,
@@ -150,6 +152,34 @@ export const charsSlice = createSlice({
     setFilterParams(state, action) {
       state.filterParams = action.payload;
     },
+    like(state, action: PayloadAction<CharType>) {
+      const likedChar = action.payload;
+
+      state.favChars.push({ ...likedChar, isLiked: true });
+
+      state.chars = state.chars.map((char) => {
+        if (char.id === likedChar.id) {
+          return { ...likedChar, isLiked: true };
+        } else {
+          return char;
+        }
+      });
+    },
+    dislike(state, action: PayloadAction<CharType>) {
+      const dislikedChar = action.payload;
+
+      state.favChars = state.favChars.filter(
+        (char) => char.id !== dislikedChar.id
+      );
+
+      state.chars = state.chars.map((char) => {
+        if (char.id === dislikedChar.id) {
+          return { ...dislikedChar, isLiked: false };
+        } else {
+          return char;
+        }
+      });
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(fetchChars.pending, (state) => {
@@ -159,11 +189,20 @@ export const charsSlice = createSlice({
 
     builder.addCase(fetchChars.fulfilled, (state, action) => {
       state.status = Status.SUCCESS;
-      state.chars = action.payload.results;
       state.charsCount = action.payload.info.count;
       state.prevPage = getPageFromURL(action.payload.info.prev) || null;
       state.nextPage = getPageFromURL(action.payload.info.next) || null;
       state.pages = action.payload.info.pages;
+
+      // Проверяем пришедший с АПИ массив на то, содержатся ли в нем лайкнутые Чары (favChars),
+      // если да, то меняем пришедший Чар лайкнутым
+      state.chars = action.payload.results.map((fetchedChar) => {
+        return (
+          state.favChars.find((favChar) => {
+            return favChar.id === fetchedChar.id;
+          }) || fetchedChar
+        );
+      });
     });
 
     builder.addCase(fetchChars.rejected, (state) => {
@@ -177,6 +216,16 @@ export const charsSlice = createSlice({
 
     builder.addCase(fetchCharsByIds.fulfilled, (state, action) => {
       state.status = Status.SUCCESS;
+
+      // Проверяем пришедший с АПИ массив на то, содержатся ли в нем лайкнутые Чары (favChars),
+      // если да, то меняем пришедший Чар лайкнутым
+      state.chars = action.payload.map((fetchedChar) => {
+        return (
+          state.favChars.find((favChar) => {
+            return favChar.id === fetchedChar.id;
+          }) || fetchedChar
+        );
+      });
     });
 
     builder.addCase(fetchCharsByIds.rejected, (state) => {
@@ -197,6 +246,7 @@ export const charsSlice = createSlice({
   },
 });
 
-export const { setCurrentPage, setFilterParams } = charsSlice.actions;
+export const { setCurrentPage, setFilterParams, like, dislike } =
+  charsSlice.actions;
 
 export default charsSlice.reducer;

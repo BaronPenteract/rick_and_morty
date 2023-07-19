@@ -2,20 +2,17 @@ import { CharType } from "../../@types/chars";
 
 import styles from "./index.module.scss";
 import React from "react";
-import AddCharSVG from "../svg/AddCharSVG";
-import RemoveCharSVG from "../svg/RemoveCharSVG";
+import CharToggleAddButton from "../CharToggleAddButton";
+import { useAppDispatch } from "../../redux/store";
+import { dislike, like } from "../../redux/chars/charsSlice";
 
 type TCharFooterProps = {
   char: CharType;
-  isAdded: boolean;
-  setIsAdded: (isAdded: boolean) => void;
 };
 
-const CharFooter: React.FC<TCharFooterProps> = ({
-  char,
-  isAdded,
-  setIsAdded,
-}) => {
+const CharFooter: React.FC<TCharFooterProps> = ({ char }) => {
+  const dispatch = useAppDispatch();
+
   const {
     id,
     name,
@@ -28,9 +25,14 @@ const CharFooter: React.FC<TCharFooterProps> = ({
     episode,
   } = char;
 
-  const handleToggleAddClick: React.MouseEventHandler = (e) => {
-    console.log("Chars: Added");
-    setIsAdded(!isAdded);
+  const isLiked = char.isLiked ? true : false;
+
+  const handleToggleClick: React.MouseEventHandler = (e) => {
+    if (!isLiked) {
+      dispatch(like(char));
+    } else {
+      dispatch(dislike(char));
+    }
   };
 
   return (
@@ -47,19 +49,7 @@ const CharFooter: React.FC<TCharFooterProps> = ({
           </span>
         </li>
       </ul>
-      <button
-        className={`${styles.toggleButton} ${
-          isAdded ? styles.toggleButtonRemove : ""
-        }`}
-        onClick={handleToggleAddClick}
-        title="Add to favorite"
-      >
-        {isAdded ? (
-          <RemoveCharSVG className={styles.svg} />
-        ) : (
-          <AddCharSVG className={styles.svg} />
-        )}
-      </button>
+      <CharToggleAddButton isLiked={isLiked} onClick={handleToggleClick} />
     </div>
   );
 };

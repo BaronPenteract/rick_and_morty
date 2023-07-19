@@ -23,7 +23,6 @@ const Char: React.FC<TCharProps> = ({ char, onCharClick }) => {
     episode,
     url,
   } = char;
-  const [isAdded, setIsAdded] = React.useState(false);
 
   return (
     <article>
@@ -49,7 +48,7 @@ const Char: React.FC<TCharProps> = ({ char, onCharClick }) => {
             <CharMoreButton id={id} />
           </div>
         </div>
-        <CharFooter char={char} isAdded={isAdded} setIsAdded={setIsAdded} />
+        <CharFooter char={char} />
       </div>
     </article>
   );

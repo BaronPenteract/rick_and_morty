@@ -23,6 +23,7 @@ import CharList from "../../components/CharList";
 import { CharType } from "../../@types/chars";
 import { fetchCharsByIds } from "../../redux/chars/charsSlice";
 import { getIdFromURL } from "../../utils/getIdFromURL";
+import { getCharsSelector } from "../../redux/chars/selectors";
 
 const EpisodePage: React.FC = () => {
   const [err, setErr] = React.useState<Error>(new Error("404 Not found."));
@@ -32,6 +33,7 @@ const EpisodePage: React.FC = () => {
 
   const dispatch = useAppDispatch();
   const { status } = useSelector(getEpisodesSelector);
+  const { chars } = useSelector(getCharsSelector);
 
   const params = useParams();
   const episodeId = Number(params.id);
@@ -47,6 +49,10 @@ const EpisodePage: React.FC = () => {
   }, []);
 
   React.useEffect(() => {
+    setCharsInEpisode(chars);
+  }, [chars]);
+
+  React.useEffect(() => {
     if (!episode) return;
 
     // айдишники всех персов из эпизода
@@ -54,11 +60,7 @@ const EpisodePage: React.FC = () => {
       return getIdFromURL(charLink);
     });
 
-    dispatch(fetchCharsByIds({ ids: charsInEpisodeIds }))
-      .unwrap()
-      .then((res) => {
-        setCharsInEpisode(res);
-      });
+    dispatch(fetchCharsByIds({ ids: charsInEpisodeIds }));
   }, [episode]);
 
   if (!episode) {

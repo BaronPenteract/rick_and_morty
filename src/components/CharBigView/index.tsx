@@ -5,13 +5,17 @@ import React, { ReactElement } from "react";
 import ErrorBlock from "../ErrorBlock";
 import CharFooter from "../CharFooter";
 import CharMoreButton from "../CharMoreButton";
+import { useSelector } from "react-redux";
+import { getCharsSelector } from "../../redux/chars/selectors";
 
 type TCharBigViewProps = {
-  char: CharType | undefined;
+  charId: number;
 };
 
-const CharBigView: React.FC<TCharBigViewProps> = ({ char }) => {
-  const [isAdded, setIsAdded] = React.useState(false);
+const CharBigView: React.FC<TCharBigViewProps> = ({ charId }) => {
+  const char = useSelector(getCharsSelector).chars.find(
+    (char) => char.id == charId
+  );
 
   if (!char) {
     return <ErrorBlock err={new Error("Something wrong.")} />;
@@ -28,6 +32,7 @@ const CharBigView: React.FC<TCharBigViewProps> = ({ char }) => {
     location,
     episode,
     url,
+    isLiked,
   } = char;
 
   let episodesToShow: ReactElement<HTMLLIElement>[] = [];
@@ -75,7 +80,7 @@ const CharBigView: React.FC<TCharBigViewProps> = ({ char }) => {
             <CharMoreButton id={id} />
           </div>
         </div>
-        <CharFooter char={char} isAdded={isAdded} setIsAdded={setIsAdded} />
+        <CharFooter char={char} />
         <ul className={styles.episodes}>
           {episodesToShow}
           {episode.length > 4 ? <CharMoreButton id={id} /> : ""}
