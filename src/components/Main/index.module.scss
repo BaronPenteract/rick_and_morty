@@ -71,9 +71,9 @@
       background-size: cover;
       filter: grayscale(90%);
       cursor: pointer;
-      background-color: $secondaryAccentColor;
+      background-color: $secondaryBGColorHSL;
 
-      transition: width $transitionProps, height $transitionProps;
+      transition: filter $transitionProps, height $transitionProps;
 
       p {
         margin: 0;

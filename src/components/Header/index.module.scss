@@ -1,4 +1,6 @@
-@import '../../utils/styles/variables.scss';
+@import "../../utils/styles/variables.scss";
+
+$headerAccentColor: mix($primaryAccentColor, $secondaryAccentColor, 60%);
 
 .root {
   justify-self: center;
@@ -9,10 +11,148 @@
   padding: 0 20px;
   box-sizing: border-box;
   width: 100%;
-  background-color: mix($primaryAccentColor, $secondaryAccentColor, 60%);
+
+  background-color: $headerAccentColor;
+
+  &::after {
+    content: "";
+    width: 150%;
+    height: 20vw;
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    z-index: -1;
+
+    background-color: $headerAccentColor;
+    background-image: url("../../assets/images/header-bg.png");
+    background-position: 100vw 90%;
+    background-repeat: no-repeat;
+    background-size: contain;
+
+    transform-origin: left bottom;
+    transform: translateX(-50%);
+    transition: transform $transitionProps, height $transitionProps,
+      box-shadow $transitionProps;
+  }
+
+  .headerBG {
+    width: 100vw;
+    height: 50vh;
+    /*  visibility: hidden;
+    opacity: 0; */
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    z-index: 1;
+
+    transition: visibility $transitionProps, opacity $transitionProps;
+
+    img {
+      position: absolute;
+      left: 0;
+      z-index: 1;
+    }
+
+    .headerBG_object {
+      width: 20vw;
+      bottom: 20vw;
+      left: 42vw;
+      object-fit: contain;
+      object-position: center center;
+    }
+
+    .headerBG_front {
+      width: 100%;
+      max-height: 100%;
+      bottom: 0;
+      z-index: 1000;
+      object-fit: cover;
+      object-position: center bottom;
+    }
+
+    .headerBG_back {
+      width: 90vw;
+      height: auto;
+      z-index: 1;
+      top: 0;
+
+      left: 50%;
+      transform: translateX(-50%);
+
+      object-fit: cover;
+      object-position: center bottom;
+      border-top-right-radius: 50%;
+      border-top-left-radius: 50%;
+    }
+  }
+
+  &_active {
+    &::after {
+      transform: translateX(-50%) rotate(4deg);
+      box-shadow: 0px 0px 20px 10px $secondaryBGColorHSL;
+    }
+
+    .headerBG {
+      visibility: visible;
+      opacity: 1;
+    }
+  }
+
+  .nav {
+    background-color: red;
+
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+    &_active {
+      background-color: green;
+    }
+  }
 
   .container {
     max-width: $maxWidth;
     margin: 0 auto;
+
+    display: flex;
+    gap: 10px;
+  }
+
+  .logo {
+    width: 100%;
+    max-width: 42px;
+    height: auto;
+
+    path {
+      transition: fill $transitionProps;
+    }
+
+    path[data-color="hair"] {
+      fill: $headerAccentColor;
+    }
+    path[data-color="skin"] {
+      fill: $headerAccentColor;
+    }
+    path[data-color="eye"] {
+      fill: $headerAccentColor;
+    }
+    path[data-color="line"] {
+      fill: #1d1d1b;
+    }
+
+    &:hover {
+      path[data-color="hair"] {
+        fill: #85bfe9;
+      }
+      path[data-color="skin"] {
+        fill: #e6e4da;
+      }
+      path[data-color="eye"] {
+        fill: #fff;
+      }
+      path[data-color="line"] {
+        fill: #1d1d1b;
+      }
+    }
   }
 }
