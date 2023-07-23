@@ -4,27 +4,10 @@ import { useNavigate } from "react-router-dom";
 
 import { INavItem } from "../../@types/mainComponent";
 
-import mainBG from "../../assets/images/main-bg.jpg";
-import charactersBG from "../../assets/images/chars-bg.png";
-import locationsBG from "../../assets/images/locs-bg.jpg";
-import episodesBG from "../../assets/images/episodes-bg.jpg";
-
-import { PROJECT_TITLE, rootPath } from "../../utils/constants";
+import { PROJECT_TITLE } from "../../utils/constants";
+import { navItems } from "../../utils/navItems";
 
 import styles from "./index.module.scss";
-
-const defaultNavItem: INavItem = {
-  title: PROJECT_TITLE,
-  to: rootPath,
-  image: mainBG,
-};
-
-const navItems: INavItem[] = [
-  defaultNavItem,
-  { title: "Characters", to: "characters", image: charactersBG },
-  { title: "Locations", to: "locations", image: locationsBG },
-  { title: "Episodes", to: "episodes", image: episodesBG },
-];
 
 const upDownAnimation = {
   hidden: {

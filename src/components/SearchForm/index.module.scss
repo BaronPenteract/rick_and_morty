@@ -1,6 +1,9 @@
 @import "../../utils/styles/variables.scss";
 
 .root {
+  width: 100%;
+  max-width: 642px;
+  margin: 0 auto;
   display: flex;
   justify-content: space-between;
   align-items: center;
