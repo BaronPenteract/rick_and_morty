@@ -1,7 +1,8 @@
 import React from "react";
-import { Variants, motion } from "framer-motion";
+import { motion } from "framer-motion";
 
-import { ReactComponent as Logo } from "../../assets/images/rick-svgrepo-com.svg";
+import { ReactComponent as Rick } from "../../assets/images/rick-svgrepo-com.svg";
+import { ReactComponent as Morty } from "../../assets/images/morty.svg";
 import headerBGObject from "../../assets/images/header-bg.png";
 import headerBGFront from "../../assets/images/header_bg_front.png";
 import headerBGBack from "../../assets/images/header_bg_back.jpg";
@@ -10,66 +11,13 @@ import { rootPath } from "../../utils/constants";
 
 import styles from "./index.module.scss";
 
-const headerBGFrontAnimation: Variants = {
-  hidden: {
-    bottom: "-100%",
-    transition: {
-      ease: "easeOut",
-      duration: 0.2,
-      type: "tween",
-      delay: 1.5,
-    },
-  },
-  visible: {
-    bottom: 0,
-    transition: {
-      ease: "easeOut",
-      duration: 0.5,
-      type: "tween",
-      delay: 0.5,
-    },
-  },
-};
-const headerBGObjectAnimation: Variants = {
-  hidden: {
-    bottom: "-100%",
-    transition: {
-      ease: "easeOut",
-      duration: 0.2,
-      type: "tween",
-      delay: 1.75,
-    },
-  },
-  visible: {
-    bottom: "70%",
-    transition: {
-      ease: "easeOut",
-      duration: 4.5,
-      type: "tween",
-      delay: 1.25,
-    },
-  },
-};
-const headerBGBackAnimation: Variants = {
-  hidden: {
-    top: "100%",
-    transition: {
-      ease: "easeOut",
-      duration: 0.5,
-      type: "tween",
-      delay: 1.25,
-    },
-  },
-  visible: {
-    top: "10%",
-    transition: {
-      ease: "easeOut",
-      duration: 1.5,
-      type: "tween",
-      delay: 0.75,
-    },
-  },
-};
+import {
+  headerBGBackAnimation,
+  headerBGFrontAnimation,
+  headerBGObjectAnimation,
+  headerBGObjectContainerAnimation,
+} from "./animations";
+import NavTab from "../NavTab";
 
 const Header: React.FC = () => {
   const [isHeaderActive, setIsHeaderActive] = React.useState(false);
@@ -85,7 +33,6 @@ const Header: React.FC = () => {
       onMouseLeave={toggleIsHeaderActive}
       initial="hidden"
       whileHover="visible"
-      viewport={{ amount: 0.6 }}
     >
       <div className={styles.headerBG}>
         <motion.img
@@ -94,12 +41,17 @@ const Header: React.FC = () => {
           alt="Screaming Sun"
           variants={headerBGBackAnimation}
         />
-        <motion.img
-          className={styles.headerBG_object}
-          src={headerBGObject}
-          alt="Screaming Sun"
-          variants={headerBGObjectAnimation}
-        />
+        <motion.div
+          className={styles.headerBG_objectContainer}
+          variants={headerBGObjectContainerAnimation}
+        >
+          <motion.img
+            className={styles.headerBG_object}
+            src={headerBGObject}
+            alt="Screaming Sun"
+            variants={headerBGObjectAnimation}
+          />
+        </motion.div>
         <motion.img
           className={styles.headerBG_front}
           src={headerBGFront}
@@ -108,15 +60,13 @@ const Header: React.FC = () => {
         />
       </div>
       <div className={styles.container}>
-        <Link to={rootPath + "/"}>
-          <Logo className={styles.logo} />
+        <Link className={styles.root__link} to={rootPath + "/"}>
+          <Rick className={`${styles.logo} ${styles.rick}`} />
         </Link>
-        <nav
-          className={`${styles.nav} ${isHeaderActive ? styles.nav_active : ""}`}
-        >
-          <Link to={rootPath + "/characters"}>characters</Link>
-          <Link to={rootPath + "/favorite-characters"}>favoriteChars</Link>
-        </nav>
+        <NavTab />
+        <Link className={styles.root__link} to={rootPath + "/"}>
+          <Morty className={`${styles.logo} ${styles.morty}`} />
+        </Link>
       </div>
     </motion.header>
   );
