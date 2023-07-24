@@ -19,15 +19,11 @@ const CharToggleAddButton: React.FC<TCharToggleAddButtonProps> = ({
 }) => {
   return (
     <button
-      className={`${styles.root} ${isLiked ? styles.rootRemove : ""}`}
+      className={`${styles.root} ${isLiked ? styles.root_active : ""}`}
       onClick={onClick}
       title="Add to favorite"
     >
-      {isLiked ? (
-        <RemoveCharSVG className={styles.svg} />
-      ) : (
-        <AddCharSVG className={styles.svg} />
-      )}
+      <AddCharSVG className={styles.svg} />
     </button>
   );
 };

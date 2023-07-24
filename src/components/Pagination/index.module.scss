@@ -15,14 +15,14 @@
     width: 100px;
 
     span {
-      background-color: $primaryTextColor;
+      background-color: $primaryAccentColor;
     }
   }
 
   .button {
     margin: 0;
     padding: 0;
-    width: 24px;
+    width: 36px;
 
     display: flex;
     justify-content: center;
@@ -40,17 +40,14 @@
     transition: fill $transitionProps, stroke $transitionProps,
       color $transitionProps;
 
-    &:hover {
-      color: $secondaryTextColor;
-      fill: $secondaryTextColor;
-      stroke: $secondaryTextColor;
+    &:hover,
+    &Active {
+      color: $primaryAccentColor;
+      fill: $primaryAccentColor;
+      stroke: $primaryAccentColor;
     }
 
     &Active {
-      color: $secondaryTextColor;
-      fill: $secondaryTextColor;
-      stroke: $secondaryTextColor;
-
       cursor: default;
     }
 
@@ -64,19 +61,15 @@
     }
 
     &:disabled {
-      color: hsl($secondaryTextColorH, $disabledColorS, $secondaryTextColorL);
-      fill: hsl($secondaryTextColorH, $disabledColorS, $secondaryTextColorL);
-      stroke: hsl($secondaryTextColorH, $disabledColorS, $secondaryTextColorL);
+      color: $disabledTextColor;
+      fill: $disabledTextColor;
+      stroke: $disabledTextColor;
       cursor: default;
 
       &:hover {
-        color: hsl($secondaryTextColorH, $disabledColorS, $secondaryTextColorL);
-        fill: hsl($secondaryTextColorH, $disabledColorS, $secondaryTextColorL);
-        stroke: hsl(
-          $secondaryTextColorH,
-          $disabledColorS,
-          $secondaryTextColorL
-        );
+        color: $disabledTextColor;
+        fill: $disabledTextColor;
+        stroke: $disabledTextColor;
       }
     }
   }

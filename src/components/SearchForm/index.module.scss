@@ -23,9 +23,9 @@
       color: inherit;
       font-size: inherit;
 
-      border: 1px solid $secondaryBGColorHSL;
+      border: 1px solid $secondaryAccentColor;
       border-radius: $borderRadius;
-      background-color: $primaryBGColorHSL;
+      background-color: $primaryBGColor;
 
       box-sizing: border-box;
       transition: border $transitionProps;
@@ -36,7 +36,7 @@
       }
 
       &::placeholder {
-        color: hsl($secondaryTextColorH, $disabledColorS, $secondaryTextColorL);
+        color: $disabledTextColor;
       }
 
       &:disabled {
@@ -57,7 +57,7 @@
 
     border: none;
     border-radius: $borderRadius;
-    background-color: $primaryAccentColor;
+    background-color: $secondaryAccentColor;
 
     cursor: pointer;
     fill: $primaryTextColor;
@@ -65,15 +65,11 @@
     transition: background-color $transitionProps, fill $transitionProps;
 
     &:hover {
-      background-color: $secondaryTextColor;
+      background-color: $primaryAccentColor;
     }
 
     &:disabled {
-      background-color: hsl(
-        $secondaryTextColorH,
-        $disabledColorS,
-        $secondaryTextColorL
-      );
+      background-color: $disabledTextColor;
       opacity: 0.5;
       cursor: default;
     }

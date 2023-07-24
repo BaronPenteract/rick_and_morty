@@ -71,7 +71,7 @@ const NavTab: React.FC = () => {
         viewport={{ amount: 1 }}
         onClick={closeByOverlay}
       >
-        {navButtons}
+        <div className={styles.container}>{navButtons}</div>
       </motion.nav>
       <Burger
         isBurgerActive={isBurgerActive}

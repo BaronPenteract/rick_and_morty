@@ -8,43 +8,64 @@ $tablet: 768px;
 // text
 $primaryTextColorH: 0;
 $primaryTextColorS: 0%;
-$primaryTextColorL: 100%;
+$primaryTextColorL: 100;
 $primaryTextColor: hsl(
   $primaryTextColorH,
   $primaryTextColorS,
   $primaryTextColorL
 );
 
-$secondaryTextColorH: 160;
-$secondaryTextColorS: 100%;
-$secondaryTextColorL: 50%;
+$secondaryTextColorH: $primaryTextColorH;
+$secondaryTextColorS: $primaryTextColorS;
+$secondaryTextColorL: $primaryTextColorL * 0.75;
 $secondaryTextColor: hsl(
   $secondaryTextColorH,
   $secondaryTextColorS,
   $secondaryTextColorL
 );
 
-// accent
-$primaryAccentColor: hsl($secondaryTextColorH, $secondaryTextColorS, 42%);
+$disabledTextColor: hsl(
+  $primaryTextColorH,
+  $primaryTextColorS,
+  $primaryTextColorL * 0.3
+);
 
-$secondaryAccentColorH: 205;
-$secondaryAccentColorS: 69%;
-$secondaryAccentColorL: 72%;
+// accent
+$primaryAccentColor: hsl(
+  $primaryTextColorH + 78,
+  $primaryTextColorS + 60,
+  $primaryTextColorL * 0.6
+);
+
+$secondaryAccentColorH: $secondaryTextColorH + 205;
+$secondaryAccentColorS: $secondaryTextColorS + 69;
+$secondaryAccentColorL: $secondaryTextColorL - $secondaryTextColorL * 0.03;
 $secondaryAccentColor: hsl(
   $secondaryAccentColorH,
   $secondaryAccentColorS,
   $secondaryAccentColorL
 );
-//background
-$primaryBGColorH: 0;
-$primaryBGColorS: 0%;
-$primaryBGColorL: 11%;
-$primaryBGColorHSL: hsl($primaryBGColorH, $primaryBGColorS, $primaryBGColorL);
 
-$secondaryBGColorHSL: hsl(
-  $secondaryAccentColorH,
-  $secondaryAccentColorS,
-  20.42%
+$disabledAccentColor: hsl(
+  $primaryTextColorH,
+  $primaryTextColorS + 100,
+  $primaryTextColorL * 0.4
+);
+
+//background
+$primaryBGColorH: $primaryTextColorH;
+$primaryBGColorS: $primaryTextColorS;
+$primaryBGColorL: $primaryTextColorL * 0.15;
+$primaryBGColor: hsl(
+  $primaryTextColorH,
+  $primaryTextColorS,
+  $primaryTextColorL * 0.15
+);
+
+$secondaryBGColor: hsl(
+  $secondaryTextColorH,
+  $secondaryTextColorS,
+  $secondaryTextColorL * 0.1
 );
 // disabled
 $disabledColorS: 20%;

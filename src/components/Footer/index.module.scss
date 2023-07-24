@@ -11,7 +11,7 @@
   box-sizing: border-box;
   position: relative;
   z-index: 1001;
-  background-color: $secondaryBGColorHSL;
+  background-color: $secondaryBGColor;
 
   .containerHidden {
     position: absolute;
@@ -24,8 +24,8 @@
 
     display: flex;
 
-    box-shadow: 0px 0px 100px 120px $secondaryBGColorHSL;
-    background: $secondaryBGColorHSL;
+    box-shadow: 0px 0px 100px 120px $secondaryBGColor;
+    background: $secondaryBGColor;
     transform-origin: bottom;
 
     .wrapper {

@@ -15,7 +15,7 @@ $headerAccentColor: transparent; //mix($primaryAccentColor, $secondaryAccentColo
   box-sizing: border-box;
   width: 100%;
 
-  background-color: $headerAccentColor;
+  background: linear-gradient(180deg, $primaryBGColor 6%, $headerAccentColor);
   transition: box-shadow $transitionProps;
 
   .headerBG {
@@ -101,7 +101,7 @@ $headerAccentColor: transparent; //mix($primaryAccentColor, $secondaryAccentColo
   }
 
   &_active {
-    //box-shadow: 0px 0px 20px 10px $secondaryBGColorHSL;
+    //box-shadow: 0px 0px 20px 10px $secondaryBGColor;
 
     .headerBG {
       visibility: visible;
@@ -129,9 +129,15 @@ $headerAccentColor: transparent; //mix($primaryAccentColor, $secondaryAccentColo
     width: 100%;
     max-width: 42px;
     height: auto;
+    stroke: $secondaryTextColor;
+
+    g {
+      stroke: inherit;
+    }
 
     path {
-      transition: fill $transitionProps;
+      stroke: inherit;
+      transition: fill $transitionProps, stroke $transitionProps;
     }
 
     path[data-color="hair"] {
@@ -144,7 +150,11 @@ $headerAccentColor: transparent; //mix($primaryAccentColor, $secondaryAccentColo
       fill: $headerAccentColor;
     }
     path[data-color="line"] {
-      fill: #1d1d1b;
+      fill: $secondaryTextColor;
+    }
+
+    &:hover {
+      stroke: $primaryBGColor;
     }
   }
 
@@ -160,7 +170,7 @@ $headerAccentColor: transparent; //mix($primaryAccentColor, $secondaryAccentColo
         fill: #fff;
       }
       path[data-color="line"] {
-        fill: #1d1d1b;
+        fill: $primaryBGColor;
       }
     }
   }
@@ -177,7 +187,7 @@ $headerAccentColor: transparent; //mix($primaryAccentColor, $secondaryAccentColo
         fill: #fff;
       }
       path[data-color="line"] {
-        fill: #1d1d1b;
+        fill: $primaryBGColor;
       }
     }
   }

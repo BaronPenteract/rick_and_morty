@@ -8,9 +8,13 @@ import { dislike, like } from "../../redux/chars/charsSlice";
 
 type TCharFooterProps = {
   char: CharType;
+  handleToggleClick: React.MouseEventHandler;
 };
 
-const CharFooter: React.FC<TCharFooterProps> = ({ char }) => {
+const CharFooter: React.FC<TCharFooterProps> = ({
+  char,
+  handleToggleClick,
+}) => {
   const dispatch = useAppDispatch();
 
   const {
@@ -26,14 +30,6 @@ const CharFooter: React.FC<TCharFooterProps> = ({ char }) => {
   } = char;
 
   const isLiked = char.isLiked ? true : false;
-
-  const handleToggleClick: React.MouseEventHandler = (e) => {
-    if (!isLiked) {
-      dispatch(like(char));
-    } else {
-      dispatch(dislike(char));
-    }
-  };
 
   return (
     <div className={styles.footer}>

@@ -1,5 +1,17 @@
 @import "../../utils/styles/variables.scss";
 
+$burgerPrimaryColorH: $primaryTextColorH + 70;
+$burgerSecondaryColorH: $primaryTextColorH + 190;
+
+@keyframes activeAnim {
+  0% {
+    transform: rotateZ(0);
+  }
+  100% {
+    transform: rotateZ(360deg);
+  }
+}
+
 .root {
   width: 42px;
   height: 42px;
@@ -18,12 +30,54 @@
   border: none;
   background-color: transparent;
   background-size: cover;
-  filter: grayscale(90%);
   cursor: pointer;
-  background-color: $secondaryBGColorHSL;
+
+  .image {
+    transition: transform $transitionProps;
+    path {
+      stroke: hsl($burgerPrimaryColorH + 8, 60%, 59%);
+      transition: fill $transitionProps;
+    }
+
+    g[data-color="1"] {
+      fill: hsl($burgerPrimaryColorH + 20, 52%, 56%);
+    }
+    g[data-color="2"] {
+      fill: hsl($burgerPrimaryColorH + 75, 71%, 32%);
+    }
+    g[data-color="3"] {
+      fill: hsl($burgerPrimaryColorH - 2, 69%, 63%);
+    }
+    g[data-color="4"] {
+      fill: hsl($burgerPrimaryColorH + 39, 45%, 53%);
+    }
+  }
 
   &_active {
-    background-color: red;
+    .image {
+      animation: activeAnim 2s linear 0.2s infinite;
+    }
+  }
+
+  &:hover {
+    .image {
+      path {
+        stroke: hsl($burgerSecondaryColorH + 8, 60%, 59%);
+      }
+
+      g[data-color="1"] {
+        fill: hsl($burgerSecondaryColorH + 20, 52%, 56%);
+      }
+      g[data-color="2"] {
+        fill: hsl($burgerSecondaryColorH + 75, 71%, 32%);
+      }
+      g[data-color="3"] {
+        fill: hsl($burgerSecondaryColorH - 2, 69%, 63%);
+      }
+      g[data-color="4"] {
+        fill: hsl($burgerSecondaryColorH + 39, 45%, 53%);
+      }
+    }
   }
 
   @media screen and (max-width: $tablet) {

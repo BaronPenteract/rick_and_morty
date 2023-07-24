@@ -35,17 +35,8 @@ const Footer: React.FC = () => {
       whileInView="visible"
       viewport={{ amount: 0.6 }}
     >
-      <motion.div className={styles.containerHidden} variants={footerAnimation}>
-        <div className={styles.wrapper}>
-          <h2 className={styles.footerTitle}>
-            <Link className={styles.link} to={rootPath}>
-              {PROJECT_TITLE}
-            </Link>
-          </h2>
-        </div>
-      </motion.div>
       <div className={styles.container}>
-        <div className={styles.content}>Thank you for your attantion!</div>
+        <div className={styles.content}>{PROJECT_TITLE}</div>
         <div className={styles.info}>
           <ApiLink />
           <GitHubLink />

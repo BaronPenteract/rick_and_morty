@@ -14,10 +14,10 @@
   align-items: center;
   justify-content: flex-end;
 
-  background-color: $primaryBGColorHSL;
+  background-color: $primaryBGColor;
   border-radius: $borderRadius;
   overflow: hidden;
-  box-shadow: 0 8px 16px -8px darken($primaryBGColorHSL, 20%);
+  box-shadow: 0 8px 16px -8px darken($primaryBGColor, 20%);
   transition: box-shadow $transitionProps, padding $transitionProps;
 
   .header {
@@ -80,7 +80,7 @@
 
     color: darken($primaryTextColor, 16%);
 
-    background: $primaryBGColorHSL;
+    background: $primaryBGColor;
     border-top-left-radius: $borderRadius;
     border-top-right-radius: $borderRadius;
     overflow: hidden;
@@ -143,7 +143,7 @@
 
     &:hover {
       height: 50%;
-      box-shadow: 0 -50px 100px 20px darken($primaryBGColorHSL, 10%);
+      box-shadow: 0 -50px 100px 20px darken($primaryBGColor, 10%);
 
       .info {
         visibility: visible;
@@ -171,7 +171,7 @@
   }
 
   &:hover {
-    box-shadow: 0 16px 26px -8px darken($color: $primaryBGColorHSL, $amount: 20%);
+    box-shadow: 0 16px 26px -8px darken($color: $primaryBGColor, $amount: 20%);
   }
 
   &Active {

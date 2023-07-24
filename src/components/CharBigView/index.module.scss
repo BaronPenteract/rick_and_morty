@@ -18,10 +18,10 @@
   column-gap: 0px;
   row-gap: 24px;
 
-  background-color: $primaryBGColorHSL;
+  background-color: $primaryBGColor;
   border-radius: $borderRadius;
   overflow: hidden;
-  box-shadow: 0 16px 26px -8px darken($color: $primaryBGColorHSL, $amount: 20%);
+  box-shadow: 0 16px 26px -8px darken($color: $primaryBGColor, $amount: 20%);
   transition: box-shadow $transitionProps, padding $transitionProps;
 
   .header {
@@ -66,7 +66,7 @@
 
     color: darken($primaryTextColor, 16%);
 
-    background: $primaryBGColorHSL;
+    background: $primaryBGColor;
     border-top-left-radius: $borderRadius;
     border-top-right-radius: $borderRadius;
 

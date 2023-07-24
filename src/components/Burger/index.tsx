@@ -1,5 +1,7 @@
 import React from "react";
 
+import { ReactComponent as Image } from "../../assets/images/burger.svg";
+
 import styles from "./index.module.scss";
 
 interface IBurgerProps {
@@ -17,7 +19,7 @@ const Burger: React.FC<IBurgerProps> = ({
         className={`${styles.root} ${isBurgerActive ? styles.root_active : ""}`}
         onClick={() => setIsBurgerActive(!isBurgerActive)}
       >
-        Burger
+        <Image className={styles.image} />
       </button>
     </>
   );

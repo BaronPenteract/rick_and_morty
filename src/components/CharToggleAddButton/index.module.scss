@@ -1,7 +1,7 @@
 @import "../../utils/styles/variables";
 
 .root {
-  width: 16px;
+  width: 26px;
   margin: 0;
   padding: 0;
 
@@ -9,46 +9,40 @@
   border: none;
   cursor: pointer;
 
-  fill: darken($primaryTextColor, 20%);
-  stroke: darken($primaryTextColor, 20%);
+  fill: transparent;
+  stroke: $primaryTextColor;
 
   transition: fill $transitionProps, stroke $transitionProps;
 
   .svg {
     fill: inherit;
     stroke: inherit;
+    stroke-width: 2px;
   }
 
   &:hover {
-    fill: darken($secondaryTextColor, 20%);
-    stroke: darken($secondaryTextColor, 20%);
+    fill: $primaryAccentColor;
+    stroke: $primaryAccentColor;
   }
 
   &:disabled {
-    fill: darken(
-      hsl($primaryTextColorH, $disabledColorS, $primaryTextColorL),
-      30%
-    );
-    stroke: darken(
-      hsl($primaryTextColorH, $disabledColorS, $primaryTextColorL),
-      30%
-    );
+    fill: $disabledTextColor;
+    stroke: $disabledTextColor;
     cursor: default;
 
     &:hover {
-      fill: darken(
-        hsl($primaryTextColorH, $disabledColorS, $primaryTextColorL),
-        30%
-      );
-      stroke: darken(
-        hsl($primaryTextColorH, $disabledColorS, $primaryTextColorL),
-        30%
-      );
+      fill: $disabledTextColor;
+      stroke: $disabledTextColor;
     }
   }
-}
 
-.rootRemove:hover {
-  fill: darken(red, 10%);
-  stroke: darken(red, 10%);
+  &_active {
+    fill: $secondaryAccentColor;
+    stroke: $secondaryAccentColor;
+
+    &:hover {
+      fill: $disabledAccentColor;
+      stroke: $disabledAccentColor;
+    }
+  }
 }

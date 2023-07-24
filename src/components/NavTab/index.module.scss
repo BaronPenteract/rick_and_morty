@@ -4,84 +4,93 @@
   width: 100%;
   display: flex;
   align-items: center;
-  justify-content: center;
+
+  color: $primaryTextColor;
 
   box-sizing: border-box;
 
-  color: $primaryTextColor;
+  cursor: pointer;
+
+  .container {
+    flex-grow: 1;
+    display: flex;
+    box-shadow: 0px 20px 10px -10px $secondaryBGColor;
+  }
 
   .button {
     flex-grow: 1;
     display: flex;
     align-items: center;
-    color: $secondaryTextColor;
+    color: $primaryTextColor;
     font-size: inherit;
     height: 100%;
     border: none;
     padding: 8px 2px;
     margin: 0;
-    background-color: transparent;
-    background-size: cover;
-    filter: grayscale(90%);
-    cursor: pointer;
-    background-color: $secondaryBGColorHSL;
 
-    transition: filter $transitionProps, height $transitionProps;
+    cursor: pointer;
+    background-color: $primaryBGColor;
+
+    transition: color $transitionProps, background-color $transitionProps;
 
     p {
+      width: 100%;
       margin: 0;
       padding: 0;
     }
 
     &:hover {
-      filter: grayscale(0);
-    }
-
-    p {
-      width: 100%;
+      color: $primaryAccentColor;
     }
   }
 
   @media screen and (max-width: $tablet) {
-    padding: 20px;
-    width: auto;
+    width: 100vw;
+    height: 100vh;
+    justify-content: center;
 
-    position: absolute;
+    position: fixed;
     top: -100vh;
-    left: 50%;
+    left: 0;
     z-index: 1000;
+    visibility: hidden;
+    opacity: 0;
 
     font-size: 24px;
-    flex-direction: column;
-    align-items: center;
     gap: 24px;
 
-    transform: translateX(-50%);
+    background: linear-gradient(
+      180deg,
+      $secondaryBGColor,
+      transparentize($color: $secondaryBGColor, $amount: 0.1)
+    );
 
-    transition: top $transitionProps;
+    transition: top $transitionProps, visibility $transitionProps,
+      opacity $transitionProps;
 
     .button {
       min-width: 50%;
       min-height: 42px;
 
       border-radius: $borderRadius;
+      box-shadow: 0px 10px 10px $secondaryBGColor;
     }
 
     &_active {
-      top: 100%;
+      top: 0;
+      visibility: visible;
+      opacity: 1;
     }
 
-    &::before {
-      content: "";
-      position: fixed;
-      top: -14%;
-      left: -73%;
-      z-index: 0;
+    .container {
+      flex-grow: 0;
+      width: 100%;
+      padding: 20px;
+      width: auto;
+      box-shadow: none;
 
-      width: 100vw;
-      height: 100vh;
-
-      cursor: pointer;
+      flex-direction: column;
+      gap: 5vh;
     }
   }
 

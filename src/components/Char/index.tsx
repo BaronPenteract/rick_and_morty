@@ -4,6 +4,8 @@ import styles from "./index.module.scss";
 import React from "react";
 import CharFooter from "../CharFooter";
 import CharMoreButton from "../CharMoreButton";
+import { useAppDispatch } from "../../redux/store";
+import { dislike, like } from "../../redux/chars/charsSlice";
 
 type TCharProps = {
   char: CharType;
@@ -11,6 +13,8 @@ type TCharProps = {
 };
 
 const Char: React.FC<TCharProps> = ({ char, onCharClick }) => {
+  const dispatch = useAppDispatch();
+
   const {
     id,
     name,
@@ -22,11 +26,20 @@ const Char: React.FC<TCharProps> = ({ char, onCharClick }) => {
     location,
     episode,
     url,
+    isLiked,
   } = char;
+
+  const handleToggleClick: React.MouseEventHandler = (e) => {
+    if (!isLiked) {
+      dispatch(like(char));
+    } else {
+      dispatch(dislike(char));
+    }
+  };
 
   return (
     <article>
-      <div className={`${styles.root}`}>
+      <div className={`${styles.root}`} onDoubleClick={handleToggleClick}>
         <div className={styles.header} onClick={() => onCharClick()}>
           <img className={styles.avatar} src={image} alt={name} />
         </div>
@@ -48,7 +61,7 @@ const Char: React.FC<TCharProps> = ({ char, onCharClick }) => {
             <CharMoreButton id={id} />
           </div>
         </div>
-        <CharFooter char={char} />
+        <CharFooter char={char} handleToggleClick={handleToggleClick} />
       </div>
     </article>
   );

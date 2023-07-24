@@ -1,7 +1,7 @@
 @import "../../utils/styles/variables.scss";
 
 .root {
-  background-color: darken($primaryBGColorHSL, 2%);
+  background-color: darken($primaryBGColor, 2%);
   //background-image: url(../../assets/images/main-bg.png);
   background-repeat: no-repeat;
   background-position: center;

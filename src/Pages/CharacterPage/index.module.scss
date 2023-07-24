@@ -17,8 +17,8 @@
   color: darken($primaryTextColor, 20%);
 
   overflow: hidden;
-  background-color: darken($color: $primaryBGColorHSL, $amount: 0%);
-  box-shadow: 0 8px 42px -8px darken($color: $primaryBGColorHSL, $amount: 20%);
+  background-color: darken($color: $primaryBGColor, $amount: 0%);
+  box-shadow: 0 8px 42px -8px darken($color: $primaryBGColor, $amount: 20%);
 
   .header {
     grid-area: header;
@@ -57,9 +57,9 @@
     align-items: center;
     gap: 24px;
 
-    box-shadow: 0 0px 62px 74px $secondaryBGColorHSL;
+    box-shadow: 0 0px 62px 74px $secondaryBGColor;
     box-sizing: border-box;
-    background-color: $secondaryBGColorHSL;
+    background-color: $secondaryBGColor;
 
     .contentHeader {
       display: grid;
@@ -87,7 +87,7 @@
 
         border-radius: $borderRadius;
         box-shadow: 0 -18px 42px -8px
-          darken($color: $primaryBGColorHSL, $amount: 20%);
+          darken($color: $primaryBGColor, $amount: 20%);
 
         img {
           position: absolute;
@@ -104,7 +104,7 @@
         .status {
           padding: 1px 4px;
           border-radius: $borderRadius;
-          background-color: lighten($secondaryBGColorHSL, 10%);
+          background-color: lighten($secondaryBGColor, 10%);
         }
 
         .Alive {
@@ -269,7 +269,7 @@
   padding: 4px;
   z-index: 1;
 
-  background-color: darken($color: $primaryBGColorHSL, $amount: 0%);
+  background-color: darken($color: $primaryBGColor, $amount: 0%);
   border: 1px solid darken($primaryTextColor, 20%);
   border-radius: $borderRadius;
   cursor: pointer;

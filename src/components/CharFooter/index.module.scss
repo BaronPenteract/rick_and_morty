@@ -13,7 +13,7 @@
 
   color: darken($primaryTextColor, 20%);
   box-sizing: border-box;
-  background: $primaryBGColorHSL;
+  background: $primaryBGColor;
 
   transition: opacity $transitionProps;
 
@@ -39,6 +39,6 @@
 
   .Dead {
     font-weight: 600;
-    color: darken(red, 10%);
+    color: $disabledAccentColor;
   }
 }

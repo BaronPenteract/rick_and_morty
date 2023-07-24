@@ -73,7 +73,7 @@
 
       border-radius: $borderRadius;
       box-sizing: border-box;
-      box-shadow: 0px 10px 20px $primaryBGColorHSL;
+      box-shadow: 0px 10px 20px $primaryBGColor;
 
       background-color: hsla(
         $primaryBGColorH,
@@ -148,9 +148,9 @@
       transform: translateX(-50%);
       box-sizing: border-box;
 
-      background-color: $primaryBGColorHSL;
-      box-shadow: 0px -20px 80px 90px $primaryBGColorHSL,
-        0px -240px 240px -20px $primaryBGColorHSL;
+      background-color: $primaryBGColor;
+      box-shadow: 0px -20px 80px 90px $primaryBGColor,
+        0px -240px 240px -20px $primaryBGColor;
     }
   }
 }

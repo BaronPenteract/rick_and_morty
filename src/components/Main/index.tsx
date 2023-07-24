@@ -48,7 +48,7 @@ const Main: React.FC = () => {
         className={styles.button}
         onClick={() => handleClickNav(item)}
         onMouseEnter={() => handleHover(item)}
-        onMouseLeave={() => handleHover(navItems[0])}
+        /* onMouseLeave={() => handleHover(navItems[0])} */
         variants={upDownAnimation}
         custom={idx}
       >
@@ -92,6 +92,7 @@ const Main: React.FC = () => {
             delay: 1.5,
             duration: 0.5,
           }}
+          onMouseEnter={() => handleHover(navItems[0])}
         >
           {PROJECT_TITLE}
         </motion.h1>

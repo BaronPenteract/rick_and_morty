@@ -7,12 +7,16 @@ import CharFooter from "../CharFooter";
 import CharMoreButton from "../CharMoreButton";
 import { useSelector } from "react-redux";
 import { getCharsSelector } from "../../redux/chars/selectors";
+import { useAppDispatch } from "../../redux/store";
+import { like, dislike } from "../../redux/chars/charsSlice";
 
 type TCharBigViewProps = {
   charId: number;
 };
 
 const CharBigView: React.FC<TCharBigViewProps> = ({ charId }) => {
+  const dispatch = useAppDispatch();
+
   const char = useSelector(getCharsSelector).chars.find(
     (char) => char.id == charId
   );
@@ -34,6 +38,14 @@ const CharBigView: React.FC<TCharBigViewProps> = ({ charId }) => {
     url,
     isLiked,
   } = char;
+
+  const handleToggleClick: React.MouseEventHandler = (e) => {
+    if (!isLiked) {
+      dispatch(like(char));
+    } else {
+      dispatch(dislike(char));
+    }
+  };
 
   let episodesToShow: ReactElement<HTMLLIElement>[] = [];
 
@@ -80,7 +92,7 @@ const CharBigView: React.FC<TCharBigViewProps> = ({ charId }) => {
             <CharMoreButton id={id} />
           </div>
         </div>
-        <CharFooter char={char} />
+        <CharFooter char={char} handleToggleClick={handleToggleClick} />
         <ul className={styles.episodes}>
           {episodesToShow}
           {episode.length > 4 ? <CharMoreButton id={id} /> : ""}
