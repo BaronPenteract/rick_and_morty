@@ -1,24 +1,25 @@
 {
   "files": {
-    "main.css": "/rick_and_morty/static/css/main.58121cb0.css",
-    "main.js": "/rick_and_morty/static/js/main.d4e38165.js",
+    "main.css": "/rick_and_morty/static/css/main.59c217ca.css",
+    "main.js": "/rick_and_morty/static/js/main.95bb8dc3.js",
     "static/media/header_bg_front.png": "/rick_and_morty/static/media/header_bg_front.648a4787d6c1608dda7f.png",
     "static/media/favorite-bg.jpg": "/rick_and_morty/static/media/favorite-bg.454f879d44fc67049157.jpg",
     "static/media/header-bg.png": "/rick_and_morty/static/media/header-bg.e2f29aee0d5a2d92cb9c.png",
     "static/media/main-bg.jpg": "/rick_and_morty/static/media/main-bg.115bb1f9f6e33d3773f5.jpg",
     "static/media/locs-bg.jpg": "/rick_and_morty/static/media/locs-bg.a7cd4ed050d9ffc070b4.jpg",
     "static/media/chars-bg.png": "/rick_and_morty/static/media/chars-bg.4b9365c5e0eb9eb7f862.png",
+    "static/media/burger.svg": "/rick_and_morty/static/media/burger.8d1473fdb2c48d6438750cf37991aaf3.svg",
     "static/media/episodes-bg.jpg": "/rick_and_morty/static/media/episodes-bg.ebc71e672bbf1336877e.jpg",
     "static/media/header_bg_back.jpg": "/rick_and_morty/static/media/header_bg_back.1c8d6843b9eeb77df757.jpg",
     "static/media/rick-svgrepo-com.svg": "/rick_and_morty/static/media/rick-svgrepo-com.786e0277c799d857d4d2f6d3598b84d8.svg",
     "static/media/morty.svg": "/rick_and_morty/static/media/morty.8264b6f6c087411e526afd01c344e5bc.svg",
     "static/media/github-svgrepo-com.svg": "/rick_and_morty/static/media/github-svgrepo-com.bb602bfb019d2268257280951b49a450.svg",
     "index.html": "/rick_and_morty/index.html",
-    "main.58121cb0.css.map": "/rick_and_morty/static/css/main.58121cb0.css.map",
-    "main.d4e38165.js.map": "/rick_and_morty/static/js/main.d4e38165.js.map"
+    "main.59c217ca.css.map": "/rick_and_morty/static/css/main.59c217ca.css.map",
+    "main.95bb8dc3.js.map": "/rick_and_morty/static/js/main.95bb8dc3.js.map"
   },
   "entrypoints": [
-    "static/css/main.58121cb0.css",
-    "static/js/main.d4e38165.js"
+    "static/css/main.59c217ca.css",
+    "static/js/main.95bb8dc3.js"
   ]
 }
