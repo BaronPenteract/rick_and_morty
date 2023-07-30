@@ -39,12 +39,18 @@ const Char: React.FC<TCharProps> = ({ char, onCharClick }) => {
 
   return (
     <article>
-      <div className={`${styles.root}`} onDoubleClick={handleToggleClick}>
+      <div className={`${styles.root}`}>
         <div className={styles.header} onClick={() => onCharClick()}>
-          <img className={styles.avatar} src={image} alt={name} />
+          <div className={styles.avatar_container}>
+            <img className={styles.avatar} src={image} alt={name} />
+          </div>
         </div>
         <div className={styles.content}>
-          <h2 className={styles.name} title="Name">
+          <h2
+            className={styles.name}
+            title="Name"
+            onClick={() => onCharClick()}
+          >
             {name}
           </h2>
           <ul className={styles.info}>
@@ -60,8 +66,8 @@ const Char: React.FC<TCharProps> = ({ char, onCharClick }) => {
           <div className={styles.moreButtonContainer}>
             <CharMoreButton id={id} />
           </div>
+          <CharFooter char={char} handleToggleClick={handleToggleClick} />
         </div>
-        <CharFooter char={char} handleToggleClick={handleToggleClick} />
       </div>
     </article>
   );

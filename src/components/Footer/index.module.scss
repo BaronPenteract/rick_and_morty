@@ -5,13 +5,17 @@
   justify-self: center;
 
   width: 100%;
-  min-height: 50vh;
-  padding: 20px 20px;
+  min-height: 80vh;
+  padding: 64px 20px;
   display: flex;
   box-sizing: border-box;
   position: relative;
   z-index: 1001;
-  background-color: $secondaryBGColor;
+  background: linear-gradient(-45deg, $primaryBGColor, $secondaryBGColor);
+  box-shadow: 0px -30px 64px -20px darken($secondaryBGColor, 5%);
+
+  border-top-left-radius: $borderRadius;
+  border-top-right-radius: $borderRadius;
 
   .containerHidden {
     position: absolute;

@@ -37,12 +37,7 @@
   }
 
   &_active {
-    fill: $secondaryAccentColor;
-    stroke: $secondaryAccentColor;
-
-    &:hover {
-      fill: $disabledAccentColor;
-      stroke: $disabledAccentColor;
-    }
+    fill: $disabledAccentColor;
+    stroke: $disabledAccentColor;
   }
 }

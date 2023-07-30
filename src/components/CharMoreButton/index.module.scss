@@ -2,46 +2,29 @@
 
 .root {
   margin: 0;
-  padding: 4px;
+  padding: 10px;
+  min-width: 100px;
 
-  background-color: transparent;
-  border: 1px solid darken($primaryTextColor, 20%);
+  background-color: $secondaryAccentColor;
+  border: none;
   border-radius: $borderRadius;
   cursor: pointer;
 
   font-size: inherit;
-  color: darken($primaryTextColor, 20%);
+  color: $primaryTextColor;
 
-  fill: darken($primaryTextColor, 20%);
-  stroke: darken($primaryTextColor, 20%);
-
-  transition: color $transitionProps, border-color $transitionProps;
+  transition: color $transitionProps, background-color $transitionProps;
 
   &:hover {
-    color: darken($secondaryTextColor, 20%);
-    border-color: darken($secondaryTextColor, 20%);
+    background-color: $primaryAccentColor;
   }
 
   &:disabled {
-    color: darken(
-      hsl($primaryTextColorH, $disabledColorS, $primaryTextColorL),
-      30%
-    );
-    border-color: darken(
-      hsl($primaryTextColorH, $disabledColorS, $primaryTextColorL),
-      30%
-    );
+    color: $disabledTextColor;
     cursor: default;
 
     &:hover {
-      color: darken(
-        hsl($primaryTextColorH, $disabledColorS, $primaryTextColorL),
-        30%
-      );
-      border-color: darken(
-        hsl($primaryTextColorH, $disabledColorS, $primaryTextColorL),
-        30%
-      );
+      color: $disabledTextColor;
     }
   }
 }

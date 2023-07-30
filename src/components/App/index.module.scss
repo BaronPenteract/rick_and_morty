@@ -1,8 +1,15 @@
 @import "../../utils/styles/variables.scss";
 
 .root {
-  background-color: darken($primaryBGColor, 2%);
+  //background-color: darken($primaryBGColor, 2%);
   //background-image: url(../../assets/images/main-bg.png);
+  background: linear-gradient(
+    -45deg,
+    $primaryBGColor,
+    $secondaryBGColor,
+    $secondaryAccentColor 164%
+  );
+
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;

@@ -2,7 +2,7 @@
 
 .footer {
   grid-area: footer;
-  padding: 10px;
+  //padding: 10px;
   width: 100%;
   position: relative;
   z-index: 1;
@@ -11,9 +11,8 @@
   justify-content: space-between;
   align-items: center;
 
-  color: darken($primaryTextColor, 20%);
+  color: $secondaryTextColor;
   box-sizing: border-box;
-  background: $primaryBGColor;
 
   transition: opacity $transitionProps;
 
@@ -34,7 +33,7 @@
 
   .Alive {
     font-weight: 600;
-    color: darken($primaryAccentColor, 10%);
+    color: $primaryAccentColor;
   }
 
   .Dead {

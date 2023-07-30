@@ -16,6 +16,14 @@
   padding: 0;
   display: grid;
   justify-content: center;
-  grid-template-columns: repeat(auto-fill, 280px);
+  grid-template-columns: repeat(auto-fill, 400px);
   gap: 20px;
+
+  @media screen and (max-width: $tablet) {
+    grid-template-columns: repeat(auto-fill, 320px);
+  }
+
+  @media screen and (max-width: $phone) {
+    grid-template-columns: repeat(auto-fill, 280px);
+  }
 }

@@ -16,7 +16,7 @@ export const defaultNavItem: INavItem = {
 export const navItems: INavItem[] = [
   defaultNavItem,
   { title: "Characters", to: rootPath + "/characters", image: charactersBG },
-  { title: "Locations", to: rootPath + "/locations", image: locationsBG },
+  //{ title: "Locations", to: rootPath + "/locations", image: locationsBG },
   { title: "Episodes", to: rootPath + "/episodes", image: episodesBG },
   {
     title: "Favorite",

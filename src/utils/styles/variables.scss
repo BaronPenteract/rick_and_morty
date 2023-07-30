@@ -53,18 +53,18 @@ $disabledAccentColor: hsl(
 );
 
 //background
-$primaryBGColorH: $primaryTextColorH;
-$primaryBGColorS: $primaryTextColorS;
+$primaryBGColorH: $primaryTextColorH + 205;
+$primaryBGColorS: $primaryTextColorS + 65;
 $primaryBGColorL: $primaryTextColorL * 0.15;
 $primaryBGColor: hsl(
-  $primaryTextColorH,
-  $primaryTextColorS,
-  $primaryTextColorL * 0.15
+  $primaryBGColorH,
+  $primaryBGColorS,
+  $primaryBGColorL * 0.15
 );
 
 $secondaryBGColor: hsl(
-  $secondaryTextColorH,
-  $secondaryTextColorS,
+  $secondaryTextColorH + 242,
+  $secondaryTextColorS + 87,
   $secondaryTextColorL * 0.1
 );
 // disabled
@@ -75,7 +75,7 @@ $disabledColorL: 50%;
 $transitionProps: 0.2s linear;
 
 // other settings
-$borderRadius: 8px;
+$borderRadius: 16px;
 
 //char settings
 $contentWidth: 240px;

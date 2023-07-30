@@ -1,73 +1,112 @@
 @import "../../utils/styles/variables";
 
+@keyframes avatar_container-anim {
+  0% {
+    background-position: 0% 0%;
+  }
+  50% {
+    background-position: 50% 50%;
+  }
+  100% {
+    background-position: 100% 100%;
+  }
+}
+
 .root {
-  padding-bottom: 0px;
+  padding: 20px 20px;
 
   position: relative;
   z-index: 1;
   width: 100%;
-  height: 420px;
   box-sizing: border-box;
 
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-end;
+  display: grid;
+  gap: 20px;
+  grid-template-columns: 2fr 5fr;
 
-  background-color: $primaryBGColor;
   border-radius: $borderRadius;
-  overflow: hidden;
-  box-shadow: 0 8px 16px -8px darken($primaryBGColor, 20%);
-  transition: box-shadow $transitionProps, padding $transitionProps;
 
-  .header {
+  box-shadow: 0 8px 16px -8px darken($secondaryAccentColor, 80%);
+  transition: box-shadow $transitionProps, background-position $transitionProps;
+
+  &:hover {
+    &::before {
+      background-position: 50% 50%;
+    }
+  }
+
+  &Active {
+  }
+
+  &::before {
+    content: "";
+    width: 100%;
+    height: 100%;
     position: absolute;
     top: 0;
     left: 0;
-    z-index: 0;
+    z-index: -1;
 
+    border-radius: $borderRadius;
+    background: linear-gradient(
+      45deg,
+      darken($secondaryAccentColor, 10%) 40%,
+      darken($primaryAccentColor, 10%) 60%
+    );
+    background-size: 400% 400%;
+    background-position: 0% 0%;
+
+    opacity: 0.7;
+    transition: background-position $transitionProps;
+  }
+
+  .header {
     align-self: flex-start;
-    width: 100%;
-    height: 74%;
     margin: 0;
     display: flex;
 
     cursor: pointer;
-    overflow: hidden;
-    background-color: $secondaryAccentColor;
     box-sizing: border-box;
 
     transition: opacity $transitionProps, height $transitionProps;
 
+    .avatar_container {
+      border-radius: 50%;
+      padding: 4px;
+      box-sizing: border-box;
+
+      background: linear-gradient(
+        -45deg,
+        transparent,
+        $primaryAccentColor,
+        transparent,
+        $secondaryAccentColor,
+        transparent,
+        $primaryAccentColor
+      );
+      background-size: 500% 500%;
+
+      &:hover {
+        animation: avatar_container-anim 2s linear infinite;
+      }
+    }
+
     .avatar {
+      display: block;
       width: 100%;
       object-fit: cover;
       object-position: top center;
       opacity: 1;
-      transform: scale(1.1);
+
+      border-radius: 50%;
 
       transition: transform $transitionProps, opacity $transitionProps 0.02s,
         border-radius $transitionProps;
     }
-
-    .name {
-      height: 100%;
-      margin: 0;
-      padding: 0;
-
-      font-weight: 500;
-      font-size: 20px;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-      overflow: hidden;
-    }
   }
 
   .content {
-    margin-top: -20px;
-    padding: 24px 10px 0;
-    width: 100%;
-    height: 18%;
+    padding: 10px 0 0;
 
     position: relative;
     z-index: 1;
@@ -78,17 +117,13 @@
     flex-direction: column;
     justify-content: flex-start;
 
-    color: darken($primaryTextColor, 16%);
-
-    background: $primaryBGColor;
-    border-top-left-radius: $borderRadius;
-    border-top-right-radius: $borderRadius;
-    overflow: hidden;
+    color: $primaryTextColor;
 
     transition: height $transitionProps, opacity $transitionProps,
       box-shadow $transitionProps;
 
     .name {
+      max-width: 242px;
       margin: 0;
       padding: 0;
       min-height: 2em;
@@ -99,12 +134,17 @@
       text-overflow: ellipsis;
       white-space: nowrap;
       overflow: hidden;
+
+      cursor: pointer;
+
+      transition: color $transitionProps;
+
+      &:hover {
+        color: $primaryAccentColor;
+      }
     }
 
     .info {
-      visibility: hidden;
-      opacity: 0;
-
       transition-delay: 0.2s;
       transition: visibility $transitionProps, opacity $transitionProps;
       list-style-type: none;
@@ -138,46 +178,42 @@
     }
 
     .moreButtonContainer {
-      margin: auto auto 10px;
+      padding: 22px 0;
+      margin: 0 auto;
     }
+  }
 
-    &:hover {
-      height: 50%;
-      box-shadow: 0 -50px 100px 20px darken($primaryBGColor, 10%);
+  @media screen and (max-width: $tablet) {
+    padding: 20px;
 
-      .info {
-        visibility: visible;
-        opacity: 1;
-        transition-delay: 0s;
+    .content {
+      .name {
+        max-width: 168px;
+      }
+    }
+  }
+
+  @media screen and (max-width: $phone) {
+    padding: 10px;
+
+    grid-template-columns: 1fr;
+
+    .header {
+      .avatar_container {
+        min-width: 260px;
+        min-height: 260px;
       }
     }
 
-    &::after {
-      content: "";
-      display: block;
-      width: 10%;
-      height: 4px;
+    .content {
+      padding: 0;
+      .name {
+        max-width: 250px;
+      }
 
-      position: absolute;
-      top: 8px;
-      left: 50%;
-      z-index: 2;
-      transform: translateX(-50%);
-
-      border-radius: 2px;
-      background-color: darken($primaryTextColor, 16%);
-      opacity: 0.3;
-    }
-  }
-
-  &:hover {
-    box-shadow: 0 16px 26px -8px darken($color: $primaryBGColor, $amount: 20%);
-  }
-
-  &Active {
-    .avatar {
-      opacity: 0.2;
-      transform: translateX(-6%);
+      .moreButtonContainer {
+        padding: 42px 0;
+      }
     }
   }
 }
