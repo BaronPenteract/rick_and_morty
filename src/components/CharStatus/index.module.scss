@@ -1,0 +1,16 @@
+@import "../../utils/styles/variables";
+
+.unknown {
+  font-weight: 600;
+  color: $secondaryTextColor;
+}
+
+.Alive {
+  font-weight: 600;
+  color: $primaryAccentColor;
+}
+
+.Dead {
+  font-weight: 600;
+  color: $disabledAccentColor;
+}

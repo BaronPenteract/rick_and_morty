@@ -5,6 +5,7 @@ import React from "react";
 import CharToggleAddButton from "../CharToggleAddButton";
 import { useAppDispatch } from "../../redux/store";
 import { dislike, like } from "../../redux/chars/charsSlice";
+import CharStatus from "../CharStatus";
 
 type TCharFooterProps = {
   char: CharType;
@@ -35,14 +36,7 @@ const CharFooter: React.FC<TCharFooterProps> = ({
     <div className={styles.footer}>
       <ul className={styles.footerAbout}>
         <li>
-          <span
-            className={styles[status]}
-            title={`${
-              gender === "Male" ? "He" : gender === "Female" ? "She" : "It"
-            } is ${status}`}
-          >
-            {status}
-          </span>
+          <CharStatus status={status} />
         </li>
       </ul>
       <CharToggleAddButton isLiked={isLiked} onClick={handleToggleClick} />

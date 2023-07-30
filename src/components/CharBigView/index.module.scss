@@ -1,88 +1,72 @@
 @import "../../utils/styles/variables";
 
 .root {
-  padding-bottom: 0px;
-
+  padding: 20px 10px;
   position: relative;
   z-index: 1;
-  width: 100vw;
+  width: 100%;
   max-width: 75vw;
+  min-width: 280px;
+  height: 100%;
+  max-height: 90vh;
   box-sizing: border-box;
 
   display: grid;
   grid-template-areas:
-    "header content episodes"
-    "footer footer footer";
-  grid-template-columns: 300px 3fr 2fr;
-  grid-template-rows: minmax(200px, min-content) 1fr;
+    "header "
+    "content "
+    "episodes "
+    "footer ";
   column-gap: 0px;
   row-gap: 24px;
 
-  background-color: $primaryBGColor;
   border-radius: $borderRadius;
-  overflow: hidden;
-  box-shadow: 0 16px 26px -8px darken($color: $primaryBGColor, $amount: 20%);
+  background: linear-gradient(
+    -45deg,
+    $primaryBGColor,
+    $secondaryBGColor,
+    $secondaryAccentColor 164%
+  );
+
+  box-shadow: 0 8px 26px -8px darken($color: $primaryBGColor, $amount: 20%);
   transition: box-shadow $transitionProps, padding $transitionProps;
 
   .header {
     grid-area: header;
-    align-self: flex-start;
+    justify-self: center;
     width: 100%;
-    height: 100%;
     margin: 0;
     display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
 
-    overflow: hidden;
-    background-color: $secondaryAccentColor;
     box-sizing: border-box;
 
     transition: opacity $transitionProps, height $transitionProps;
 
+    .status {
+      align-self: baseline;
+    }
+
     .avatar {
+      display: block;
+      margin: 0 auto;
       width: 100%;
+      max-width: 150px;
+      height: 100%;
+      max-height: 150px;
+      border-radius: 50%;
       object-fit: cover;
       object-position: top center;
-      opacity: 1;
-      transform: scale(1.1);
 
-      transition: transform $transitionProps, opacity $transitionProps 0.02s,
-        border-radius $transitionProps;
-    }
-  }
-
-  .content {
-    grid-area: content;
-    padding: 24px 24px 0;
-
-    position: relative;
-    z-index: 1;
-    box-sizing: border-box;
-
-    align-self: flex-start;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    gap: 42px;
-
-    color: darken($primaryTextColor, 16%);
-
-    background: $primaryBGColor;
-    border-top-left-radius: $borderRadius;
-    border-top-right-radius: $borderRadius;
-
-    transition: height $transitionProps, opacity $transitionProps,
-      box-shadow $transitionProps;
-
-    @media screen and (max-width: $tablet) {
-      padding: 10px 10px 0;
-      gap: 16px;
-    }
-    @media screen and (max-width: $phone) {
-      gap: 8px;
+      box-shadow: -16px 16px 50px -20px $secondaryAccentColor,
+        16px -16px 50px -20px $primaryAccentColor,
+        -16px 16px 50px -20px $secondaryAccentColor;
     }
 
     .name {
-      margin: 0 0 10px;
+      margin: 0;
       padding: 0;
 
       font-weight: 500;
@@ -92,6 +76,28 @@
       white-space: nowrap;
       overflow: hidden;
     }
+  }
+
+  .content {
+    grid-area: content;
+
+    position: relative;
+    z-index: 1;
+    box-sizing: border-box;
+
+    align-self: flex-start;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 24px;
+
+    color: darken($primaryTextColor, 16%);
+
+    border-top-left-radius: $borderRadius;
+    border-top-right-radius: $borderRadius;
+
+    transition: height $transitionProps, opacity $transitionProps,
+      box-shadow $transitionProps;
 
     .subTitle {
       display: flex;
@@ -117,9 +123,9 @@
 
       li {
         margin: 0;
-        padding: 0;
 
         display: flex;
+        flex-direction: column;
         justify-content: space-between;
         flex-wrap: wrap;
         gap: 4px;
@@ -132,47 +138,36 @@
         }
       }
     }
-
-    .moreButtonContainer {
-      margin: auto auto 0;
-    }
   }
 
   .episodes {
-    grid-area: episodes;
+    padding: 20px;
+    justify-self: center;
+    box-sizing: border-box;
 
-    @media screen and (max-width: $phone) {
-      display: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+
+    border-radius: $borderRadius * 0.5;
+    background: linear-gradient(0deg, transparent, $secondaryAccentColor 420%);
+
+    .title {
+      color: $secondaryTextColor;
+    }
+
+    .number {
+      color: $primaryTextColor;
+      font-weight: 600;
+      font-size: 24px;
     }
   }
 
-  @media screen and (max-width: $pc) {
-    gap: 10px;
-    grid-template-areas:
-      "header content"
-      "header footer"
-      "episodes episodes";
-    grid-template-columns: 300px auto;
-    grid-template-rows: minmax(300px, min-content) 1fr;
-  }
-
-  @media screen and (max-width: $tablet) {
-    grid-template-areas:
-      "header episodes "
-      "content content"
-      "footer footer";
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: minmax(200px, min-content) 1fr;
-    row-gap: 10px;
-  }
-
-  @media screen and (max-width: $phone) {
-    grid-template-areas:
-      "header"
-      "content"
-      "footer";
-    grid-template-columns: 1fr;
-    grid-template-rows: 200px 1fr;
-    row-gap: 4px;
+  .buttonsContainer {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
   }
 }
