@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ReactElement } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 import { rootPath } from "../../utils/constants";
@@ -6,50 +6,25 @@ import { navItems } from "../../utils/navItems";
 
 import styles from "./index.module.scss";
 import { INavItem } from "../../@types/mainComponent";
-import Burger from "../Burger";
 import { motion } from "framer-motion";
 import { navButtonAnimation } from "./animation";
+import { useSelector } from "react-redux";
+import { getCharsSelector } from "../../redux/chars/selectors";
 
 const NavTab: React.FC = () => {
   const navigate = useNavigate();
 
-  React.useEffect(() => {
-    const handleClickOutside = (e: Event) => {
-      const _e = e as KeyboardEvent;
-
-      if (_e.key === "Escape") {
-        setIsBurgerActive(false);
-      }
-    };
-
-    window.onresize = () => {
-      setIsBurgerActive(false);
-    };
-
-    document.addEventListener("keydown", handleClickOutside);
-
-    return () => {
-      window.onresize = null;
-      document.removeEventListener("keydown", handleClickOutside);
-    };
-  }, []);
-
-  const [isBurgerActive, setIsBurgerActive] = React.useState(false);
+  const { favChars } = useSelector(getCharsSelector);
 
   const handleClickNav: (navItem: INavItem) => void = (navItem) => {
-    setIsBurgerActive(false);
     navigate(navItem.to);
   };
 
-  const closeByOverlay: React.MouseEventHandler = (e) => {
-    if (e.target === e.currentTarget) {
-      setIsBurgerActive(false);
-    }
-  };
+  const navButtons: ReactElement<HTMLButtonElement>[] = [];
+  navItems.forEach((item, idx) => {
+    if (idx === 0) return;
 
-  const navButtons = navItems.map((item, idx) => {
-    //if (idx === 0) return <></>;
-    return (
+    navButtons.push(
       <motion.button
         key={idx}
         className={styles.button}
@@ -57,27 +32,25 @@ const NavTab: React.FC = () => {
         variants={navButtonAnimation}
         custom={idx}
       >
-        <p>{item.title}</p>
+        <p className={styles.buttonTitle}>{item.title}</p>
+        {item.title.toLocaleLowerCase() === "favorite" ? (
+          <span className={styles.buttonNotify}>{favChars.length}</span>
+        ) : (
+          ""
+        )}
       </motion.button>
     );
   });
 
   return (
-    <>
-      <motion.nav
-        className={`${styles.root} ${isBurgerActive ? styles.root_active : ""}`}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ amount: 1 }}
-        onClick={closeByOverlay}
-      >
-        <div className={styles.container}>{navButtons}</div>
-      </motion.nav>
-      <Burger
-        isBurgerActive={isBurgerActive}
-        setIsBurgerActive={setIsBurgerActive}
-      />
-    </>
+    <motion.nav
+      className={`${styles.root}`}
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ amount: 1 }}
+    >
+      <div className={styles.container}>{navButtons}</div>
+    </motion.nav>
   );
 };
 

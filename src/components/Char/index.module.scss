@@ -35,9 +35,6 @@
     }
   }
 
-  &Active {
-  }
-
   &::before {
     content: "";
     width: 100%;
@@ -71,6 +68,8 @@
     transition: opacity $transitionProps, height $transitionProps;
 
     .avatar_container {
+      min-width: 64px;
+      min-height: 64px;
       border-radius: 50%;
       padding: 4px;
       box-sizing: border-box;

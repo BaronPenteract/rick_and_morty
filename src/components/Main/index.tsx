@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ReactElement } from "react";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 
@@ -40,9 +40,11 @@ const Main: React.FC = () => {
     setHoveredNavItem(navItem);
   };
 
-  const navButtons = navItems.map((item, idx) => {
-    if (idx === 0) return <></>;
-    return (
+  const navButtons: ReactElement<HTMLButtonElement>[] = [];
+  navItems.forEach((item, idx) => {
+    if (idx === 0) return;
+
+    navButtons.push(
       <motion.button
         key={idx}
         className={styles.button}

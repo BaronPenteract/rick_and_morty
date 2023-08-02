@@ -13,7 +13,19 @@ import EpisodesPage from "../../Pages/EpisodesPage";
 import EpisodePage from "../../Pages/EpisodePage";
 import FavoriteCharactersPage from "../../Pages/FavoriteCharactersPage";
 
+import { useAppDispatch } from "../../redux/store";
+import { fetchChars } from "../../redux/chars/charsSlice";
+import { fetchEpisodes } from "../../redux/episodes/episodesSlice";
+
 const App: React.FC = () => {
+  const dispatch = useAppDispatch();
+
+  // Получаем общее число персов и эпизодов и сохраняем в store
+  React.useEffect(() => {
+    dispatch(fetchChars({}));
+    dispatch(fetchEpisodes({}));
+  }, []);
+
   return (
     <div className={styles.root}>
       <Routes>

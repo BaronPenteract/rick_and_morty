@@ -113,7 +113,10 @@ const CharBigView: React.FC<TCharBigViewProps> = ({ charId }) => {
               First seen in:
               <span title="First seen in">
                 {episodesOfChar ? (
-                  <Link to={rootPath + "/episode/" + episodesOfChar[0].id}>
+                  <Link
+                    className={styles.info__link}
+                    to={rootPath + "/episode/" + episodesOfChar[0].id}
+                  >
                     {episodesOfChar[0].name}
                   </Link>
                 ) : (
