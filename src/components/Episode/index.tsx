@@ -1,19 +1,22 @@
 import React from "react";
-import { IEpisode, IEpisodeProps } from "../../@types/episodes";
+import { motion } from "framer-motion";
 
-import styles from "./index.module.scss";
+import { IEpisodeProps } from "../../@types/episodes";
 import { CharType } from "../../@types/chars";
 import { getIdFromURL } from "../../utils/getIdFromURL";
 import { useAppDispatch } from "../../redux/store";
-import { fetchChars, fetchCharsByIds } from "../../redux/chars/charsSlice";
+import { fetchCharsByIds } from "../../redux/chars/charsSlice";
 import { useSelector } from "react-redux";
 import { getCharsSelector } from "../../redux/chars/selectors";
 import CharSmallList from "../CharSmallList";
 import { Status } from "../../utils/constants";
 import Preloader from "../Preloader";
 
+import styles from "./index.module.scss";
+import { cardAnim } from "../Animations";
+
 // кол-во отображаемых персов в карточке эпизода
-const charsToShowCount = 4;
+const charsToShowCount = 5;
 
 const Episode: React.FC<IEpisodeProps> = ({ episode, onClick }) => {
   const dispatch = useAppDispatch();
@@ -51,8 +54,8 @@ const Episode: React.FC<IEpisodeProps> = ({ episode, onClick }) => {
   };
 
   return (
-    <article>
-      <div className={`${styles.root}`}>
+    <motion.article initial="hidden" whileInView="visible">
+      <motion.div variants={cardAnim} className={`${styles.root}`}>
         <div className={styles.header} onClick={handleEpisodeClick}>
           <p className={styles.number}>{id}</p>
         </div>
@@ -66,8 +69,8 @@ const Episode: React.FC<IEpisodeProps> = ({ episode, onClick }) => {
             <CharSmallList chars={charsInEpisode} />
           )}
         </div>
-      </div>
-    </article>
+      </motion.div>
+    </motion.article>
   );
 };
 

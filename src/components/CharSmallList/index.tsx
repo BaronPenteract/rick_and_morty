@@ -21,9 +21,10 @@ const CharSmallList: React.FC<TCharListProps> = ({ chars }) => {
             />
           </li>
         ))}
+        {/* 
         <li>
           <span>&#8230;</span>
-        </li>
+        </li> */}
       </ul>
     </div>
   );

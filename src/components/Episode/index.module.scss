@@ -17,8 +17,40 @@
   background-color: $primaryBGColor;
   border-radius: $borderRadius;
   overflow: hidden;
+
   box-shadow: 0px 10px 20px -20px $secondaryAccentColor;
-  transition: box-shadow $transitionProps, padding $transitionProps;
+  transition: box-shadow $transitionProps, background-position $transitionProps;
+
+  backdrop-filter: blur(6px);
+
+  &:hover {
+    &::before {
+      background-position: 50% 50%;
+      opacity: 0.7;
+    }
+  }
+
+  &::before {
+    content: "";
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+
+    border-radius: $borderRadius;
+    background: linear-gradient(
+      45deg,
+      darken($secondaryAccentColor, 10%) 40%,
+      darken($primaryAccentColor, 10%) 60%
+    );
+    background-size: 400% 400%;
+    background-position: 20% 20%;
+
+    opacity: 0.2;
+    transition: background-position $transitionProps, opacity $transitionProps;
+  }
 
   .header {
     flex-basis: 25%;
@@ -36,10 +68,10 @@
     background-color: $secondaryAccentColor;
     box-sizing: border-box;
 
-    transition: color $transitionProps;
+    transition: background-color $transitionProps;
 
     &:hover {
-      color: $secondaryTextColor;
+      background-color: $primaryAccentColor;
     }
 
     .number {
@@ -78,12 +110,18 @@
       transition: color $transitionProps;
 
       &:hover {
-        color: $secondaryTextColor;
+        color: $primaryAccentColor;
       }
     }
   }
 
   &:hover {
     box-shadow: 0px 10px 25px -20px $secondaryAccentColor;
+  }
+
+  @media screen and (max-width: $tablet) {
+    .content {
+      padding: 10px 0;
+    }
   }
 }

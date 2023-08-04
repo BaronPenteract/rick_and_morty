@@ -1,23 +1,14 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { useNavigate, useParams, useSearchParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
+import { motion, useTransform, useScroll } from "framer-motion";
+
 import { useAppDispatch } from "../../redux/store";
 
 import styles from "./index.module.scss";
 
 import Preloader from "../../components/Preloader";
-import SearchForm from "../../components/SearchForm";
-import Pagination from "../../components/Pagination";
-import { THandleSearchSubmit } from "../../@types/TSearchForm";
-import ErrorBlock from "../../components/ErrorBlock";
-import { Status } from "../../utils/constants";
-import {
-  fetchEpisode,
-  fetchEpisodes,
-  setCurrentPage,
-} from "../../redux/episodes/episodesSlice";
-import { getEpisodesSelector } from "../../redux/episodes/selectors";
-import EpisodesList from "../../components/EpisodesList";
+import { fetchEpisode } from "../../redux/episodes/episodesSlice";
 import { IEpisode } from "../../@types/episodes";
 import CharList from "../../components/CharList";
 import { CharType } from "../../@types/chars";
@@ -32,7 +23,6 @@ const EpisodePage: React.FC = () => {
   const [charsInEpisode, setCharsInEpisode] = React.useState<CharType[]>([]);
 
   const dispatch = useAppDispatch();
-  const { status } = useSelector(getEpisodesSelector);
   const { chars } = useSelector(getCharsSelector);
 
   const params = useParams();
@@ -63,6 +53,26 @@ const EpisodePage: React.FC = () => {
     dispatch(fetchCharsByIds({ ids: charsInEpisodeIds }));
   }, [episode]);
 
+  const { scrollY } = useScroll();
+
+  const offsetYBackgroundTopPosition = [0, 1000];
+  const offsetYBackgroundOpacity = [100, 1000];
+
+  const backgroundTopPositions = [0, -200];
+  const backgroundOpacities = [1, 0];
+
+  const backgroundTopPosition = useTransform(
+    scrollY,
+    offsetYBackgroundTopPosition,
+    backgroundTopPositions
+  );
+
+  const backgroundOpacity = useTransform(
+    scrollY,
+    offsetYBackgroundOpacity,
+    backgroundOpacities
+  );
+
   if (!episode) {
     return (
       <section>
@@ -75,11 +85,14 @@ const EpisodePage: React.FC = () => {
 
   return (
     <section className={styles.root} aria-label={`Episode: ${episode?.name}`}>
-      <div className={styles.rootBG}>
+      <motion.div
+        className={styles.rootBG}
+        style={{ top: backgroundTopPosition, opacity: backgroundOpacity }}
+      >
         {charsInEpisode.map((char) => {
           return <img key={char.id} src={char.image} alt="background" />;
         })}
-      </div>
+      </motion.div>
       <div className={styles.header}>
         <div className={styles.container}>
           <div className={styles.title}>

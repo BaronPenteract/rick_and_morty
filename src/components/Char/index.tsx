@@ -7,6 +7,8 @@ import { useAppDispatch } from "../../redux/store";
 import { dislike, like } from "../../redux/chars/charsSlice";
 import CharStatus from "../CharStatus";
 import CharToggleAddButton from "../CharToggleAddButton";
+import { motion } from "framer-motion";
+import { cardAnim } from "../Animations";
 
 type TCharProps = {
   char: CharType;
@@ -39,8 +41,8 @@ const Char: React.FC<TCharProps> = ({ char, onCharClick }) => {
   };
 
   return (
-    <article>
-      <div className={`${styles.root}`}>
+    <motion.article initial="hidden" whileInView="visible">
+      <motion.div variants={cardAnim} className={`${styles.root}`}>
         <div className={styles.header} onClick={() => onCharClick()}>
           <div className={styles.avatar_container}>
             <img className={styles.avatar} src={image} alt={name} />
@@ -72,8 +74,8 @@ const Char: React.FC<TCharProps> = ({ char, onCharClick }) => {
             <CharToggleAddButton char={char} />
           </div>
         </div>
-      </div>
-    </article>
+      </motion.div>
+    </motion.article>
   );
 };
 
