@@ -8,6 +8,7 @@ import {
 } from "../../@types/chars";
 import { BASE_URL, Status } from "../../utils/constants";
 import { getPageFromURL } from "../../utils/getPageFromURL";
+import { setFavCharsToLS } from "../../utils/localStorage";
 
 interface CharsSlice {
   chars: CharType[];
@@ -152,6 +153,10 @@ export const charsSlice = createSlice({
     setFilterParams(state, action) {
       state.filterParams = action.payload;
     },
+    setFavChars(state, action) {
+      state.favChars = action.payload;
+      setFavCharsToLS(state.favChars);
+    },
     like(state, action: PayloadAction<CharType>) {
       const likedChar = action.payload;
 
@@ -164,6 +169,7 @@ export const charsSlice = createSlice({
           return char;
         }
       });
+      setFavCharsToLS(state.favChars);
     },
     dislike(state, action: PayloadAction<CharType>) {
       const dislikedChar = action.payload;
@@ -179,6 +185,7 @@ export const charsSlice = createSlice({
           return char;
         }
       });
+      setFavCharsToLS(state.favChars);
     },
   },
   extraReducers: (builder) => {
@@ -246,7 +253,7 @@ export const charsSlice = createSlice({
   },
 });
 
-export const { setCurrentPage, setFilterParams, like, dislike } =
+export const { setCurrentPage, setFilterParams, setFavChars, like, dislike } =
   charsSlice.actions;
 
 export default charsSlice.reducer;

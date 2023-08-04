@@ -14,11 +14,22 @@ import EpisodePage from "../../Pages/EpisodePage";
 import FavoriteCharactersPage from "../../Pages/FavoriteCharactersPage";
 
 import { useAppDispatch } from "../../redux/store";
-import { fetchChars } from "../../redux/chars/charsSlice";
+import { fetchChars, setFavChars } from "../../redux/chars/charsSlice";
 import { fetchEpisodes } from "../../redux/episodes/episodesSlice";
+import { getFavCharsFromLS } from "../../utils/localStorage";
 
 const App: React.FC = () => {
   const dispatch = useAppDispatch();
+
+  // Проверяем LocalStorage
+
+  React.useEffect(() => {
+    const favCharsLS = getFavCharsFromLS();
+
+    if (favCharsLS.length) {
+      dispatch(setFavChars(favCharsLS));
+    }
+  }, []);
 
   // Получаем общее число персов и эпизодов и сохраняем в store
   React.useEffect(() => {
