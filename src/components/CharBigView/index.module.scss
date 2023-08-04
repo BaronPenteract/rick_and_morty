@@ -65,7 +65,7 @@
 
     .name {
       width: 100%;
-      max-width: 75vw;
+      max-width: $tablet;
       margin: 0;
       padding: 0;
 
@@ -82,7 +82,7 @@
     grid-area: content;
 
     width: 100%;
-    max-width: 75vw;
+    max-width: 640px;
 
     position: relative;
     z-index: 1;
@@ -108,12 +108,6 @@
 
       display: flex;
       justify-content: space-between;
-
-      .gender {
-        color: darken($primaryAccentColor, 10%);
-        font-size: 18px;
-        font-weight: 600;
-      }
     }
 
     .info {
@@ -136,21 +130,23 @@
 
       li {
         margin: 0;
+        padding: 0;
 
         display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        flex-wrap: wrap;
-        gap: 4px;
+        justify-content: flex-start;
+        gap: 18px;
 
         span {
-          margin-left: auto;
-          max-width: 90%;
-          font-weight: 600;
-          text-align: right;
-          text-overflow: ellipsis;
-          white-space: nowrap;
-          overflow: hidden;
+          &:first-child {
+            flex-grow: 1;
+          }
+
+          &:last-child {
+            font-weight: 600;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
+          }
         }
       }
 
@@ -194,5 +190,27 @@
     display: flex;
     align-items: center;
     justify-content: space-evenly;
+  }
+
+  @media screen and (max-width: $tablet) {
+    .header {
+      .name {
+        max-width: 75vw;
+      }
+    }
+    .content {
+      max-width: 75vw;
+    }
+  }
+
+  @media screen and (max-width: $phone) {
+    .header {
+      .name {
+        max-width: 280px;
+      }
+    }
+    .content {
+      max-width: 280px;
+    }
   }
 }

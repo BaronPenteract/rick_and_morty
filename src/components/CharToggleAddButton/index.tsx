@@ -1,26 +1,42 @@
 import styles from "./index.module.scss";
 import React from "react";
-import RemoveCharSVG from "../svg/RemoveCharSVG";
+
 import AddCharSVG from "../svg/AddCharSVG";
-import { useSelector } from "react-redux";
 import { useAppDispatch } from "../../redux/store";
 import { CharType } from "../../@types/chars";
-import { getCharsSelector } from "../../redux/chars/selectors";
 import { dislike, like } from "../../redux/chars/charsSlice";
 
 type TCharToggleAddButtonProps = {
-  isLiked: boolean;
-  onClick: React.MouseEventHandler;
+  char: CharType;
+  onClick?: Function;
+  className?: string;
 };
 
 const CharToggleAddButton: React.FC<TCharToggleAddButtonProps> = ({
-  isLiked,
+  char,
   onClick,
+  className,
 }) => {
+  const dispatch = useAppDispatch();
+
+  const isLiked = char.isLiked || false;
+
+  const handleToggleClick: React.MouseEventHandler = (e) => {
+    if (onClick) onClick();
+
+    if (!isLiked) {
+      dispatch(like(char));
+    } else {
+      dispatch(dislike(char));
+    }
+  };
+
   return (
     <button
-      className={`${styles.root} ${isLiked ? styles.root_active : ""}`}
-      onClick={onClick}
+      className={`${styles.root} ${
+        isLiked ? styles.root_active : ""
+      } ${className}`}
+      onClick={handleToggleClick}
       title="Add to favorite"
     >
       <AddCharSVG className={styles.svg} />

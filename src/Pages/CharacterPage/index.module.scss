@@ -1,5 +1,9 @@
 @import "../../utils/styles/variables.scss";
 
+$BGColor: $primaryBGColor;
+$shadow: 0px 10px 20px -20px $secondaryAccentColor;
+$borderR: $borderRadius;
+
 .root {
   width: 100%;
   max-width: 1024px;
@@ -11,83 +15,61 @@
     "header"
     "content"
     "episodes";
-  grid-template-columns: 1fr;
-  grid-template-rows: 42vh 34vh 1fr;
-  column-gap: 20px;
-  color: darken($primaryTextColor, 20%);
+  gap: 64px;
 
-  overflow: hidden;
-  background-color: darken($color: $primaryBGColor, $amount: 0%);
-  box-shadow: 0 8px 42px -8px darken($color: $primaryBGColor, $amount: 20%);
+  color: $primaryTextColor;
 
   .header {
     grid-area: header;
-    flex-grow: 1;
     position: relative;
 
-    padding: 20px 20px 0 0;
-
     display: flex;
-    align-items: flex-start;
-    justify-content: flex-end;
-    overflow: hidden;
+    align-items: center;
+    justify-content: space-between;
 
-    .avatar {
-      position: absolute;
-      top: 0;
-      left: 0;
-      z-index: 0;
+    .title {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
 
-      width: 100%;
-      height: 100%;
+      .name {
+        margin: 0;
+        padding: 0;
 
-      object-fit: cover;
-      object-position: top center;
-
-      filter: blur(8px) saturate(50%);
+        font-size: 24px;
+        color: inherit;
+        text-align: center;
+      }
     }
   }
 
   .content {
-    padding: 20px 34px;
+    padding-bottom: 42px;
     grid-area: content;
     z-index: 1;
 
     display: flex;
     align-items: center;
+    justify-content: space-evenly;
     gap: 24px;
 
-    box-shadow: 0 0px 62px 74px $secondaryBGColor;
-    box-sizing: border-box;
-    background-color: $secondaryBGColor;
-
     .contentHeader {
-      display: grid;
-      grid-template-areas:
-        "avatar"
-        "name"
-        "subname";
-      column-gap: 20px;
+      display: flex;
+      flex-direction: column;
       gap: 8px;
 
       .avatar {
         grid-area: avatar;
         justify-self: center;
         position: relative;
-        margin-bottom: 24px;
-        margin-top: -64%;
         width: 242px;
         height: 242px;
 
         display: flex;
         align-items: flex-end;
-        justify-content: flex-end;
-
-        overflow: hidden;
-
-        border-radius: $borderRadius;
-        box-shadow: 0 -18px 42px -8px
-          darken($color: $primaryBGColor, $amount: 20%);
+        justify-content: space-between;
 
         img {
           position: absolute;
@@ -99,60 +81,20 @@
           height: 100%;
           object-fit: cover;
           object-position: top center;
+          border-radius: 50%;
+
+          box-shadow: -10px 10px 30px -20px $secondaryAccentColor,
+            10px -10px 30px -20px $primaryAccentColor,
+            -10px 10px 30px -20px $secondaryAccentColor;
         }
-
-        .status {
-          padding: 1px 4px;
-          border-radius: $borderRadius;
-          background-color: lighten($secondaryBGColor, 10%);
-        }
-
-        .Alive {
-          font-weight: 600;
-          background-color: darken($primaryAccentColor, 10%);
-        }
-
-        .Dead {
-          font-weight: 600;
-          background-color: darken(red, 10%);
-        }
-
-        @media screen and (max-width: $tablet) {
-          margin-top: -92px;
-          width: 184px;
-          height: 184px;
-        }
-      }
-
-      .subTitle {
-        grid-area: subname;
-        width: 100%;
-        margin: 0;
-        padding: 0;
-
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-
-        color: inherit;
       }
     }
 
     .contentMain {
-      flex-grow: 1;
+      //flex-grow: 1;
       display: flex;
       flex-direction: column;
       gap: 10px;
-
-      .name {
-        grid-area: name;
-        width: 100%;
-        margin: 0;
-        padding: 0;
-
-        color: inherit;
-        text-align: center;
-      }
     }
 
     .info {
@@ -163,7 +105,7 @@
 
       display: flex;
       flex-direction: column;
-      gap: 8px;
+      gap: 16px;
 
       transition: visibility $transitionProps, opacity $transitionProps;
 
@@ -172,141 +114,108 @@
         padding: 0;
 
         display: flex;
-        justify-content: space-between;
-        flex-wrap: wrap;
-        gap: 4px;
+        justify-content: flex-start;
+        gap: 18px;
 
         span {
-          margin-left: auto;
-          max-width: 90%;
-          font-weight: 600;
-          text-align: right;
+          &:first-child {
+            flex-grow: 1;
+          }
+
+          &:last-child {
+            font-weight: 600;
+          }
         }
       }
-
-      @media screen and (max-width: $tablet) {
-        width: 100%;
-        max-width: 500px;
-      }
-    }
-
-    .contentFooter {
-      width: 100%;
-      list-style-type: none;
-      margin: 0;
-      padding: 0;
-
-      display: flex;
-      gap: 8px;
-
-      border-top: 1px solid darken($primaryAccentColor, 10%);
-
-      transition: visibility $transitionProps, opacity $transitionProps;
-
-      li {
-        flex-grow: 1;
-        flex-basis: 50%;
-        margin: 0;
-        padding: 1em 0 0;
-
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 1em;
-
-        &:not(:last-of-type) {
-          border-right: 1px solid darken($primaryAccentColor, 10%);
-        }
-
-        span {
-          max-width: 90%;
-          font-weight: 600;
-          text-align: center;
-        }
-
-        @media screen and (max-width: $tablet) {
-          padding: 0.5em 0 0;
-          gap: 0.5em;
-        }
-      }
-
-      @media screen and (max-width: $tablet) {
-        width: 100%;
-        max-width: 500px;
-      }
-    }
-
-    @media screen and (max-width: $tablet) {
-      gap: 10px;
-      padding: 20px 10px;
-    }
-
-    @media screen and (max-width: $phone) {
-      flex-direction: column;
     }
   }
 
   .episodes {
+    padding-bottom: 64px;
     display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
     grid-area: episodes;
 
-    padding: 20px 0;
     min-height: 20vh;
+
+    &__title {
+      margin: 0;
+      padding: 0;
+      font-weight: 600;
+    }
   }
 
   @media screen and (max-width: $tablet) {
-    grid-template-areas:
-      "header"
-      "content"
-      "episodes";
-    grid-template-columns: 1fr;
-    grid-template-rows: 34vh 1fr;
-    font-size: 0.9em;
+    .content {
+      flex-direction: column;
+      gap: 42px;
+    }
+  }
+
+  @media screen and (max-width: $phone) {
   }
 }
+
 .backButton {
+  width: 42px;
+  height: 42px;
+
   margin: 0;
-  padding: 4px;
+  padding: 0;
   z-index: 1;
 
-  background-color: darken($color: $primaryBGColor, $amount: 0%);
-  border: 1px solid darken($primaryTextColor, 20%);
-  border-radius: $borderRadius;
+  background-color: transparent;
+  border: none;
   cursor: pointer;
 
   font-size: inherit;
   color: darken($primaryTextColor, 20%);
 
-  fill: darken($primaryTextColor, 20%);
-  stroke: darken($primaryTextColor, 20%);
+  fill: $primaryTextColor;
+  stroke: $primaryTextColor;
 
-  transition: color $transitionProps, border-color $transitionProps;
+  transition: fill $transitionProps, stroke $transitionProps;
+
+  &__svg {
+    fill: inherit;
+    stroke: inherit;
+  }
 
   &:hover {
-    color: darken($secondaryTextColor, 20%);
-    border-color: darken($secondaryTextColor, 20%);
+    fill: $primaryAccentColor;
+    stroke: $primaryAccentColor;
   }
 
   &:disabled {
-    color: darken(
-      hsl($primaryTextColorH, $disabledColorS, $primaryTextColorL),
-      30%
-    );
-    border-color: darken(
-      hsl($primaryTextColorH, $disabledColorS, $primaryTextColorL),
-      30%
-    );
+    fill: $disabledTextColor;
+    stroke: $disabledTextColor;
+
     cursor: default;
 
     &:hover {
-      color: darken(
-        hsl($primaryTextColorH, $disabledColorS, $primaryTextColorL),
-        30%
-      );
-      border-color: darken(
-        hsl($primaryTextColorH, $disabledColorS, $primaryTextColorL),
-        30%
-      );
+      fill: $disabledTextColor;
+      stroke: $disabledTextColor;
     }
+  }
+}
+
+.toogleAddButton {
+  width: 42px;
+}
+
+.container {
+  padding: 20px;
+  margin: 0 20px;
+  box-sizing: border-box;
+
+  background-color: $BGColor;
+  box-shadow: $shadow;
+  border-radius: $borderR;
+
+  @media screen and (max-width: $phone) {
+    padding: 10px;
+    margin: 0;
   }
 }

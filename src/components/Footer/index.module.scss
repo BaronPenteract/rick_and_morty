@@ -11,8 +11,8 @@
   box-sizing: border-box;
   position: relative;
   z-index: 100;
-  background: linear-gradient(-45deg, $primaryBGColor, $secondaryBGColor);
-  box-shadow: 0px -30px 64px -20px darken($secondaryBGColor, 5%);
+  background: $primaryBGColor;
+  box-shadow: 0px 0px 24px -20px $secondaryAccentColor;
 
   border-top-left-radius: $borderRadius;
   border-top-right-radius: $borderRadius;

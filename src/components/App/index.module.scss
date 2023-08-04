@@ -18,13 +18,7 @@
   width: 100%;
   min-height: 100vh;
   box-sizing: border-box;
-  /* display: grid;
-  grid-template-columns: 240px 1fr;
-  grid-template-rows: 42px 1fr 42px;
-  grid-template-areas:
-    "header header header"
-    "content content content"
-    "footer footer footer"; */
+  gap: 100px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -39,5 +33,13 @@
     max-width: $maxWidth;
     min-height: 90vh;
     display: flex;
+  }
+
+  @media screen and (max-width: $tablet) {
+    gap: 64px;
+  }
+
+  @media screen and (max-width: $phone) {
+    gap: 24px;
   }
 }

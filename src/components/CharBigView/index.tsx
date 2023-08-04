@@ -15,6 +15,8 @@ import styles from "./index.module.scss";
 import Preloader from "../Preloader";
 import { Link } from "react-router-dom";
 import { rootPath } from "../../utils/constants";
+import CharGender from "../CharGender";
+import CharSpecies from "../CharSpecies";
 
 type TCharBigViewProps = {
   charId: number;
@@ -62,14 +64,6 @@ const CharBigView: React.FC<TCharBigViewProps> = ({ charId }) => {
     isLiked,
   } = char;
 
-  const handleToggleClick: React.MouseEventHandler = (e) => {
-    if (!isLiked) {
-      dispatch(like(char));
-    } else {
-      dispatch(dislike(char));
-    }
-  };
-
   let episodesToShow: ReactElement<HTMLLIElement>[] = [];
 
   if (episodesOfChar) {
@@ -95,22 +89,21 @@ const CharBigView: React.FC<TCharBigViewProps> = ({ charId }) => {
         <div className={styles.content}>
           <div>
             <p className={styles.subTitle}>
-              <span title="Gender" className={styles.gender}>
-                {gender}
-              </span>
-              <span title="Species">{species}</span>
+              <CharGender gender={gender} />
+              <CharSpecies species={species} />
             </p>
           </div>
           <ul className={styles.info}>
             <li>
-              Origin: <span title="Origin">{origin.name}</span>
+              <span>Origin: </span>
+              <span title="Origin">{origin.name}</span>
             </li>
             <li>
-              Last known location:
+              <span>Last known location: </span>
               <span title="Last known location">{location.name}</span>
             </li>
             <li>
-              First seen in:
+              <span>First seen in: </span>
               <span title="First seen in">
                 {episodesOfChar ? (
                   <Link
@@ -134,10 +127,7 @@ const CharBigView: React.FC<TCharBigViewProps> = ({ charId }) => {
         </div>
         <div className={styles.buttonsContainer}>
           <CharMoreButton id={id} />
-          <CharToggleAddButton
-            isLiked={isLiked ? isLiked : false}
-            onClick={handleToggleClick}
-          />
+          <CharToggleAddButton char={char} />
         </div>
       </div>
     </article>

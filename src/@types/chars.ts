@@ -4,7 +4,7 @@ export type CharType = {
   status: "Alive" | "Dead" | "unknown";
   species: string;
   type: string;
-  gender: string;
+  gender: "Female" | "Male" | "Genderless" | "unknown";
   origin: {
     name: string;
     url: string;

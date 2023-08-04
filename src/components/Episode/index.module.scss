@@ -17,7 +17,7 @@
   background-color: $primaryBGColor;
   border-radius: $borderRadius;
   overflow: hidden;
-  box-shadow: 0 8px 16px -8px darken($primaryBGColor, 20%);
+  box-shadow: 0px 10px 20px -20px $secondaryAccentColor;
   transition: box-shadow $transitionProps, padding $transitionProps;
 
   .header {
@@ -84,6 +84,6 @@
   }
 
   &:hover {
-    box-shadow: 0 16px 26px -8px darken($color: $primaryBGColor, $amount: 20%);
+    box-shadow: 0px 10px 25px -20px $secondaryAccentColor;
   }
 }

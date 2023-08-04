@@ -2,10 +2,11 @@ import { CharType } from "../../@types/chars";
 
 import styles from "./index.module.scss";
 import React from "react";
-import CharFooter from "../CharFooter";
 import CharMoreButton from "../CharMoreButton";
 import { useAppDispatch } from "../../redux/store";
 import { dislike, like } from "../../redux/chars/charsSlice";
+import CharStatus from "../CharStatus";
+import CharToggleAddButton from "../CharToggleAddButton";
 
 type TCharProps = {
   char: CharType;
@@ -66,7 +67,10 @@ const Char: React.FC<TCharProps> = ({ char, onCharClick }) => {
           <div className={styles.moreButtonContainer}>
             <CharMoreButton id={id} />
           </div>
-          <CharFooter char={char} handleToggleClick={handleToggleClick} />
+          <div className={styles.footer}>
+            <CharStatus status={status} />
+            <CharToggleAddButton char={char} />
+          </div>
         </div>
       </div>
     </article>

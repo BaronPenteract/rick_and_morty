@@ -1,0 +1,19 @@
+@import "../../utils/styles/variables";
+
+.root {
+  color: $disabledTextColor;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.Female {
+  color: $disabledAccentColor;
+}
+
+.Male {
+  color: $primaryAccentColor;
+}
+
+.Genderless {
+  color: $secondaryAccentColor;
+}

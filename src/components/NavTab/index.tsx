@@ -32,8 +32,11 @@ const NavTab: React.FC = () => {
         variants={navButtonAnimation}
         custom={idx}
       >
-        <p className={styles.buttonTitle}>{item.title}</p>
-        {item.title.toLocaleLowerCase() === "favorite" ? (
+        <Link className={styles.buttonTitle} to={item.to}>
+          {item.title}
+        </Link>
+        {item.title.toLocaleLowerCase() === "favorite" &&
+        favChars.length > 0 ? (
           <span className={styles.buttonNotify}>{favChars.length}</span>
         ) : (
           ""

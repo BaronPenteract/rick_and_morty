@@ -12,7 +12,7 @@
   .container {
     flex-grow: 1;
     display: flex;
-    box-shadow: 0px 20px 10px -10px darken($secondaryBGColor, 5%);
+    box-shadow: 0px 10px 20px -20px $secondaryAccentColor;
   }
 
   .button {
@@ -34,7 +34,9 @@
     transition: color $transitionProps, background-color $transitionProps;
 
     &Title {
+      text-decoration: none;
       position: relative;
+      color: inherit;
       margin: 0;
       padding: 0;
     }
