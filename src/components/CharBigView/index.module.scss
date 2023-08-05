@@ -111,53 +111,8 @@
     }
 
     .info {
-      list-style-type: none;
-      margin: 0;
-      padding: 10px 20px 0;
-
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-
+      padding: 10px;
       border-radius: $borderRadius * 0.5;
-      background: linear-gradient(
-        0deg,
-        transparent,
-        $secondaryAccentColor 420%
-      );
-
-      transition: visibility $transitionProps, opacity $transitionProps;
-
-      li {
-        margin: 0;
-        padding: 0;
-
-        display: flex;
-        justify-content: flex-start;
-        gap: 18px;
-
-        span {
-          &:first-child {
-            flex-grow: 1;
-          }
-
-          &:last-child {
-            font-weight: 600;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-            overflow: hidden;
-          }
-        }
-      }
-
-      &__link {
-        text-decoration: none;
-        color: inherit;
-
-        &:hover {
-          color: $primaryAccentColor;
-        }
-      }
     }
   }
 

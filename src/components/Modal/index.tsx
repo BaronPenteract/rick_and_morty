@@ -19,14 +19,14 @@ const Modal: React.FC<TModalProps> = ({ isOpen, setIsOpen, children }) => {
       }
     };
     if (isOpen) {
-      document.body.style.overflow = "hidden";
+      //document.body.style.overflow = "hidden";
       document.onkeydown = handleCloseKeyESC;
     } else {
-      document.body.style.overflow = "visible";
+      //document.body.style.overflow = "visible";
       document.onkeydown = null;
     }
     return () => {
-      document.body.style.overflow = "visible";
+      //document.body.style.overflow = "visible";
       document.onkeydown = null;
     };
   }, [isOpen]);

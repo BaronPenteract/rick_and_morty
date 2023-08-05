@@ -20,6 +20,7 @@ import CharToggleAddButton from "../../components/CharToggleAddButton";
 import CharStatus from "../../components/CharStatus";
 import CharGender from "../../components/CharGender";
 import CharSpecies from "../../components/CharSpecies";
+import CharInfo from "../../components/CharInfo";
 
 const CharacterPage: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -39,6 +40,7 @@ const CharacterPage: React.FC = () => {
 
   React.useEffect(() => {
     window.scroll(0, 0);
+    setChar(undefined);
 
     dispatch(fetchChar({ id: charId }))
       .unwrap()
@@ -48,7 +50,7 @@ const CharacterPage: React.FC = () => {
       .catch((e) => {
         setErr(new Error(e.error));
       });
-  }, []);
+  }, [charId]);
 
   React.useEffect(() => {
     if (!char) return;
@@ -117,34 +119,11 @@ const CharacterPage: React.FC = () => {
           </div>
         </div>
         <div className={styles.contentMain}>
-          <ul className={styles.info}>
-            {type ? (
-              <li>
-                <span>Type: </span>
-                <span title="Type">{type}</span>
-              </li>
-            ) : (
-              ""
-            )}
-            <li>
-              <span>Origin: </span>
-              <span title="Origin">{origin.name}</span>
-            </li>
-            <li>
-              <span>Last known location: </span>
-              <span title="Last known location">{location.name}</span>
-            </li>
-            <li>
-              <span>First seen in </span>
-              <span title="First seen in">
-                {episodesOfChar ? episodesOfChar[0].name : <Preloader />}
-              </span>
-            </li>
-            <li>
-              <span>Episodes: </span>
-              <span title="Number of episodes">{episode.length}</span>
-            </li>
-          </ul>
+          {episodesOfChar ? (
+            <CharInfo char={char} firstSeenInEpisode={episodesOfChar[0]} />
+          ) : (
+            <Preloader />
+          )}
         </div>
       </div>
       <div className={`${styles.episodes} ${styles.container}`}>

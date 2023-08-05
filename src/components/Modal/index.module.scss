@@ -16,6 +16,8 @@
   left: 0;
   z-index: 10000;
 
+  overscroll-behavior: contain;
+
   box-sizing: border-box;
   background-color: hsla(
     $primaryBGColorH,

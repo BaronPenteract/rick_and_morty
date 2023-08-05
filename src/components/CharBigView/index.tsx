@@ -1,36 +1,30 @@
-import React, { ReactElement } from "react";
-import ErrorBlock from "../ErrorBlock";
+import React from "react";
+
 import CharMoreButton from "../CharMoreButton";
-import { useSelector } from "react-redux";
-import { getCharsSelector } from "../../redux/chars/selectors";
 import { useAppDispatch } from "../../redux/store";
-import { like, dislike } from "../../redux/chars/charsSlice";
 import CharStatus from "../CharStatus";
 import CharToggleAddButton from "../CharToggleAddButton";
 import { IEpisode } from "../../@types/episodes";
 import { getIdFromURL } from "../../utils/getIdFromURL";
 import { fetchEpisodesByIds } from "../../redux/episodes/episodesSlice";
 
-import styles from "./index.module.scss";
 import Preloader from "../Preloader";
-import { Link } from "react-router-dom";
-import { rootPath } from "../../utils/constants";
 import CharGender from "../CharGender";
 import CharSpecies from "../CharSpecies";
+import CharInfo from "../CharInfo";
+import { CharType } from "../../@types/chars";
+
+import styles from "./index.module.scss";
 
 type TCharBigViewProps = {
-  charId: number;
+  char: CharType | undefined;
 };
 
-const CharBigView: React.FC<TCharBigViewProps> = ({ charId }) => {
+const CharBigView: React.FC<TCharBigViewProps> = ({ char }) => {
   const dispatch = useAppDispatch();
 
   // эпизоды, в которых был конкретный char
   const [episodesOfChar, setEpisodesOfChar] = React.useState<IEpisode[]>();
-
-  const char = useSelector(getCharsSelector).chars.find(
-    (char) => char.id == charId
-  );
 
   React.useEffect(() => {
     if (!char) return;
@@ -47,7 +41,7 @@ const CharBigView: React.FC<TCharBigViewProps> = ({ charId }) => {
   }, [char]);
 
   if (!char) {
-    return <ErrorBlock err={new Error("Something wrong.")} />;
+    return <Preloader />;
   }
 
   const {
@@ -63,16 +57,6 @@ const CharBigView: React.FC<TCharBigViewProps> = ({ charId }) => {
     url,
     isLiked,
   } = char;
-
-  let episodesToShow: ReactElement<HTMLLIElement>[] = [];
-
-  if (episodesOfChar) {
-    episodesOfChar.forEach((episode, idx) => {
-      if (idx > 4) return;
-
-      episodesToShow.push(<li>{episode.name}</li>);
-    });
-  }
 
   return (
     <article>
@@ -93,31 +77,13 @@ const CharBigView: React.FC<TCharBigViewProps> = ({ charId }) => {
               <CharSpecies species={species} />
             </p>
           </div>
-          <ul className={styles.info}>
-            <li>
-              <span>Origin: </span>
-              <span title="Origin">{origin.name}</span>
-            </li>
-            <li>
-              <span>Last known location: </span>
-              <span title="Last known location">{location.name}</span>
-            </li>
-            <li>
-              <span>First seen in: </span>
-              <span title="First seen in">
-                {episodesOfChar ? (
-                  <Link
-                    className={styles.info__link}
-                    to={rootPath + "/episode/" + episodesOfChar[0].id}
-                  >
-                    {episodesOfChar[0].name}
-                  </Link>
-                ) : (
-                  <Preloader />
-                )}
-              </span>
-            </li>
-          </ul>
+          <div className={styles.info}>
+            {episodesOfChar ? (
+              <CharInfo char={char} firstSeenInEpisode={episodesOfChar[0]} />
+            ) : (
+              <Preloader />
+            )}
+          </div>
         </div>
         <div className={styles.episodes}>
           <span className={styles.title}>Episodes: </span>

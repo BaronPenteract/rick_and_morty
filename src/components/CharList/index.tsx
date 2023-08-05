@@ -14,7 +14,7 @@ type TCharListProps = {
 
 const CharList: React.FC<TCharListProps> = ({ chars }) => {
   const [isMoreModalOpen, setIsMoreModalOpen] = React.useState(false);
-  const [charIdToModal, setCharIdToModal] = React.useState<number>(0);
+  const [charToModal, setCharToModal] = React.useState<CharType>();
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -25,13 +25,13 @@ const CharList: React.FC<TCharListProps> = ({ chars }) => {
 
   React.useEffect(() => {
     if (!isMoreModalOpen) {
-      setCharIdToModal(0);
+      setCharToModal(undefined);
     }
   }, [isMoreModalOpen]);
 
-  const handleCharClick: (id: number) => void = (id) => {
+  const handleCharClick: (char: CharType) => void = (char) => {
     setIsMoreModalOpen(true);
-    setCharIdToModal(id);
+    setCharToModal(char);
   };
 
   return (
@@ -42,14 +42,14 @@ const CharList: React.FC<TCharListProps> = ({ chars }) => {
             <Char
               char={char}
               onCharClick={() => {
-                handleCharClick(char.id);
+                handleCharClick(char);
               }}
             />
           </li>
         ))}
       </ul>
       <Modal isOpen={isMoreModalOpen} setIsOpen={setIsMoreModalOpen}>
-        <CharBigView charId={charIdToModal} />
+        <CharBigView char={charToModal} />
       </Modal>
     </div>
   );

@@ -76,8 +76,8 @@ const CharactersPage: React.FC = () => {
 
     setSearchParams({ page: page.toString(), name });
 
-    dispatch(setCurrentPage(page));
-    await dispatch(fetchChars({ page, name }));
+    //dispatch(setCurrentPage(page));
+    //await dispatch(fetchChars({ page, name }));
   };
 
   const handleSearchSubmit: THandleSearchSubmit = ({ name }) => {

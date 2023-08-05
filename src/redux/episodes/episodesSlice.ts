@@ -8,7 +8,6 @@ import {
   IFetchSingleEpisodeResponse,
   IFilterParamsEpisodes,
 } from "../../@types/episodes";
-import { TFetchCharResponse } from "../../@types/chars";
 
 interface IEpisodesSlice {
   episodes: IEpisode[];

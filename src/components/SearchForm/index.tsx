@@ -2,8 +2,6 @@ import React from "react";
 import styles from "./index.module.scss";
 import SearchSVG from "../svg/SearchSVG";
 import { TSearchFormProps } from "../../@types/TSearchForm";
-import { useSelector } from "react-redux";
-import { getCharsSelector } from "../../redux/chars/selectors";
 import Preloader from "../Preloader";
 import { Status } from "../../utils/constants";
 
@@ -15,7 +13,7 @@ const SearchForm: React.FC<TSearchFormProps> = ({
   const [searchValue, setSearchValue] = React.useState("");
 
   React.useEffect(() => {
-    if (filterParams.name) setSearchValue(filterParams.name);
+    setSearchValue(filterParams.name || "");
   }, [filterParams]);
 
   const submitHandler: React.FormEventHandler = (e) => {
