@@ -1,7 +1,6 @@
 import React, { ReactElement } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
-import { rootPath } from "../../utils/constants";
 import { navItems } from "../../utils/navItems";
 
 import styles from "./index.module.scss";

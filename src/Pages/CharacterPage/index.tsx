@@ -10,7 +10,11 @@ import styles from "./index.module.scss";
 import Preloader from "../../components/Preloader";
 import ErrorBlock from "../../components/ErrorBlock";
 import { CharType } from "../../@types/chars";
-import { Status } from "../../utils/constants";
+import {
+  INTERNET_CONNTECTION_ERROR,
+  NOT_FOUND_ERROR,
+  Status,
+} from "../../utils/constants";
 import { getIdFromURL } from "../../utils/getIdFromURL";
 import { IEpisode } from "../../@types/episodes";
 import { fetchEpisodesByIds } from "../../redux/episodes/episodesSlice";
@@ -31,7 +35,7 @@ const CharacterPage: React.FC = () => {
   // эпизоды, в которых был конкретный char
   const [episodesOfChar, setEpisodesOfChar] = React.useState<IEpisode[]>();
 
-  const [err, setErr] = React.useState<Error>(new Error("404 Not found."));
+  const [err, setErr] = React.useState<Error>(new Error(NOT_FOUND_ERROR));
 
   //берем статус загрузки
   const fetchStatus = useSelector(getCharsSelector).status;
@@ -48,7 +52,7 @@ const CharacterPage: React.FC = () => {
         setChar(res);
       })
       .catch((e) => {
-        setErr(new Error(e.error));
+        setErr(new Error(e.error || INTERNET_CONNTECTION_ERROR));
       });
   }, [charId]);
 
@@ -63,6 +67,9 @@ const CharacterPage: React.FC = () => {
       .unwrap()
       .then((res) => {
         setEpisodesOfChar(res);
+      })
+      .catch((e) => {
+        setErr(new Error(e.error || INTERNET_CONNTECTION_ERROR));
       });
   }, [char]);
 
@@ -75,22 +82,20 @@ const CharacterPage: React.FC = () => {
     return <Preloader />;
   }
 
-  const {
-    id,
-    name,
-    image,
-    gender,
-    type,
-    species,
-    status,
-    origin,
-    location,
-    episode,
-    url,
-  } = char;
+  const { id, name, image, gender, species, status } = char;
 
   const isLiked = favChars.find((favChar) => favChar.id === id) ? true : false;
   char.isLiked = isLiked;
+
+  const backgroundStyles: React.CSSProperties = {
+    backgroundImage: `url('${image}')`,
+    backgroundRepeat: "no-repeat",
+    backgroundPosition: "center",
+    backgroundAttachment: "fixed",
+    backgroundSize: "cover",
+    backgroundColor: "#000000aa",
+    backgroundBlendMode: "overlay",
+  };
 
   const handleBackClick: React.MouseEventHandler = (e) => {
     navigate(-1);
@@ -98,7 +103,10 @@ const CharacterPage: React.FC = () => {
 
   return (
     <section className={styles.root}>
-      <div className={`${styles.header} ${styles.container}`}>
+      <div
+        className={`${styles.header} ${styles.container}`}
+        style={{ ...backgroundStyles }}
+      >
         <button className={styles.backButton} onClick={handleBackClick}>
           <LeftArrowSVG className={styles.backButton__svg} />
         </button>
@@ -110,7 +118,10 @@ const CharacterPage: React.FC = () => {
         </div>
         <CharToggleAddButton char={char} className={styles.toogleAddButton} />
       </div>
-      <div className={`${styles.content} ${styles.container}`}>
+      <div
+        className={`${styles.content} ${styles.container}`}
+        style={{ ...backgroundStyles }}
+      >
         <div className={styles.contentHeader}>
           <div className={styles.avatar}>
             <img src={image} alt={name} />

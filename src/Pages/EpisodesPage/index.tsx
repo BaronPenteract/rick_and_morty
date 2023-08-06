@@ -10,7 +10,11 @@ import SearchForm from "../../components/SearchForm";
 import Pagination from "../../components/Pagination";
 import { THandleSearchSubmit } from "../../@types/TSearchForm";
 import ErrorBlock from "../../components/ErrorBlock";
-import { Status } from "../../utils/constants";
+import {
+  INTERNET_CONNTECTION_ERROR,
+  NOT_FOUND_ERROR,
+  Status,
+} from "../../utils/constants";
 import {
   fetchEpisodes,
   setCurrentPage,
@@ -20,7 +24,7 @@ import { getEpisodesSelector } from "../../redux/episodes/selectors";
 import EpisodesList from "../../components/EpisodesList";
 
 const EpisodesPage: React.FC = () => {
-  const [err, setErr] = React.useState<Error>(new Error("404 Not found."));
+  const [err, setErr] = React.useState<Error>(new Error(NOT_FOUND_ERROR));
   const [searchParams, setSearchParams] = useSearchParams();
 
   const dispatch = useAppDispatch();
@@ -51,7 +55,7 @@ const EpisodesPage: React.FC = () => {
       dispatch(fetchEpisodes(filterParams))
         .unwrap()
         .catch((e) => {
-          setErr(new Error(e.error));
+          setErr(new Error(e.error || INTERNET_CONNTECTION_ERROR));
         });
     } else {
       dispatch(setFilterParams({}));
@@ -63,7 +67,7 @@ const EpisodesPage: React.FC = () => {
     dispatch(fetchEpisodes(filterParams))
       .unwrap()
       .catch((e) => {
-        setErr(new Error(e.error));
+        setErr(new Error(e.error || INTERNET_CONNTECTION_ERROR));
       });
   }, [filterParams]);
 
@@ -94,11 +98,6 @@ const EpisodesPage: React.FC = () => {
         className={styles.root}
         aria-label="Some error of characters of Rick and Morty"
       >
-        <SearchForm
-          onSubmit={handleSearchSubmit}
-          filterParams={filterParams}
-          status={status}
-        />
         <ErrorBlock err={err} />
       </section>
     );

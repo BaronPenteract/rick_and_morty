@@ -1,9 +1,11 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { motion, useTransform, useScroll } from "framer-motion";
+import { motion } from "framer-motion";
 
 import { useAppDispatch } from "../../redux/store";
+
+import episodesBG from "../../assets/images/episodes-bg.jpg";
 
 import styles from "./index.module.scss";
 
@@ -15,9 +17,17 @@ import { CharType } from "../../@types/chars";
 import { fetchCharsByIds } from "../../redux/chars/charsSlice";
 import { getIdFromURL } from "../../utils/getIdFromURL";
 import { getCharsSelector } from "../../redux/chars/selectors";
+import { useScrollAnim } from "../../components/hooks/useScrollAnim";
+import {
+  INTERNET_CONNTECTION_ERROR,
+  NOT_FOUND_ERROR,
+  Status,
+} from "../../utils/constants";
+import ErrorBlock from "../../components/ErrorBlock";
+import { getEpisodesSelector } from "../../redux/episodes/selectors";
 
 const EpisodePage: React.FC = () => {
-  const [err, setErr] = React.useState<Error>(new Error("404 Not found."));
+  const [err, setErr] = React.useState<Error>(new Error(NOT_FOUND_ERROR));
   const [episode, setEpisode] = React.useState<IEpisode>();
 
   const [charsInEpisode, setCharsInEpisode] = React.useState<CharType[]>([]);
@@ -34,6 +44,9 @@ const EpisodePage: React.FC = () => {
         .unwrap()
         .then((res) => {
           setEpisode(res);
+        })
+        .catch((e) => {
+          setErr(new Error(e.error || INTERNET_CONNTECTION_ERROR));
         });
     })();
   }, []);
@@ -53,29 +66,17 @@ const EpisodePage: React.FC = () => {
     dispatch(fetchCharsByIds({ ids: charsInEpisodeIds }));
   }, [episode]);
 
-  const { scrollY } = useScroll();
+  const { backgroundTopPosition, backgroundOpacity } = useScrollAnim();
 
-  const offsetYBackgroundTopPosition = [0, 1000];
-  const offsetYBackgroundOpacity = [100, 1000];
+  //берем статус загрузки
+  const fetchStatus = useSelector(getEpisodesSelector).status;
 
-  const backgroundTopPositions = [0, -200];
-  const backgroundOpacities = [1, 0];
-
-  const backgroundTopPosition = useTransform(
-    scrollY,
-    offsetYBackgroundTopPosition,
-    backgroundTopPositions
-  );
-
-  const backgroundOpacity = useTransform(
-    scrollY,
-    offsetYBackgroundOpacity,
-    backgroundOpacities
-  );
-
+  if (fetchStatus === Status.ERROR) {
+    return <ErrorBlock err={err} />;
+  }
   if (!episode) {
     return (
-      <section>
+      <section className={styles.root} aria-label={`Loading`}>
         <Preloader />
       </section>
     );
@@ -89,9 +90,11 @@ const EpisodePage: React.FC = () => {
         className={styles.rootBG}
         style={{ top: backgroundTopPosition, opacity: backgroundOpacity }}
       >
+        {/* 
         {charsInEpisode.map((char) => {
           return <img key={char.id} src={char.image} alt="background" />;
-        })}
+        })} */}
+        <img src={episodesBG} alt="background" />
       </motion.div>
       <div className={styles.header}>
         <div className={styles.container}>

@@ -22,19 +22,18 @@ import NavTab from "../NavTab";
 const Header: React.FC = () => {
   const [isHeaderActive, setIsHeaderActive] = React.useState(false);
 
-  const toggleIsHeaderActive = () => {
-    setIsHeaderActive(!isHeaderActive);
-  };
-
   return (
     <motion.header
       className={`${styles.root} ${isHeaderActive ? styles.root_active : ""}`}
-      onMouseEnter={toggleIsHeaderActive}
-      onMouseLeave={toggleIsHeaderActive}
+      onMouseEnter={() => setIsHeaderActive(true)}
+      onMouseLeave={() => setIsHeaderActive(false)}
       initial="hidden"
       whileHover="visible"
     >
-      <div className={styles.headerBG}>
+      <div
+        className={styles.headerBG}
+        onMouseEnter={() => setIsHeaderActive(false)}
+      >
         <motion.img
           className={styles.headerBG_back}
           src={headerBGBack}

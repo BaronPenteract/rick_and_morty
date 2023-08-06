@@ -1,10 +1,12 @@
 import styles from "./index.module.scss";
-import React from "react";
+import React, { useEffect } from "react";
 
 import AddCharSVG from "../svg/AddCharSVG";
 import { useAppDispatch } from "../../redux/store";
 import { CharType } from "../../@types/chars";
 import { dislike, like } from "../../redux/chars/charsSlice";
+import { useSelector } from "react-redux";
+import { getCharsSelector } from "../../redux/chars/selectors";
 
 type TCharToggleAddButtonProps = {
   char: CharType;
@@ -19,7 +21,12 @@ const CharToggleAddButton: React.FC<TCharToggleAddButtonProps> = ({
 }) => {
   const dispatch = useAppDispatch();
 
-  const isLiked = char.isLiked || false;
+  //const isLiked = char.isLiked || false;
+  const isLiked = useSelector(getCharsSelector).favChars.find(
+    (item) => item.id === char.id
+  )
+    ? true
+    : false;
 
   const handleToggleClick: React.MouseEventHandler = (e) => {
     if (onClick) onClick();

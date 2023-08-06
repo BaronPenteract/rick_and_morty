@@ -9,16 +9,23 @@ import { fetchCharsByIds } from "../../redux/chars/charsSlice";
 import { useSelector } from "react-redux";
 import { getCharsSelector } from "../../redux/chars/selectors";
 import CharSmallList from "../CharSmallList";
-import { Status } from "../../utils/constants";
+import {
+  INTERNET_CONNTECTION_ERROR,
+  NOT_FOUND_ERROR,
+  Status,
+} from "../../utils/constants";
 import Preloader from "../Preloader";
 
 import styles from "./index.module.scss";
 import { cardAnim } from "../Animations";
+import ErrorBlock from "../ErrorBlock";
 
 // кол-во отображаемых персов в карточке эпизода
 const charsToShowCount = 5;
 
 const Episode: React.FC<IEpisodeProps> = ({ episode, onClick }) => {
+  const [err, setErr] = React.useState<Error>(new Error(NOT_FOUND_ERROR));
+
   const dispatch = useAppDispatch();
 
   const { status } = useSelector(getCharsSelector);
@@ -46,6 +53,9 @@ const Episode: React.FC<IEpisodeProps> = ({ episode, onClick }) => {
       .unwrap()
       .then((res) => {
         setCharsInEpisode(res);
+      })
+      .catch((e) => {
+        setErr(new Error(e.error || INTERNET_CONNTECTION_ERROR));
       });
   }, []);
 
@@ -54,7 +64,11 @@ const Episode: React.FC<IEpisodeProps> = ({ episode, onClick }) => {
   };
 
   return (
-    <motion.article initial="hidden" whileInView="visible">
+    <motion.article
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true }}
+    >
       <motion.div variants={cardAnim} className={`${styles.root}`}>
         <div className={styles.header} onClick={handleEpisodeClick}>
           <p className={styles.number}>{id}</p>
@@ -65,6 +79,8 @@ const Episode: React.FC<IEpisodeProps> = ({ episode, onClick }) => {
           </h2>
           {status === Status.LOADING ? (
             <Preloader />
+          ) : status === Status.ERROR ? (
+            <ErrorBlock err={err} />
           ) : (
             <CharSmallList chars={charsInEpisode} />
           )}

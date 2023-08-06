@@ -15,12 +15,21 @@ import CharInfo from "../CharInfo";
 import { CharType } from "../../@types/chars";
 
 import styles from "./index.module.scss";
+import {
+  INTERNET_CONNTECTION_ERROR,
+  NOT_FOUND_ERROR,
+  Status,
+} from "../../utils/constants";
+import { useSelector } from "react-redux";
+import { getEpisodesSelector } from "../../redux/episodes/selectors";
+import ErrorBlock from "../ErrorBlock";
 
 type TCharBigViewProps = {
   char: CharType | undefined;
 };
 
 const CharBigView: React.FC<TCharBigViewProps> = ({ char }) => {
+  const [err, setErr] = React.useState<Error>(new Error(NOT_FOUND_ERROR));
   const dispatch = useAppDispatch();
 
   // эпизоды, в которых был конкретный char
@@ -37,8 +46,13 @@ const CharBigView: React.FC<TCharBigViewProps> = ({ char }) => {
       .unwrap()
       .then((res) => {
         setEpisodesOfChar(res);
+      })
+      .catch((e) => {
+        setErr(new Error(e.error || INTERNET_CONNTECTION_ERROR));
       });
   }, [char]);
+
+  const { status: fetchEpisodeStatus } = useSelector(getEpisodesSelector);
 
   if (!char) {
     return <Preloader />;
@@ -78,7 +92,9 @@ const CharBigView: React.FC<TCharBigViewProps> = ({ char }) => {
             </p>
           </div>
           <div className={styles.info}>
-            {episodesOfChar ? (
+            {fetchEpisodeStatus === Status.ERROR ? (
+              <ErrorBlock err={err} />
+            ) : episodesOfChar ? (
               <CharInfo char={char} firstSeenInEpisode={episodesOfChar[0]} />
             ) : (
               <Preloader />

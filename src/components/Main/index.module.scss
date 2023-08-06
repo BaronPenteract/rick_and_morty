@@ -1,9 +1,9 @@
 @import "../../utils/styles/variables.scss";
 
 .root {
-  padding: 42px 0;
+  padding: 42px 0 0;
   width: 100%;
-  min-height: 100vh;
+  min-height: 100dvh;
   display: flex;
   flex-direction: column;
   position: relative;
@@ -40,6 +40,15 @@
 
     width: 100%;
     height: 100%;
+  }
+
+  .bgImage {
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 100%;
     object-position: center;
     object-fit: cover;
 
@@ -48,7 +57,7 @@
     transition: opacity $transitionProps;
   }
 
-  .bgHidden {
+  .bgImageHidden {
     opacity: 0;
   }
 
@@ -79,6 +88,11 @@
         padding: 0;
       }
 
+      &__link {
+        text-decoration: none;
+        color: inherit;
+      }
+
       &:hover {
         color: $primaryAccentColor;
         //filter: grayscale(0);
@@ -102,15 +116,14 @@
       }
     }
   }
-  /* 
+
   @media screen and (max-width: $phone) {
     //flex-direction: column-reverse;
 
     .header {
-      //justify-content: flex-start;
+      .title {
+        font-size: 36px;
+      }
     }
-
-    .nav {
-    }
-  } */
+  }
 }

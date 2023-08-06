@@ -41,7 +41,11 @@ const Char: React.FC<TCharProps> = ({ char, onCharClick }) => {
   };
 
   return (
-    <motion.article initial="hidden" whileInView="visible">
+    <motion.article
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true }}
+    >
       <motion.div variants={cardAnim} className={`${styles.root}`}>
         <div className={styles.header} onClick={() => onCharClick()}>
           <div className={styles.avatar_container}>

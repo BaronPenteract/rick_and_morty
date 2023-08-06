@@ -50,7 +50,7 @@ const CharactersPage: React.FC = () => {
       dispatch(fetchChars(filterParams))
         .unwrap()
         .catch((e) => {
-          setErr(new Error(e.error));
+          setErr(new Error(e.error || "Check your internet connection."));
         });
     } else {
       dispatch(setFilterParams({}));
@@ -63,11 +63,11 @@ const CharactersPage: React.FC = () => {
   }, [chars]);
 
   React.useEffect(() => {
-    dispatch(fetchChars(filterParams))
+    dispatch(fetchChars(filterParams)); /* 
       .unwrap()
       .catch((e) => {
-        setErr(new Error(e.error));
-      });
+        setErr(new Error(e.error || "Something wrong."));
+      }); */
   }, [filterParams]);
 
   const handleClickPage = async (page: number | null) => {
@@ -92,11 +92,6 @@ const CharactersPage: React.FC = () => {
   if (status === Status.ERROR) {
     return (
       <div className={styles.root}>
-        <SearchForm
-          onSubmit={handleSearchSubmit}
-          filterParams={filterParams}
-          status={status}
-        />
         <ErrorBlock err={err} />
       </div>
     );
