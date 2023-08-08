@@ -14,7 +14,7 @@ import CharList from "../../components/CharList";
 import { setCurrentPage } from "../../redux/chars/charsSlice";
 import { THandleSearchSubmit } from "../../@types/TSearchForm";
 import ErrorBlock from "../../components/ErrorBlock";
-import { Status } from "../../utils/constants";
+import { PROJECT_TITLE, Status } from "../../utils/constants";
 import { CharType } from "../../@types/chars";
 
 const CharactersPage: React.FC = () => {
@@ -98,7 +98,11 @@ const CharactersPage: React.FC = () => {
   }
 
   return (
-    <section className={styles.root} aria-label="Characters of Rick and Morty">
+    <section
+      className={styles.root}
+      aria-label={`Characters of ${PROJECT_TITLE}`}
+    >
+      <h1 className={styles.root__title}>{`Characters of ${PROJECT_TITLE}`}</h1>
       <SearchForm
         onSubmit={handleSearchSubmit}
         filterParams={filterParams}

@@ -1,8 +1,9 @@
+import { ECharStatus } from "../../utils/constants";
 import styles from "./index.module.scss";
 import React from "react";
 
 type TCharStatusProps = {
-  status: "Alive" | "Dead" | "unknown";
+  status: ECharStatus;
 };
 
 const CharStatus: React.FC<TCharStatusProps> = ({ status }) => {

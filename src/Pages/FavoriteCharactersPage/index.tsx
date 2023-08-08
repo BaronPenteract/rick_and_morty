@@ -7,6 +7,7 @@ import { useAppDispatch } from "../../redux/store";
 import styles from "./index.module.scss";
 import CharList from "../../components/CharList";
 import { CharType } from "../../@types/chars";
+import { PROJECT_TITLE } from "../../utils/constants";
 
 const FavoriteCharactersPage: React.FC = () => {
   const [err, setErr] = React.useState<Error>(new Error("404 Not found."));
@@ -31,8 +32,11 @@ const FavoriteCharactersPage: React.FC = () => {
   return (
     <section
       className={styles.root}
-      aria-label="Favorite characters of Rick and Morty"
+      aria-label={`My favorite characters of ${PROJECT_TITLE}`}
     >
+      <h1
+        className={styles.root__title}
+      >{`My favorite characters of ${PROJECT_TITLE}`}</h1>
       <CharList chars={chars} />
     </section>
   );

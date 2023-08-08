@@ -13,6 +13,7 @@ import ErrorBlock from "../../components/ErrorBlock";
 import {
   INTERNET_CONNTECTION_ERROR,
   NOT_FOUND_ERROR,
+  PROJECT_TITLE,
   Status,
 } from "../../utils/constants";
 import {
@@ -104,7 +105,11 @@ const EpisodesPage: React.FC = () => {
   }
 
   return (
-    <section className={styles.root} aria-label="Episodes of Rick and Morty">
+    <section
+      className={styles.root}
+      aria-label={`Episodes of ${PROJECT_TITLE}`}
+    >
+      <h1 className={styles.root__title}>{`Episodes of ${PROJECT_TITLE}`}</h1>
       <SearchForm
         onSubmit={handleSearchSubmit}
         filterParams={filterParams}

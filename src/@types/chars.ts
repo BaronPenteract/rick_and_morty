@@ -1,10 +1,15 @@
+import { ECharGender, ECharStatus } from "../utils/constants";
+
+export type TStatus = ECharStatus;
+export type TGender = ECharGender;
+
 export type CharType = {
   id: number;
   name: string;
-  status: "Alive" | "Dead" | "unknown";
+  status: TStatus;
   species: string;
   type: string;
-  gender: "Female" | "Male" | "Genderless" | "unknown";
+  gender: TGender;
   origin: {
     name: string;
     url: string;
@@ -33,8 +38,8 @@ export type TFetchCharsResponse = {
 export interface IFilterParamsChars {
   page?: number | null;
   name?: string;
-  status?: "alive" | "dead" | "unknown";
-  gender?: "female" | "male" | "genderless" | "unknown";
+  status?: TStatus;
+  gender?: TGender;
 }
 
 export type TFetchCharResponse = CharType;

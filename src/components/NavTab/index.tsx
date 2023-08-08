@@ -1,5 +1,5 @@
 import React, { ReactElement } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 import { navItems } from "../../utils/navItems";
 
@@ -11,7 +11,14 @@ import { useSelector } from "react-redux";
 import { getCharsSelector } from "../../redux/chars/selectors";
 
 const NavTab: React.FC = () => {
+  const location = useLocation();
   const navigate = useNavigate();
+
+  const [currentPage, setCurrentPage] = React.useState("");
+
+  React.useEffect(() => {
+    setCurrentPage(location.pathname);
+  }, [location]);
 
   const { favChars } = useSelector(getCharsSelector);
 
@@ -26,7 +33,9 @@ const NavTab: React.FC = () => {
     navButtons.push(
       <motion.button
         key={idx}
-        className={styles.button}
+        className={`${styles.button} ${
+          item.to === currentPage ? styles.button_active : ""
+        }`}
         onClick={() => handleClickNav(item)}
         variants={navButtonAnimation}
         custom={idx}
