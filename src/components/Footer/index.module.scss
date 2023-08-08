@@ -17,35 +17,6 @@
   border-top-left-radius: $borderRadius;
   border-top-right-radius: $borderRadius;
 
-  .containerHidden {
-    position: absolute;
-    bottom: 100%;
-    left: 0;
-    z-index: -1;
-
-    width: 100%;
-    height: 50vh;
-
-    display: flex;
-
-    box-shadow: 0px 0px 100px 120px $secondaryBGColor;
-    background: $secondaryBGColor;
-    transform-origin: bottom;
-
-    .wrapper {
-      flex-grow: 1;
-      max-width: $maxWidth;
-      margin: 0 auto;
-      box-sizing: border-box;
-
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      gap: 10px;
-    }
-  }
-
   .container {
     flex-grow: 1;
     max-width: $maxWidth;
@@ -56,33 +27,158 @@
     flex-direction: column;
     justify-content: space-between;
     gap: 10px;
+
+    .content {
+      flex-grow: 1;
+      display: flex;
+      justify-content: space-evenly;
+      align-items: start;
+      gap: 24px;
+
+      .nav {
+        font-weight: 300;
+        font-size: 24px;
+
+        &__title {
+          margin: 0 0 16px;
+          padding: 0;
+
+          font-weight: inherit;
+          font-size: inherit;
+          color: $disabledTextColor;
+        }
+
+        &__list {
+          margin: 0;
+          padding: 0;
+          list-style-type: none;
+
+          display: flex;
+          flex-direction: column;
+          gap: 10px;
+
+          color: inherit;
+          font-size: 18px;
+          font-weight: inherit;
+
+          li {
+            color: inherit;
+            font-size: inherit;
+            font-weight: inherit;
+
+            .button {
+              height: 100%;
+              border: none;
+              padding: 0;
+              margin: 0;
+              flex-grow: 1;
+
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              gap: 5px;
+
+              color: inherit;
+              font-size: inherit;
+              font-weight: inherit;
+
+              cursor: pointer;
+
+              background-color: $primaryBGColor;
+
+              transition: color $transitionProps,
+                background-color $transitionProps;
+
+              &Title {
+                margin: 0;
+                padding: 0;
+
+                position: relative;
+
+                text-decoration: none;
+                color: inherit;
+                font-size: inherit;
+                font-weight: inherit;
+              }
+
+              &Notify {
+                padding: 2px;
+                min-width: 1.5em;
+                min-height: 1.5em;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+
+                border-radius: $borderRadius * 0.5;
+                border: 1px solid $secondaryAccentColor;
+              }
+
+              &:hover {
+                color: $primaryAccentColor;
+              }
+            }
+          }
+        }
+      }
+
+      .info {
+        font-weight: 300;
+        font-size: 24px;
+
+        &__title {
+          margin: 0 0 16px;
+          padding: 0;
+
+          font-weight: inherit;
+          font-size: inherit;
+          color: $disabledTextColor;
+        }
+
+        &__list {
+          margin: 0;
+          padding: 0;
+          list-style-type: none;
+
+          display: flex;
+          flex-direction: column;
+          gap: 10px;
+
+          color: inherit;
+          font-size: 18px;
+          font-weight: inherit;
+
+          li {
+            color: inherit;
+            font-size: inherit;
+            font-weight: inherit;
+
+            span {
+              &:last-child {
+                font-weight: 600;
+              }
+            }
+          }
+        }
+      }
+    }
   }
 
-  .content {
+  .contact {
     display: flex;
-    justify-content: center;
-  }
-
-  .info {
-    display: flex;
-    justify-content: space-between;
+    justify-content: space-evenly;
     align-items: center;
     gap: 10px;
   }
 
-  .link {
-    color: inherit;
-    text-decoration: none;
-
-    transition: color $transitionProps;
-
-    &:hover {
-      color: $primaryAccentColor;
-    }
-  }
-
   @media screen and (max-width: $phone) {
-    .info {
+    .container {
+      .content {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+
+    .contact {
       flex-direction: column-reverse;
       align-items: self-start;
     }
