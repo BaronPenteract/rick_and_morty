@@ -4,7 +4,6 @@ import { Link, useNavigate } from "react-router-dom";
 
 import { INavItem } from "../../@types/mainComponent";
 
-import { PROJECT_TITLE } from "../../utils/constants";
 import { navItems } from "../../utils/navItems";
 
 import styles from "./index.module.scss";
@@ -88,7 +87,7 @@ const Main: React.FC = () => {
           custom={1}
           style={{ top: mainTitleTopPosition }}
         >
-          {PROJECT_TITLE}
+          {navItems[0].title}
         </motion.h1>
       </div>
     </motion.section>

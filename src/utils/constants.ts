@@ -10,3 +10,16 @@ export enum Status {
   SUCCESS = "success",
   ERROR = "error",
 }
+
+export enum ECharStatus {
+  ALIVE = "alive",
+  DEAD = "dead",
+  UNKNOWN = "unknown",
+}
+
+export enum ECharGender {
+  FEMALE = "Female",
+  MALE = "Male",
+  GANDERLESS = "Genderless",
+  UNKNOWN = "unknown",
+}

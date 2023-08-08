@@ -49,8 +49,15 @@
       align-items: center;
       justify-content: center;
 
+      color: $disabledTextColor;
+
       border-radius: $borderRadius * 0.5;
       background: $secondaryAccentColor;
+    }
+
+    &_active {
+      color: $primaryAccentColor;
+      font-weight: 900;
     }
 
     &:hover {
