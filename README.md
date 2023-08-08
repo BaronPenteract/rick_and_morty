@@ -1,46 +1,64 @@
-# Getting Started with Create React App
+# [Rick and Morty Explorer](https://baronpenteract.github.io/rick_and_morty)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Описание проекта
 
-## Available Scripts
+Rick and Morty Explorer- это интерактивная SPA-страница, на которой пользователи могут искать персонажей знаменитого мультсериала по ключевым словам и добавлять их в избранное в личном кабинете. Также присутствует поиск эпизодов.
 
-In the project directory, you can run:
+## Функционал:
 
-### `npm start`
+- Поиск персонажей по имени;
+- Добавление оных в избранное;
+- Поиск эпизодов по названию.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Стек технологий:
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+- HTML5;
+- CSS3:
+  - Flexbox;
+  - Grid Layout;
+  - Positioning;
+  - Adaptive UI;
+  - Media Queries;
+- Методология БЭМ;
+- TS:
+  - Стиль CamelCase;
+  - Промисы (Promise);
+  - Асинхронность и оптимизация;
+  - Rest API;
+- Webpack;
+- React JS:
+  - Create React App;
+  - Портирование разметки в TSX;
+  - Функциональные компоненты;
+  - Хуки;
+- Redux Dev Tools
 
-### `npm test`
+## Установка и запуск проекта:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Клонировать репозиторий:
 
-### `npm run build`
+    git clone https://github.com/BaronPenteract/rick_and_morty.git
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Установить зависимости:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+    npm install
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Запустить сервер:
 
-### `npm run eject`
+    npm run start
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+Запустить сервер с hot-reload:
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+    npm run dev
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+## Языки:
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+- TypeScript
 
-## Learn More
+## Библиотеки:
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- ReactJS, Redux Tool Kit, Framer Motion
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## API:
+
+- [Rick and Moprty API](https://rickandmortyapi.com)

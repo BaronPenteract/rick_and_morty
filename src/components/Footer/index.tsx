@@ -28,12 +28,8 @@ const Footer: React.FC = () => {
     if (idx === 0) return;
 
     navButtons.push(
-      <li>
-        <button
-          key={idx}
-          className={styles.button}
-          onClick={() => handleClickNav(item)}
-        >
+      <li key={idx}>
+        <button className={styles.button} onClick={() => handleClickNav(item)}>
           <Link className={styles.buttonTitle} to={item.to}>
             {item.title}
           </Link>
