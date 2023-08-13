@@ -23,6 +23,7 @@ import {
 } from "../../redux/episodes/episodesSlice";
 import { getEpisodesSelector } from "../../redux/episodes/selectors";
 import EpisodesList from "../../components/EpisodesList";
+import { IFilterParamsEpisodes } from "../../@types/episodes";
 
 const EpisodesPage: React.FC = () => {
   const [err, setErr] = React.useState<Error>(new Error(NOT_FOUND_ERROR));
@@ -41,6 +42,10 @@ const EpisodesPage: React.FC = () => {
     status,
     filterParams,
   } = useSelector(getEpisodesSelector);
+
+  React.useEffect(() => {
+    window.scroll(0, 0);
+  }, []);
 
   React.useEffect(() => {
     if (location.search) {
@@ -72,13 +77,18 @@ const EpisodesPage: React.FC = () => {
       });
   }, [filterParams]);
 
-  const handleSearchSubmit: THandleSearchSubmit = ({ name }) => {
+  const handleSearchSubmit: THandleSearchSubmit = (
+    searchParamsFromForm: IFilterParamsEpisodes
+  ) => {
     if (status === Status.LOADING) return;
 
-    setSearchParams({ page: "1", name });
+    setSearchParams({
+      ...searchParamsFromForm,
+      page: "1",
+    });
 
     dispatch(setCurrentPage(1));
-    dispatch(fetchEpisodes({ name }));
+    dispatch(fetchEpisodes(searchParamsFromForm));
   };
 
   const handleClickPage = (page: number | null) => {
@@ -112,7 +122,7 @@ const EpisodesPage: React.FC = () => {
       <h1 className={styles.root__title}>{`Episodes of ${PROJECT_TITLE}`}</h1>
       <SearchForm
         onSubmit={handleSearchSubmit}
-        filterParams={filterParams}
+        filterEpisodesParams={filterParams}
         status={Status.SUCCESS}
       />
       <Pagination

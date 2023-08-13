@@ -1,0 +1,92 @@
+@import "../../utils/styles/variables.scss";
+
+.root {
+  flex-grow: 1;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+
+  color: inherit;
+
+  .list {
+    margin: 0;
+    padding: 0;
+
+    display: flex;
+    gap: 10px;
+  }
+
+  .selectors {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 20px;
+
+    background-color: transparentize($color: $primaryBGColor, $amount: 0.5);
+    backdrop-filter: blur(10px);
+
+    visibility: hidden;
+    opacity: 0;
+
+    transition: visibility $transitionProps, opacity $transitionProps;
+
+    &_active {
+      visibility: visible;
+      opacity: 1;
+    }
+  }
+
+  .button {
+    margin: 0;
+    padding: 4px 8px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    border: none;
+    border-radius: $borderRadius;
+    background-color: $secondaryAccentColor;
+
+    cursor: pointer;
+    fill: $primaryTextColor;
+    color: inherit;
+    font-size: 18px;
+
+    transition: background-color $transitionProps, fill $transitionProps;
+
+    &:hover {
+      background-color: $primaryAccentColor;
+    }
+
+    &:disabled {
+      background-color: $disabledTextColor;
+      opacity: 0.5;
+      cursor: default;
+    }
+
+    .svg {
+      height: 50%;
+      width: 50%;
+      fill: inherit;
+    }
+  }
+
+  @media screen and (max-width: $phone) {
+    flex-direction: column-reverse;
+
+    .button {
+      width: 100%;
+    }
+  }
+}

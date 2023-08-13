@@ -39,6 +39,10 @@ const EpisodePage: React.FC = () => {
   const episodeId = Number(params.id);
 
   React.useEffect(() => {
+    window.scroll(0, 0);
+  }, []);
+
+  React.useEffect(() => {
     (async function () {
       await dispatch(fetchEpisode({ id: episodeId }))
         .unwrap()

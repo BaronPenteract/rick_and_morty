@@ -162,6 +162,7 @@ export const episodesSlice = createSlice({
       state.prevPage = getPageFromURL(action.payload.info.prev) || null;
       state.nextPage = getPageFromURL(action.payload.info.next) || null;
       state.pages = action.payload.info.pages;
+      state.currentPage = state.prevPage ? state.prevPage + 1 : 1;
     });
 
     builder.addCase(fetchEpisodes.rejected, (state) => {

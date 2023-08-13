@@ -1,55 +1,104 @@
 import React from "react";
 import styles from "./index.module.scss";
 import SearchSVG from "../svg/SearchSVG";
-import { TSearchFormProps } from "../../@types/TSearchForm";
+import {
+  TActiveOptionOnClick,
+  TSearchFormProps,
+} from "../../@types/TSearchForm";
 import Preloader from "../Preloader";
 import { Status } from "../../utils/constants";
+import { IFilterParamsChars } from "../../@types/chars";
+import { IFilterParamsEpisodes } from "../../@types/episodes";
+import CustomSelectorsBurger from "../CustomSelectorsBurger";
 
 const SearchForm: React.FC<TSearchFormProps> = ({
   onSubmit,
-  filterParams,
+  filterCharsParams,
+  filterEpisodesParams,
   status,
 }) => {
-  const [searchValue, setSearchValue] = React.useState("");
+  const [searchParams, setSearchParams] = React.useState<
+    IFilterParamsChars | IFilterParamsEpisodes
+  >({});
 
   React.useEffect(() => {
-    setSearchValue(filterParams.name || "");
-  }, [filterParams]);
+    if (filterCharsParams) {
+      setSearchParams(filterCharsParams);
+    }
+
+    if (filterEpisodesParams) {
+      setSearchParams(filterEpisodesParams);
+    }
+  }, [filterCharsParams, filterEpisodesParams]);
 
   const submitHandler: React.FormEventHandler = (e) => {
     e.preventDefault();
 
-    onSubmit({ name: searchValue || "" });
+    if (searchParams) {
+      onSubmit(searchParams);
+    }
   };
 
   const handleChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
-    setSearchValue(e.target.value);
+    setSearchParams((prev) => {
+      const current: IFilterParamsChars = {
+        ...prev,
+        [e.target.name]: e.target.value,
+        page: 1,
+      };
+
+      return current;
+    });
+  };
+
+  const handleOptionClick: TActiveOptionOnClick = ({ name, value }) => {
+    setSearchParams((prev) => {
+      const current: IFilterParamsChars = {
+        ...prev,
+        [name]: value,
+        page: 1,
+      };
+
+      // при клике на <option> в <select> происходит отправка формы
+      if (current) {
+        onSubmit(current);
+      }
+
+      return current;
+    });
   };
 
   return (
     <form name="searchForm" onSubmit={submitHandler} className={styles.root}>
-      <fieldset className={styles.fieldset}>
-        <input
-          name="search"
-          className={styles.search}
-          type="input"
-          value={searchValue}
-          onChange={handleChange}
-          placeholder="Search by name"
+      <div className={styles.container}>
+        <fieldset className={styles.fieldset}>
+          <input
+            name="name"
+            className={styles.search}
+            type="input"
+            value={searchParams?.name || ""}
+            onChange={handleChange}
+            placeholder="Search by name"
+            disabled={status === Status.LOADING}
+          />
+        </fieldset>
+        <button
+          className={`${styles.button} ${styles.button_submit}`}
+          type="submit"
           disabled={status === Status.LOADING}
-        />
-      </fieldset>
-      <button
-        className={styles.submit}
-        type="submit"
-        disabled={status === Status.LOADING}
-      >
-        {status === Status.LOADING ? (
-          <Preloader />
-        ) : (
-          <SearchSVG className={styles.svg} />
-        )}
-      </button>
+        >
+          {status === Status.LOADING ? (
+            <Preloader />
+          ) : (
+            <SearchSVG className={styles.svg} />
+          )}
+        </button>
+      </div>
+      <CustomSelectorsBurger
+        filterCharsParams={searchParams}
+        status={status}
+        onOptionClick={handleOptionClick}
+      />
     </form>
   );
 };

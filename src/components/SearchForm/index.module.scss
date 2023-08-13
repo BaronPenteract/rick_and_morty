@@ -5,9 +5,23 @@
   max-width: 642px;
   margin: 0 auto;
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
   align-items: center;
   gap: 20px;
+
+  .container {
+    flex-grow: 1;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+
+    &_filter {
+      position: relative;
+      flex-wrap: nowrap;
+    }
+  }
 
   .fieldset {
     flex-grow: 1;
@@ -45,7 +59,7 @@
     }
   }
 
-  .submit {
+  .button {
     width: 42px;
     height: 42px;
     margin: 0;
@@ -78,6 +92,12 @@
       height: 50%;
       width: 50%;
       fill: inherit;
+    }
+  }
+
+  @media screen and (max-width: $phone) {
+    .button {
+      flex-grow: 1;
     }
   }
 }

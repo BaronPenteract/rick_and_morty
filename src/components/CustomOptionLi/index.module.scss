@@ -1,0 +1,39 @@
+@import "../../utils/styles/variables.scss";
+
+.root {
+  flex-grow: 1;
+  padding: 2px;
+
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  color: inherit;
+
+  border-radius: $borderRadius * 0.5;
+
+  cursor: pointer;
+
+  transition: color $transitionProps, background-color $transitionProps;
+
+  &:hover {
+    color: $primaryBGColor;
+    background-color: $primaryAccentColor;
+  }
+}
+
+.active {
+  background-color: $secondaryAccentColor;
+  color: $primaryBGColor;
+
+  &::after {
+    content: " \2716";
+    color: inherit;
+  }
+
+  &:hover {
+    color: $primaryTextColor;
+    background-color: $disabledAccentColor;
+  }
+}

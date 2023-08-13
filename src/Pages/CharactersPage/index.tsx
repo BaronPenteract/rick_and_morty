@@ -14,8 +14,12 @@ import CharList from "../../components/CharList";
 import { setCurrentPage } from "../../redux/chars/charsSlice";
 import { THandleSearchSubmit } from "../../@types/TSearchForm";
 import ErrorBlock from "../../components/ErrorBlock";
-import { PROJECT_TITLE, Status } from "../../utils/constants";
-import { CharType } from "../../@types/chars";
+import {
+  INTERNET_CONNTECTION_ERROR,
+  PROJECT_TITLE,
+  Status,
+} from "../../utils/constants";
+import { CharType, IFilterParamsChars } from "../../@types/chars";
 
 const CharactersPage: React.FC = () => {
   const [err, setErr] = React.useState<Error>(new Error("404 Not found."));
@@ -37,20 +41,27 @@ const CharactersPage: React.FC = () => {
   } = useSelector(getCharsSelector);
 
   React.useEffect(() => {
+    window.scroll(0, 0);
+  }, []);
+
+  React.useEffect(() => {
     if (location.search) {
       let page = Number(searchParams.get("page")) || 1;
       let name = searchParams.get("name") || "";
+      let statusInSearch = searchParams.get("status") || "";
+      let gender = searchParams.get("gender") || "";
+
       if (page < 0) {
         page = 1;
       }
-      const filterParams = { name, page };
+      const filterParams = { name, page, status: statusInSearch, gender };
 
       dispatch(setFilterParams(filterParams));
       dispatch(setCurrentPage(page));
       dispatch(fetchChars(filterParams))
         .unwrap()
         .catch((e) => {
-          setErr(new Error(e.error || "Check your internet connection."));
+          setErr(new Error(e.error || INTERNET_CONNTECTION_ERROR));
         });
     } else {
       dispatch(setFilterParams({}));
@@ -63,30 +74,34 @@ const CharactersPage: React.FC = () => {
   }, [chars]);
 
   React.useEffect(() => {
-    dispatch(fetchChars(filterParams)); /* 
-      .unwrap()
-      .catch((e) => {
-        setErr(new Error(e.error || "Something wrong."));
-      }); */
+    dispatch(fetchChars(filterParams));
   }, [filterParams]);
 
   const handleClickPage = async (page: number | null) => {
     if (!page || status !== Status.SUCCESS) return;
+
     let name = searchParams.get("name") || "";
+    let statusInSearch = searchParams.get("status") || "";
+    let gender = searchParams.get("gender") || "";
 
-    setSearchParams({ page: page.toString(), name });
-
-    //dispatch(setCurrentPage(page));
-    //await dispatch(fetchChars({ page, name }));
+    setSearchParams({
+      page: page.toString(),
+      name,
+      status: statusInSearch,
+      gender,
+    });
   };
 
-  const handleSearchSubmit: THandleSearchSubmit = ({ name }) => {
+  const handleSearchSubmit: THandleSearchSubmit = (
+    searchParamsFromForm: IFilterParamsChars
+  ) => {
+    setSearchParams({
+      ...searchParamsFromForm,
+      page: "1",
+    });
+
     if (status === Status.LOADING) return;
-
-    setSearchParams({ page: "1", name });
-
-    dispatch(setCurrentPage(1));
-    dispatch(fetchChars({ name }));
+    dispatch(fetchChars(searchParamsFromForm));
   };
 
   if (status === Status.ERROR) {
@@ -105,7 +120,7 @@ const CharactersPage: React.FC = () => {
       <h1 className={styles.root__title}>{`Characters of ${PROJECT_TITLE}`}</h1>
       <SearchForm
         onSubmit={handleSearchSubmit}
-        filterParams={filterParams}
+        filterCharsParams={filterParams}
         status={status}
       />
       <Pagination
