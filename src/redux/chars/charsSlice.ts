@@ -196,10 +196,13 @@ export const charsSlice = createSlice({
 
     builder.addCase(fetchChars.fulfilled, (state, action) => {
       state.status = Status.SUCCESS;
-      state.charsCount = action.payload.info.count;
       state.prevPage = getPageFromURL(action.payload.info.prev) || null;
       state.nextPage = getPageFromURL(action.payload.info.next) || null;
       state.pages = action.payload.info.pages;
+
+      if (state.charsCount === 0) {
+        state.charsCount = action.payload.info.count;
+      }
 
       // Проверяем пришедший с АПИ массив на то, содержатся ли в нем лайкнутые Чары (favChars),
       // если да, то меняем пришедший Чар лайкнутым

@@ -94,11 +94,15 @@ const SearchForm: React.FC<TSearchFormProps> = ({
           )}
         </button>
       </div>
-      <CustomSelectorsBurger
-        filterCharsParams={searchParams}
-        status={status}
-        onOptionClick={handleOptionClick}
-      />
+      {filterCharsParams ? (
+        <CustomSelectorsBurger
+          filterCharsParams={searchParams}
+          status={status}
+          onOptionClick={handleOptionClick}
+        />
+      ) : (
+        ""
+      )}
     </form>
   );
 };

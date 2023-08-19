@@ -18,6 +18,7 @@
   }
 
   @media screen and (max-width: $phone) {
+    padding: 0;
     gap: 64px;
 
     &__title {

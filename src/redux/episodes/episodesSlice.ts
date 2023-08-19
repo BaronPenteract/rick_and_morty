@@ -158,11 +158,14 @@ export const episodesSlice = createSlice({
     builder.addCase(fetchEpisodes.fulfilled, (state, action) => {
       state.status = Status.SUCCESS;
       state.episodes = action.payload.results;
-      state.episodesCount = action.payload.info.count;
       state.prevPage = getPageFromURL(action.payload.info.prev) || null;
       state.nextPage = getPageFromURL(action.payload.info.next) || null;
       state.pages = action.payload.info.pages;
       state.currentPage = state.prevPage ? state.prevPage + 1 : 1;
+
+      if (state.episodesCount === 0) {
+        state.episodesCount = action.payload.info.count;
+      }
     });
 
     builder.addCase(fetchEpisodes.rejected, (state) => {

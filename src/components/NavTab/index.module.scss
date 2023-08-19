@@ -49,10 +49,8 @@
       align-items: center;
       justify-content: center;
 
-      color: $disabledTextColor;
-
       border-radius: $borderRadius * 0.5;
-      background: $secondaryAccentColor;
+      border: 1px solid $secondaryAccentColor;
     }
 
     &_active {

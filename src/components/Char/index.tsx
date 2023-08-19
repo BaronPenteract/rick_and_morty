@@ -2,21 +2,22 @@ import { CharType } from "../../@types/chars";
 
 import styles from "./index.module.scss";
 import React from "react";
-import CharMoreButton from "../CharMoreButton";
 import { useAppDispatch } from "../../redux/store";
 import { dislike, like } from "../../redux/chars/charsSlice";
 import CharStatus from "../CharStatus";
 import CharToggleAddButton from "../CharToggleAddButton";
 import { motion } from "framer-motion";
 import { cardAnim } from "../Animations";
+import { useNavigate } from "react-router-dom";
+import { rootPath } from "../../utils/constants";
 
 type TCharProps = {
   char: CharType;
-  onCharClick: () => void;
 };
 
-const Char: React.FC<TCharProps> = ({ char, onCharClick }) => {
+const Char: React.FC<TCharProps> = ({ char }) => {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   const {
     id,
@@ -40,6 +41,10 @@ const Char: React.FC<TCharProps> = ({ char, onCharClick }) => {
     }
   };
 
+  const handleClick: React.MouseEventHandler = (e) => {
+    navigate(rootPath + "/character/" + id);
+  };
+
   return (
     <motion.article
       initial="hidden"
@@ -47,17 +52,13 @@ const Char: React.FC<TCharProps> = ({ char, onCharClick }) => {
       viewport={{ once: true }}
     >
       <motion.div variants={cardAnim} className={`${styles.root}`}>
-        <div className={styles.header} onClick={() => onCharClick()}>
+        <div className={styles.header} onClick={handleClick}>
           <div className={styles.avatar_container}>
             <img className={styles.avatar} src={image} alt={name} />
           </div>
         </div>
         <div className={styles.content}>
-          <h2
-            className={styles.name}
-            title="Name"
-            onClick={() => onCharClick()}
-          >
+          <h2 className={styles.name} title="Name" onClick={handleClick}>
             {name}
           </h2>
           <ul className={styles.info}>
@@ -70,9 +71,6 @@ const Char: React.FC<TCharProps> = ({ char, onCharClick }) => {
               <span title="Species">{species}</span>
             </li>
           </ul>
-          <div className={styles.moreButtonContainer}>
-            <CharMoreButton id={id} />
-          </div>
           <div className={styles.footer}>
             <CharStatus status={status} />
             <CharToggleAddButton char={char} />
